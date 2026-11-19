@@ -1,0 +1,1090 @@
+{
+ "groups": [
+  {
+   "id": "early",
+   "name": "Early computational models of belief systems",
+   "sub": [
+    {
+     "name": null,
+     "refs": [
+      "tesler1968",
+      "colby1969",
+      "abelson1979"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "people",
+   "name": "Belief networks in survey and communication research",
+   "sub": [
+    {
+     "name": null,
+     "refs": [
+      "boutyline2017",
+      "boukes2020",
+      "glogger2023",
+      "powell2023"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "text",
+   "name": "Networks of statements from news and political text",
+   "sub": [
+    {
+     "name": null,
+     "refs": [
+      "vanatteveldt2008",
+      "leifeld2017"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "claims",
+   "name": "Claim and proposition extraction",
+   "sub": [
+    {
+     "name": "Claims in news and documents",
+     "refs": [
+      "boland2022",
+      "gangireddy2022",
+      "motta2025",
+      "fadda2026",
+      "guan2026"
+     ]
+    },
+    {
+     "name": "Diverse perspectives and arguments",
+     "refs": [
+      "chen2019",
+      "lin2023",
+      "chen2024",
+      "hayati2024",
+      "nie2026",
+      "mundada2026",
+      "su2026"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "framing",
+   "name": "News framing, bias and narratives",
+   "sub": [
+    {
+     "name": null,
+     "refs": [
+      "tohidi2025",
+      "haider2026",
+      "das2026"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "lm",
+   "name": "Beliefs and propositions in language models",
+   "sub": [
+    {
+     "name": null,
+     "refs": [
+      "kassner2023",
+      "anokhin2025",
+      "chalmers2025",
+      "huntsman2025",
+      "papakonstantinou2025",
+      "nguyen2026",
+      "akbar2026",
+      "nishida2026"
+     ]
+    }
+   ]
+  }
+ ],
+ "refs": {
+  "tesler1968": {
+   "type": "journal",
+   "authors": [
+    [
+     "Tesler",
+     "Lawrence"
+    ],
+    [
+     "Enea",
+     "Horace"
+    ],
+    [
+     "Colby",
+     "Kenneth Mark"
+    ]
+   ],
+   "year": 1968,
+   "title": "A Directed Graph Representation for Computer Simulation of Belief Systems",
+   "container": "Mathematical Biosciences",
+   "volume": "2",
+   "issue": "1–2",
+   "pages": "19–40",
+   "doi": "10.1016/0025-5564(68)90004-7",
+   "url": "https://www.sciencedirect.com/science/article/pii/0025556468900047",
+   "venue": "Mathematical Biosciences"
+  },
+  "colby1969": {
+   "type": "conference",
+   "authors": [
+    [
+     "Colby",
+     "Kenneth Mark"
+    ],
+    [
+     "Smith",
+     "David Canfield"
+    ]
+   ],
+   "year": 1969,
+   "title": "Dialogues Between Humans and an Artificial Belief System",
+   "container": "Proceedings of the First International Joint Conference on Artificial Intelligence",
+   "pages": "319–324",
+   "publisher": "International Joint Conferences on Artificial Intelligence",
+   "url": "https://www.ijcai.org/proceedings/1969/32",
+   "venue": "IJCAI 1969"
+  },
+  "abelson1979": {
+   "type": "journal",
+   "authors": [
+    [
+     "Abelson",
+     "Robert P."
+    ]
+   ],
+   "year": 1979,
+   "title": "Differences Between Belief and Knowledge Systems",
+   "container": "Cognitive Science",
+   "volume": "3",
+   "issue": "4",
+   "pages": "355–366",
+   "doi": "10.1207/s15516709cog0304_4",
+   "url": "https://onlinelibrary.wiley.com/doi/10.1207/s15516709cog0304_4",
+   "venue": "Cognitive Science"
+  },
+  "boutyline2017": {
+   "type": "journal",
+   "authors": [
+    [
+     "Boutyline",
+     "Andrei"
+    ],
+    [
+     "Vaisey",
+     "Stephen"
+    ]
+   ],
+   "year": 2017,
+   "title": "Belief Network Analysis: A Relational Approach to Understanding the Structure of Attitudes",
+   "container": "American Journal of Sociology",
+   "volume": "122",
+   "issue": "5",
+   "pages": "1371–1447",
+   "doi": "10.1086/691274",
+   "url": "https://www.journals.uchicago.edu/doi/10.1086/691274",
+   "venue": "American Journal of Sociology"
+  },
+  "boukes2020": {
+   "type": "journal",
+   "authors": [
+    [
+     "Boukes",
+     "Mark"
+    ],
+    [
+     "A.W.J. van Esch",
+     "Femke"
+    ],
+    [
+     "A. Snellens",
+     "Jeroen"
+    ],
+    [
+     "C. Steenman",
+     "Sebastiaan"
+    ],
+    [
+     "Vliegenthart",
+     "Rens"
+    ]
+   ],
+   "year": 2020,
+   "title": "Using Cognitive Mapping to Study the Relationship between News Exposure and Cognitive Complexity",
+   "container": "Public Opinion Quarterly",
+   "volume": "84",
+   "issue": "3",
+   "pages": "599–628",
+   "doi": "10.1093/poq/nfaa040",
+   "url": "https://academic.oup.com/poq/article/84/3/599/6133223",
+   "venue": "Public Opinion Quarterly"
+  },
+  "glogger2023": {
+   "type": "journal",
+   "authors": [
+    [
+     "Glogger",
+     "Isabella"
+    ],
+    [
+     "Shehata",
+     "Adam"
+    ],
+    [
+     "Hopmann",
+     "David Nicolas"
+    ],
+    [
+     "Kruikemeier",
+     "Sanne"
+    ]
+   ],
+   "year": 2023,
+   "title": "The world around us and the picture(s) in our heads: The effects of news media use on belief organization",
+   "container": "Communication Monographs",
+   "volume": "90",
+   "issue": "2",
+   "pages": "159–180",
+   "doi": "10.1080/03637751.2022.2149830",
+   "url": "https://www.tandfonline.com/doi/full/10.1080/03637751.2022.2149830",
+   "venue": "Communication Monographs"
+  },
+  "powell2023": {
+   "type": "journal",
+   "authors": [
+    [
+     "Powell",
+     "Derek"
+    ],
+    [
+     "Weisman",
+     "Kara"
+    ],
+    [
+     "Markman",
+     "Ellen M."
+    ]
+   ],
+   "year": 2023,
+   "title": "Modeling and leveraging intuitive theories to improve vaccine attitudes.",
+   "container": "Journal of Experimental Psychology: General",
+   "volume": "152",
+   "issue": "5",
+   "pages": "1379–1395",
+   "doi": "10.1037/xge0001324",
+   "url": "https://doi.apa.org/doi/10.1037/xge0001324",
+   "venue": "Journal of Experimental Psychology: General"
+  },
+  "vanatteveldt2008": {
+   "type": "thesis",
+   "authors": [
+    [
+     "van Atteveldt",
+     "Wouter"
+    ]
+   ],
+   "year": 2008,
+   "title": "Semantic Network Analysis: Techniques for Extracting, Representing, and Querying Media Content",
+   "institution": "Vrije Universiteit Amsterdam",
+   "publisher": "BookSurge",
+   "url": "https://research.vu.nl/en/publications/semantic-network-analysis-techniques-for-extracting-representing-",
+   "venue": "Doctoral dissertation"
+  },
+  "leifeld2017": {
+   "type": "chapter",
+   "authors": [
+    [
+     "Leifeld",
+     "Philip"
+    ]
+   ],
+   "year": 2017,
+   "title": "Discourse Network Analysis: Policy Debates as Dynamic Networks",
+   "container": "The Oxford Handbook of Political Networks",
+   "editors": [
+    [
+     "Victor",
+     "Jennifer Nicoll"
+    ],
+    [
+     "Montgomery",
+     "Alexander H."
+    ],
+    [
+     "Lubell",
+     "Mark"
+    ]
+   ],
+   "pages": "301–326",
+   "publisher": "Oxford University Press",
+   "doi": "10.1093/oxfordhb/9780190228217.013.25",
+   "url": "https://academic.oup.com/edited-volume/35479/chapter/303901973",
+   "venue": "Oxford Handbook"
+  },
+  "boland2022": {
+   "type": "journal",
+   "authors": [
+    [
+     "Boland",
+     "Katarina"
+    ],
+    [
+     "Fafalios",
+     "Pavlos"
+    ],
+    [
+     "Tchechmedjiev",
+     "Andon"
+    ],
+    [
+     "Dietze",
+     "Stefan"
+    ],
+    [
+     "Todorov",
+     "Konstantin"
+    ]
+   ],
+   "year": 2022,
+   "title": "Beyond facts – a survey and conceptualisation of claims in online discourse analysis",
+   "container": "Semantic Web",
+   "volume": "13",
+   "issue": "5",
+   "pages": "793–827",
+   "doi": "10.3233/SW-212838",
+   "url": "https://journals.sagepub.com/doi/full/10.3233/SW-212838",
+   "venue": "Semantic Web"
+  },
+  "gangireddy2022": {
+   "type": "conference",
+   "authors": [
+    [
+     "Gangi Reddy",
+     "Revanth"
+    ],
+    [
+     "Chinthakindi",
+     "Sai Chetan"
+    ],
+    [
+     "Wang",
+     "Zhenhailong"
+    ],
+    [
+     "Fung",
+     "Yi R."
+    ],
+    [
+     "Conger",
+     "Kathryn"
+    ],
+    [
+     "Elsayed",
+     "Ahmed"
+    ],
+    [
+     "Palmer",
+     "Martha"
+    ],
+    [
+     "Nakov",
+     "Preslav"
+    ],
+    [
+     "Hovy",
+     "Eduard"
+    ],
+    [
+     "Small",
+     "Kevin"
+    ],
+    [
+     "Ji",
+     "Heng"
+    ]
+   ],
+   "year": 2022,
+   "title": "NewsClaims: A New Benchmark for Claim Detection from News with Attribute Knowledge",
+   "container": "Proceedings of the 2022 Conference on Empirical Methods in Natural Language Processing",
+   "pages": "6002–6018",
+   "publisher": "Association for Computational Linguistics",
+   "doi": "10.18653/v1/2022.emnlp-main.403",
+   "url": "https://aclanthology.org/2022.emnlp-main.403",
+   "venue": "EMNLP 2022"
+  },
+  "motta2025": {
+   "type": "conference",
+   "authors": [
+    [
+     "Motta",
+     "Enrico"
+    ],
+    [
+     "Osborne",
+     "Francesco"
+    ],
+    [
+     "Pulici",
+     "Martino M. L."
+    ],
+    [
+     "Salatino",
+     "Angelo"
+    ],
+    [
+     "Naja",
+     "Iman"
+    ]
+   ],
+   "year": 2025,
+   "title": "Capturing the Viewpoint Dynamics in the News Domain",
+   "container": "Knowledge Engineering and Knowledge Management: 24th International Conference, EKAW 2024",
+   "series": "Lecture Notes in Computer Science",
+   "volume": "15370",
+   "pages": "18–34",
+   "publisher": "Springer",
+   "doi": "10.1007/978-3-031-77792-9_2",
+   "url": "https://link.springer.com/10.1007/978-3-031-77792-9_2",
+   "venue": "EKAW 2024"
+  },
+  "fadda2026": {
+   "type": "journal",
+   "authors": [
+    [
+     "Fadda",
+     "Massimiliano"
+    ],
+    [
+     "Motta",
+     "Enrico"
+    ],
+    [
+     "Osborne",
+     "Francesco"
+    ],
+    [
+     "Reforgiato Recupero",
+     "Diego"
+    ],
+    [
+     "Salatino",
+     "Angelo"
+    ]
+   ],
+   "year": 2026,
+   "title": "Integrating Large Language Models and knowledge graphs to capture political viewpoints in news media",
+   "container": "EPJ Data Science",
+   "volume": "15",
+   "issue": "1",
+   "article": "68",
+   "doi": "10.1140/epjds/s13688-026-00678-7",
+   "url": "https://link.springer.com/10.1140/epjds/s13688-026-00678-7",
+   "venue": "EPJ Data Science"
+  },
+  "guan2026": {
+   "type": "preprint",
+   "authors": [
+    [
+     "Guan",
+     "Shuo"
+    ]
+   ],
+   "year": 2026,
+   "title": "Attributable by Construction: Claim-Anchored Provenance for Multi-Document Summarization",
+   "doi": "10.48550/arXiv.2606.23989",
+   "url": "https://arxiv.org/abs/2606.23989",
+   "venue": "arXiv preprint",
+   "arxiv": "2606.23989"
+  },
+  "chen2019": {
+   "type": "conference",
+   "authors": [
+    [
+     "Chen",
+     "Sihao"
+    ],
+    [
+     "Khashabi",
+     "Daniel"
+    ],
+    [
+     "Yin",
+     "Wenpeng"
+    ],
+    [
+     "Callison-Burch",
+     "Chris"
+    ],
+    [
+     "Roth",
+     "Dan"
+    ]
+   ],
+   "year": 2019,
+   "title": "Seeing Things from a Different Angle: Discovering Diverse Perspectives about Claims",
+   "container": "Proceedings of the 2019 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long and Short Papers)",
+   "pages": "542–557",
+   "publisher": "Association for Computational Linguistics",
+   "doi": "10.18653/v1/N19-1053",
+   "url": "https://aclanthology.org/N19-1053",
+   "venue": "NAACL 2019",
+   "arxiv": "1906.03538"
+  },
+  "lin2023": {
+   "type": "conference",
+   "authors": [
+    [
+     "Lin",
+     "Jiayu"
+    ],
+    [
+     "Ye",
+     "Rong"
+    ],
+    [
+     "Han",
+     "Meng"
+    ],
+    [
+     "Zhang",
+     "Qi"
+    ],
+    [
+     "Lai",
+     "Ruofei"
+    ],
+    [
+     "Zhang",
+     "Xinyu"
+    ],
+    [
+     "Cao",
+     "Zhao"
+    ],
+    [
+     "Huang",
+     "Xuanjing"
+    ],
+    [
+     "Wei",
+     "Zhongyu"
+    ]
+   ],
+   "year": 2023,
+   "title": "Argue with Me Tersely: Towards Sentence-Level Counter-Argument Generation",
+   "container": "Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing",
+   "pages": "16705–16720",
+   "publisher": "Association for Computational Linguistics",
+   "doi": "10.18653/v1/2023.emnlp-main.1039",
+   "url": "https://aclanthology.org/2023.emnlp-main.1039",
+   "venue": "EMNLP 2023"
+  },
+  "chen2024": {
+   "type": "conference",
+   "authors": [
+    [
+     "Chen",
+     "Guizhen"
+    ],
+    [
+     "Cheng",
+     "Liying"
+    ],
+    [
+     "Luu",
+     "Anh Tuan"
+    ],
+    [
+     "Bing",
+     "Lidong"
+    ]
+   ],
+   "year": 2024,
+   "title": "Exploring the Potential of Large Language Models in Computational Argumentation",
+   "container": "Proceedings of the 62nd Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)",
+   "pages": "2309–2330",
+   "publisher": "Association for Computational Linguistics",
+   "doi": "10.18653/v1/2024.acl-long.126",
+   "url": "https://aclanthology.org/2024.acl-long.126",
+   "venue": "ACL 2024"
+  },
+  "hayati2024": {
+   "type": "conference",
+   "authors": [
+    [
+     "Hayati",
+     "Shirley Anugrah"
+    ],
+    [
+     "Lee",
+     "Minhwa"
+    ],
+    [
+     "Rajagopal",
+     "Dheeraj"
+    ],
+    [
+     "Kang",
+     "Dongyeop"
+    ]
+   ],
+   "year": 2024,
+   "title": "How Far Can We Extract Diverse Perspectives from Large Language Models?",
+   "container": "Proceedings of the 2024 Conference on Empirical Methods in Natural Language Processing",
+   "pages": "5336–5366",
+   "publisher": "Association for Computational Linguistics",
+   "doi": "10.18653/v1/2024.emnlp-main.306",
+   "url": "https://aclanthology.org/2024.emnlp-main.306",
+   "venue": "EMNLP 2024",
+   "arxiv": "2311.09799"
+  },
+  "nie2026": {
+   "type": "conference",
+   "authors": [
+    [
+     "Nie",
+     "Shangrui"
+    ],
+    [
+     "Omoomi",
+     "Kian"
+    ],
+    [
+     "Flek",
+     "Lucie"
+    ],
+    [
+     "Zhao",
+     "Zhixue"
+    ],
+    [
+     "Welch",
+     "Charles"
+    ]
+   ],
+   "year": 2026,
+   "title": "PerSpectra: A Scalable and Configurable Pluralist Benchmark of Perspectives from Arguments",
+   "container": "The Fourteenth International Conference on Learning Representations (ICLR 2026)",
+   "url": "https://openreview.net/forum?id=dyooGJcKJg",
+   "venue": "ICLR 2026",
+   "arxiv": "2602.08716"
+  },
+  "mundada2026": {
+   "type": "conference",
+   "authors": [
+    [
+     "Mundada",
+     "Gagan"
+    ],
+    [
+     "Surana",
+     "Rohan"
+    ],
+    [
+     "Swaminathan",
+     "Nandhini"
+    ],
+    [
+     "Majumder",
+     "Bodhisattwa Prasad"
+    ],
+    [
+     "Wu",
+     "Junda"
+    ],
+    [
+     "McAuley",
+     "Julian"
+    ],
+    [
+     "Xie",
+     "Zhouhang"
+    ]
+   ],
+   "year": 2026,
+   "title": "Evaluating Language Model Pluralism through In-the-wild Crowd Discussions",
+   "container": "Proceedings of the 64th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)",
+   "pages": "42273–42296",
+   "publisher": "Association for Computational Linguistics",
+   "doi": "10.18653/v1/2026.acl-long.1957",
+   "url": "https://aclanthology.org/2026.acl-long.1957",
+   "venue": "ACL 2026"
+  },
+  "su2026": {
+   "type": "conference",
+   "authors": [
+    [
+     "Su",
+     "Cantao"
+    ],
+    [
+     "Wegmann",
+     "Anna"
+    ],
+    [
+     "Ploeger",
+     "Esther"
+    ],
+    [
+     "Nguyen",
+     "Dong"
+    ]
+   ],
+   "year": 2026,
+   "title": "Measuring Data Diversity with Embeddings: A Taxonomy and Benchmark for Diversity Measures",
+   "container": "Proceedings of the 2026 Conference on Empirical Methods in Natural Language Processing",
+   "pages": "11241–11271",
+   "publisher": "Association for Computational Linguistics",
+   "doi": "10.18653/2026.emnlp-main.489",
+   "url": "https://aclanthology.org/2026.emnlp-main.489",
+   "venue": "EMNLP 2026",
+   "arxiv": "2610.24888"
+  },
+  "tohidi2025": {
+   "type": "journal",
+   "authors": [
+    [
+     "Tohidi",
+     "Amir"
+    ],
+    [
+     "Haider",
+     "Samar"
+    ],
+    [
+     "Watts",
+     "Duncan J."
+    ]
+   ],
+   "year": 2025,
+   "title": "Rethinking news framing with large language models",
+   "container": "Scientific Reports",
+   "volume": "15",
+   "issue": "1",
+   "article": "45592",
+   "doi": "10.1038/s41598-025-29519-9",
+   "url": "https://www.nature.com/articles/s41598-025-29519-9",
+   "venue": "Scientific Reports"
+  },
+  "haider2026": {
+   "type": "journal",
+   "authors": [
+    [
+     "Haider",
+     "Samar"
+    ],
+    [
+     "Tohidi",
+     "Amir"
+    ],
+    [
+     "Wang",
+     "Jenny S."
+    ],
+    [
+     "Dörr",
+     "Timothy"
+    ],
+    [
+     "Rothschild",
+     "David M."
+    ],
+    [
+     "Callison-Burch",
+     "Chris"
+    ],
+    [
+     "Watts",
+     "Duncan J."
+    ]
+   ],
+   "year": 2026,
+   "title": "The Media Bias Detector: A framework for annotating and analyzing the news",
+   "container": "Science Advances",
+   "volume": "12",
+   "issue": "37",
+   "article": "eaea7456",
+   "doi": "10.1126/sciadv.aea7456",
+   "url": "https://www.science.org/doi/10.1126/sciadv.aea7456",
+   "venue": "Science Advances"
+  },
+  "das2026": {
+   "type": "conference",
+   "authors": [
+    [
+     "Das",
+     "Rohan"
+    ],
+    [
+     "Deshmukh",
+     "Advait"
+    ],
+    [
+     "Leto",
+     "Alexandria"
+    ],
+    [
+     "Naaman",
+     "Zohar"
+    ],
+    [
+     "Lee",
+     "I-Ta"
+    ],
+    [
+     "Pacheco",
+     "Maria Leonor"
+    ]
+   ],
+   "year": 2026,
+   "title": "A Structured Clustering Approach for Inducing Media Narratives",
+   "container": "Proceedings of the 64th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)",
+   "pages": "42544–42577",
+   "publisher": "Association for Computational Linguistics",
+   "doi": "10.18653/v1/2026.acl-long.1970",
+   "url": "https://aclanthology.org/2026.acl-long.1970",
+   "venue": "ACL 2026"
+  },
+  "kassner2023": {
+   "type": "conference",
+   "authors": [
+    [
+     "Kassner",
+     "Nora"
+    ],
+    [
+     "Tafjord",
+     "Oyvind"
+    ],
+    [
+     "Sabharwal",
+     "Ashish"
+    ],
+    [
+     "Richardson",
+     "Kyle"
+    ],
+    [
+     "Schütze",
+     "Hinrich"
+    ],
+    [
+     "Clark",
+     "Peter"
+    ]
+   ],
+   "year": 2023,
+   "title": "Language Models with Rationality",
+   "container": "Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing",
+   "pages": "14190–14201",
+   "publisher": "Association for Computational Linguistics",
+   "doi": "10.18653/v1/2023.emnlp-main.877",
+   "url": "https://aclanthology.org/2023.emnlp-main.877",
+   "venue": "EMNLP 2023",
+   "arxiv": "2305.14250"
+  },
+  "anokhin2025": {
+   "type": "conference",
+   "authors": [
+    [
+     "Anokhin",
+     "Petr"
+    ],
+    [
+     "Semenov",
+     "Nikita"
+    ],
+    [
+     "Sorokin",
+     "Artyom"
+    ],
+    [
+     "Evseev",
+     "Dmitry"
+    ],
+    [
+     "Kravchenko",
+     "Andrey"
+    ],
+    [
+     "Burtsev",
+     "Mikhail"
+    ],
+    [
+     "Burnaev",
+     "Evgeny"
+    ]
+   ],
+   "year": 2025,
+   "title": "AriGraph: Learning Knowledge Graph World Models with Episodic Memory for LLM Agents",
+   "container": "Proceedings of the Thirty-Fourth International Joint Conference on Artificial Intelligence",
+   "pages": "12–20",
+   "publisher": "International Joint Conferences on Artificial Intelligence Organization",
+   "doi": "10.24963/ijcai.2025/2",
+   "url": "https://www.ijcai.org/proceedings/2025/2",
+   "venue": "IJCAI 2025",
+   "arxiv": "2407.04363"
+  },
+  "chalmers2025": {
+   "type": "preprint",
+   "authors": [
+    [
+     "Chalmers",
+     "David J."
+    ]
+   ],
+   "year": 2025,
+   "title": "Propositional Interpretability in Artificial Intelligence",
+   "doi": "10.48550/arXiv.2501.15740",
+   "url": "https://arxiv.org/abs/2501.15740",
+   "venue": "arXiv preprint",
+   "arxiv": "2501.15740"
+  },
+  "huntsman2025": {
+   "type": "conference",
+   "authors": [
+    [
+     "Huntsman",
+     "Steve"
+    ],
+    [
+     "Thomas",
+     "Jewell"
+    ]
+   ],
+   "year": 2025,
+   "title": "Benchmarking Graph Construction by Large Language Models for Coherence-Driven Inference",
+   "container": "2025 IEEE International Conference on Data Mining Workshops (ICDMW)",
+   "pages": "977–986",
+   "publisher": "IEEE",
+   "doi": "10.1109/icdmw69685.2025.00116",
+   "url": "https://ieeexplore.ieee.org/document/11415872/",
+   "venue": "ICDM Workshops 2025",
+   "arxiv": "2502.13953"
+  },
+  "papakonstantinou2025": {
+   "type": "conference",
+   "authors": [
+    [
+     "Papakonstantinou",
+     "Trisevgeni"
+    ],
+    [
+     "Zhiteneva",
+     "Antonina"
+    ],
+    [
+     "Ma",
+     "Ana"
+    ],
+    [
+     "Powell",
+     "Derek"
+    ],
+    [
+     "Horne",
+     "Zachary"
+    ]
+   ],
+   "year": 2025,
+   "title": "Evaluating Large Language Models for Belief Inference: Mapping Belief Networks at Scale",
+   "container": "Findings of the Association for Computational Linguistics: EMNLP 2025",
+   "pages": "20787–20795",
+   "publisher": "Association for Computational Linguistics",
+   "doi": "10.18653/v1/2025.findings-emnlp.1132",
+   "url": "https://aclanthology.org/2025.findings-emnlp.1132",
+   "venue": "Findings of EMNLP 2025"
+  },
+  "nguyen2026": {
+   "type": "journal",
+   "authors": [
+    [
+     "Nguyen",
+     "Tuan Dung"
+    ],
+    [
+     "Watts",
+     "Duncan J"
+    ],
+    [
+     "Whiting",
+     "Mark E"
+    ]
+   ],
+   "year": 2026,
+   "title": "A large-scale evaluation of commonsense knowledge in humans and large language models",
+   "container": "PNAS Nexus",
+   "volume": "5",
+   "issue": "3",
+   "article": "pgag029",
+   "doi": "10.1093/pnasnexus/pgag029",
+   "url": "https://academic.oup.com/pnasnexus/article/doi/10.1093/pnasnexus/pgag029/8487345",
+   "venue": "PNAS Nexus"
+  },
+  "akbar2026": {
+   "type": "conference",
+   "authors": [
+    [
+     "Akbar",
+     "Hafsa"
+    ],
+    [
+     "Platnick",
+     "Daniel"
+    ],
+    [
+     "Alirezaie",
+     "Marjan"
+    ],
+    [
+     "Rahnama",
+     "Hossein"
+    ],
+    [
+     "Pentland",
+     "Alex"
+    ]
+   ],
+   "year": 2026,
+   "title": "Bayesian Belief Layer for Controllable Opinion Dynamics in LLM Agents",
+   "container": "Proceedings of the Second Workshop for REsearch on Agent Language Models (REALM 2026)",
+   "pages": "807–815",
+   "publisher": "Association for Computational Linguistics",
+   "doi": "10.18653/2026.realm-1.55",
+   "url": "https://aclanthology.org/2026.realm-1.55",
+   "venue": "REALM 2026 (EMNLP workshop)",
+   "arxiv": "2609.21997"
+  },
+  "nishida2026": {
+   "type": "conference",
+   "authors": [
+    [
+     "Nishida",
+     "Noriki"
+    ],
+    [
+     "Cheng",
+     "Fei"
+    ],
+    [
+     "Matsumoto",
+     "Yuji"
+    ]
+   ],
+   "year": 2026,
+   "title": "Beyond Retrieval: Structuring Evolving and Inconsistent External Knowledge with Proposition Relations for RAG",
+   "container": "Proceedings of the 2026 Conference on Empirical Methods in Natural Language Processing",
+   "pages": "6749–6771",
+   "publisher": "Association for Computational Linguistics",
+   "doi": "10.18653/2026.emnlp-main.294",
+   "url": "https://aclanthology.org/2026.emnlp-main.294",
+   "venue": "EMNLP 2026"
+  }
+ }
+}

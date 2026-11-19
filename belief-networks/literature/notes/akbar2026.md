@@ -1,0 +1,17 @@
+# Notes: Bayesian Belief Layer for Controllable Opinion Dynamics in LLM Agents
+
+Akbar, Hafsa; Platnick, Daniel; Alirezaie, Marjan; Rahnama, Hossein; Pentland, Alex (2026). REALM 2026 (EMNLP workshop). https://aclanthology.org/2026.realm-1.55
+
+10 marks in 5 passages, in page order. Page numbers are those of the PDF. Marked words are in bold; the text around them is the sentence before and the sentence after.
+
+**p. 1.** LLM agents in social simulation revise their opinions implicitly, in context: how open an agent is to persuasion can neither be specified nor verified, and collective outcomes inherit the model’s training prior. **We introduce Bayesian Chronicle Agents (BCA), a minimal belief layer separating what an agent believes from how it speaks**. Each stance is a probability, updated by one Bayesian step per utterance heard.
+
+**p. 1.** However, these models operate on bare scalars, with no notion of language which is precisely what LLMs now offer. **We ask whether that language capability can be harnessed without losing the interpretability of the classical models**. To combine the mathematical control of classical opinion dynamics with the language capabilities of LLM agents, we add a small, explicit belief layer between an agent’s persona and its actions (i.e., speech generation for our set-up); we call the resulting agents **Bayesian Chronicle Agents (BCA**) (Fig. 1). An agent’s stance on a concept is a probability held outside the language model, the simplest instance of a concept– assertion chronicle, our structured identity representation (Platnick et al., 2025; Alirezaie et al., 2024).
+
+**p. 1.** An agent’s stance on a concept is a probability held outside the language model, the simplest instance of a concept– assertion chronicle, our structured identity representation (Platnick et al., 2025; Alirezaie et al., 2024). **When the agent hears an utterance, a separate calibrated appraiser model reads it into scalar evidence, and the belief takes one Bayesian update step** (§3). A single per-agent knob, **the prior strength κ**, sets how far each step moves the agent: a stubborn agent carries a large prior tally, so one observation barely moves it. With this architecture, what an agent believes follows a transparent probabilistic rule; how it acts/speaks in consequence is decided by the LLM.
+
+> Comment: What kind of belief?
+
+**p. 2.** Our approach is complementary and differs on three axes: our single knob has an exact classical correspondence rather than an empirical role; we test parameter recoverability (prescribe, then recover through the language round-trip), unevaluated in Belief Engine; and we validate at population scale against closed-form regime references. **The Belief Layer** **The belief layer has three parts**: **a structured representation of what an agent believes** (§3.1), a pair of LLM components that translate between belief and language (§3.2), and a Bayesian rule that updates belief from what the agent hears (§3.3).
+
+**p. 2.** We represent agent identity as a **graph of beliefholding** concept nodes (propositions the agent holds opinions about) held outside the language model, a simplified variation of the identity chronicle i.e., knowledge graph learned from a person’s digital footprint and shareable as a “borrowable identity” (Alirezaie et al., 2024). Each concept carries an assertion set, the competing natural-language stances on it (here an opposing pair {a+, a− …

@@ -1,4 +1,4 @@
-# Experiment 9, step 10 of 10: The question alone, without articles or record
+# Experiment 9, step 6 of 6: The question alone, without articles or record
 
 The question alone. Requests sent: 40. Models: Haiku 4.5, Sonnet 5.5. First and last request: 28 October 2026, 23:41 to 23:42 (Pacific time).
 

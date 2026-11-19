@@ -9,4 +9,4 @@ Every kind of request sent in the six experiments, in the order it was sent. Eac
 | [Experiment 8, prompt test: how far what a model reports an article to contain depends on how it is asked](experiment-8/) | 16 October 2026, 12:44 to 14:29 | 7 | 67 |
 | [Calibration: wording, paraphrase and negation, structure, article effects, size](calibration/) | 29 September 2026, 12:25 to 14:37 | 10 | 10,185 |
 | [Experiment 3: new information and pressure over rounds, and eight agents on a social network (ICE enforcement)](experiment-3/) | 11 October 2026, 16:56 to 17:24 | 7 | 2,013 |
-| [Experiment 9: does the answer come from the model's own record?](experiment-9/) | 28 October 2026, 21:05 to 23:42 | 10 | 2,472 |
+| [Experiment 9: does the answer come from the model's own record?](experiment-9/) | 28 October 2026, 21:05 to 23:42 | 6 | 1,374 |

@@ -1,4 +1,4 @@
-# Experiment 9, step 2 of 10: After article 2
+# Experiment 9, step 2 of 6: After article 2
 
 Reading the four articles. Requests sent: 182. Models: Haiku 4.5, Sonnet 5.5, Gemini 3.8 Flash. First and last request: 28 October 2026, 21:05 to 22:21 (Pacific time).
 

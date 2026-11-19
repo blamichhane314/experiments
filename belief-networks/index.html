@@ -742,6 +742,49 @@ details.grp>summary b{color:var(--ink);font-weight:500}
 .tchart .al{fill:none;stroke:var(--ink-3);stroke-width:1.2;opacity:.7}
 .tchart .al.on{stroke:var(--ink);stroke-width:2.2;opacity:1}
 .tchart .ad{fill:var(--ink-3)}.tchart .ad.on{fill:var(--ink)}
+/* related literature */
+.litnav{display:flex;flex-wrap:wrap;gap:6px}
+.lit{max-width:920px}
+.lit .grp-h{font:300 var(--t-section)/var(--lh-section) var(--font-serif);margin:44px 0 6px}
+.lit .grp-h .cnt{font:400 12px var(--font-mono);color:var(--ink-3);margin-left:10px;letter-spacing:.02em}
+.lit .sub-h{font:500 11.5px var(--font-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);margin:26px 0 4px}
+.refs{list-style:none;margin:0;padding:0}
+.ref{display:grid;grid-template-columns:52px minmax(0,1fr);gap:0 16px;padding:16px 0;border-top:1px solid var(--rule)}
+.ref .yr{font:400 13px/1.9 var(--font-mono);color:var(--ink-3)}
+.ref .au{font-size:14px;line-height:1.5;color:var(--ink-2)}
+.ref .ti{font:400 19px/1.35 var(--font-serif);color:var(--ink);margin:3px 0 2px;text-wrap:pretty}
+.ref .ve{font-size:14px;line-height:1.55;color:var(--ink-2)}
+.ref .lk{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 16px;margin-top:8px;font:400 12px/1.5 var(--font-mono)}
+.ref .lk a{color:var(--ink);text-underline-offset:3px}
+.ref .lk .doi{color:var(--ink-3);word-break:break-all}
+.ref .tag{border:1px solid var(--rule-strong);border-radius:var(--r-control);padding:0 7px;color:var(--ink-2);text-transform:none;letter-spacing:0}
+@media (max-width:640px){.ref{grid-template-columns:minmax(0,1fr)}.ref .yr{line-height:1.4}}
+/* his notes on a paper: the passage around each mark, the marked words in one soft gold */
+:root{--hl-gold:rgba(214,166,60,.30);--hl-gold-dot:#b98a2c}
+.ref .notes-btn{display:inline-flex;align-items:center;gap:7px;font:inherit;color:var(--ink);background:none;border:1px solid var(--rule-strong);border-radius:var(--r-pill);padding:1px 10px 1px 8px;cursor:pointer}
+.ref .notes-btn:hover{background:var(--wash)}
+.ref .notes-btn i{width:7px;height:7px;border-radius:50%;background:var(--hl-gold-dot)}
+.ref .notes-btn b{font-weight:400;color:var(--ink-3)}
+.nv{position:fixed;inset:0;z-index:60;display:flex;justify-content:center;align-items:flex-start;padding:28px 16px}
+.nv-back{position:absolute;inset:0;background:rgba(248,246,241,.74);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.nv-panel{position:relative;width:min(780px,100%);max-height:calc(100vh - 56px);overflow:auto;background:var(--stage);border:1px solid var(--rule);border-radius:8px;box-shadow:var(--shadow-lift);overscroll-behavior:contain}
+.nv-head{position:sticky;top:0;z-index:1;background:rgba(255,255,255,.94);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid var(--rule);padding:20px 56px 14px 28px}
+.nv-head .au{font-size:13px;color:var(--ink-2)}
+.nv-head h2{font:400 22px/1.3 var(--font-serif);margin:4px 0 6px;text-wrap:balance}
+.nv-head .sub{font:400 12px var(--font-mono);color:var(--ink-3)}
+.nv-head .sub i{display:inline-block;width:18px;height:9px;border-radius:2px;background:var(--hl-gold);vertical-align:-1px;margin-right:6px}
+.nv-x{position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:50%;border:1px solid var(--rule);background:var(--stage);color:var(--ink-2);font-size:18px;line-height:1;cursor:pointer}
+.nv-x:hover{color:var(--ink);background:var(--wash)}
+.nv-list{list-style:none;margin:0;padding:6px 28px 28px}
+.nv-item{display:grid;grid-template-columns:44px minmax(0,1fr);gap:0 16px;padding:18px 0;border-bottom:1px solid var(--rule)}
+.nv-item:last-child{border-bottom:0}
+.nv-pg{font:400 12px/1.9 var(--font-mono);color:var(--ink-3)}
+.nv-p{margin:0;font:400 16.5px/1.7 var(--font-serif);color:var(--ink-2)}
+.nv-p mark{background:var(--hl-gold);color:var(--ink);border-radius:2px;padding:1px 1px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.nv-c{margin-top:10px;padding-left:12px;border-left:2px solid var(--rule-strong);font-size:14px;line-height:1.55;color:var(--ink)}
+.nv-c span{display:block;font:400 10.5px var(--font-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:2px}
+body.nv-open{overflow:hidden}
+@media (max-width:640px){.nv{padding:0}.nv-panel{max-height:100vh;height:100vh;border-radius:0;border:0}.nv-head{padding:16px 52px 12px 16px}.nv-list{padding:4px 16px 24px}.nv-item{grid-template-columns:minmax(0,1fr)}.nv-pg{line-height:1.4}}
 </style>
 </head>
 <body>
@@ -757,6 +800,7 @@ details.grp>summary b{color:var(--ink);font-weight:500}
     <button class="tab" role="tab" data-view="cal"><span class="n">3</span>Networks over a fixed list</button>
     <button class="tab" role="tab" data-view="x3"><span class="n">4</span>Ratings over rounds</button>
     <button class="tab" role="tab" data-view="runs"><span class="n">5</span>Networks across articles</button>
+    <button class="tab" role="tab" data-view="lit"><span class="n">6</span>Related literature</button>
   </nav>
 </header>
 <main id="main">
@@ -813,6 +857,7 @@ function route(){
     else if(parts[0]==="x3" && parts[1]==="a"){ tab = "x3"; r = openX3Chain(view, parts[2], params); }
     else if(parts[0]==="x3" && parts[1]==="b"){ tab = "x3"; r = openX3Pop(view, parts[2], params); }
     else if(parts[0]==="x3"){ tab = "x3"; r = openX3(view, params); }
+    else if(parts[0]==="lit"){ tab = "lit"; r = openLit(view); }
     else r = openOverview(view);
   }catch(e){ fail(e); }
   $$(".topbar .tab").forEach(t => t.setAttribute("aria-selected", t.dataset.view===tab ? "true" : "false"));
@@ -1821,6 +1866,71 @@ async function openOverview(v){
 
 const RESULT_OF = {exp1: "#/p1/exp1", gen3: "#/p1/gen3", exp8: "#/p1/exp8", cal: "#/cal/aidc", exp3: "#/x3", exp9: "#/runs"};
 const TAB_OF = {exp1: "p1", gen3: "p1", exp8: "p1", cal: "cal", exp3: "x3", exp9: "runs"};
+
+/* ------------------------------------------------------------------ related literature */
+let LIT = null, NOTES = {};
+const ini = g => (g || "").replace(/\./g, ". ").split(/\s+/).filter(Boolean).map(w => w.split("-").map(x => x[0].toUpperCase() + ".").join("-")).join(" ");
+const andList = n => n.length < 2 ? n.join("") : n.slice(0, -1).join(", ") + ", & " + n[n.length - 1];
+const refAuthors = a => andList(a.map(([f, g]) => `${f}, ${ini(g)}`));
+function refVenue(r){
+  const pp = r.pages ? ` (pp. ${esc(r.pages)})` : "";
+  if(r.type==="journal") return `<i>${esc(r.container)}</i>${r.volume ? `, <i>${esc(r.volume)}</i>` : ""}${r.issue ? `(${esc(r.issue)})` : ""}${r.pages ? `, ${esc(r.pages)}` : r.article ? `, Article ${esc(r.article)}` : ""}.`;
+  if(r.type==="conference") return `In <i>${esc(r.container)}</i>${r.series ? ` (${esc(r.series)}, Vol. ${esc(r.volume)})` : ""}${pp}.${r.publisher ? ` ${esc(r.publisher)}.` : ""}`;
+  if(r.type==="chapter") return `In ${esc(andList(r.editors.map(([f, g]) => `${ini(g)} ${f}`)))} (Eds.), <i>${esc(r.container)}</i>${pp}. ${esc(r.publisher)}.`;
+  if(r.type==="thesis") return `Doctoral dissertation, ${esc(r.institution)}.${r.publisher ? ` ${esc(r.publisher)}.` : ""}`;
+  return `Preprint, arXiv:${esc(r.arxiv)}.`;
+}
+function refItem(k, r){
+  const pub = r.type==="preprint" ? `<a href="${esc(r.url)}" target="_blank" rel="noopener">arXiv ↗</a>` : `<a href="${esc(r.url)}" target="_blank" rel="noopener">Published version ↗</a>`;
+  const arx = r.arxiv && r.type!=="preprint" ? `<a href="https://arxiv.org/abs/${esc(r.arxiv)}" target="_blank" rel="noopener">arXiv ↗</a>` : "";
+  const doi = r.doi ? `<span class="doi">doi:${esc(r.doi)}</span>` : "";
+  return `<li class="ref" id="ref-${esc(k)}"><span class="yr">${esc(r.year)}</span><div>
+    <div class="au">${esc(refAuthors(r.authors))}</div>
+    <div class="ti">${r.type==="thesis" ? `<i>${esc(r.title)}</i>` : esc(r.title)}</div>
+    <div class="ve">${refVenue(r)}</div>
+    <div class="lk">${NOTES[k] ? `<button class="notes-btn" data-k="${esc(k)}" aria-haspopup="dialog"><i></i>Notes <b>${NOTES[k].marks}</b></button>` : ""}${r.type!=="journal" ? `<span class="tag">${esc(r.venue)}</span>` : ""}${pub}${arx}${doi}</div></div></li>`;
+}
+async function openLit(v){
+  title("Related literature");
+  if(!LIT){ LIT = await getJSON(SITE.files.lit); NOTES = await getJSON(SITE.files.notes).catch(() => ({})); }
+  const n = Object.keys(LIT.refs).length;
+  const count = g => g.sub.reduce((a, s) => a + s.refs.length, 0);
+  v.innerHTML = `<div class="wrap viewhead">
+      <h1 class="title">Related literature</h1>
+      <p class="lead">${n} works, grouped by subject. Each entry links to the published version and, where one exists, to the arXiv version.</p>
+      <div class="litnav">${LIT.groups.map(g => `<button class="chip" data-g="${esc(g.id)}">${esc(g.name)} <span class="faint">${count(g)}</span></button>`).join("")}</div>
+    </div>
+    <div class="wrap lit">${LIT.groups.map(g => `<section aria-labelledby="lg-${esc(g.id)}"><h2 class="grp-h" id="lg-${esc(g.id)}">${esc(g.name)}<span class="cnt">${count(g)}</span></h2>
+      ${g.sub.map(s => `${s.name ? `<h3 class="sub-h">${esc(s.name)}</h3>` : ""}<ol class="refs">${s.refs.map(k => refItem(k, LIT.refs[k])).join("")}</ol>`).join("")}</section>`).join("")}</div>`;
+  v.querySelectorAll(".litnav .chip").forEach(b => b.addEventListener("click", () => document.getElementById("lg-" + b.dataset.g).scrollIntoView({behavior: "smooth", block: "start"})));
+  v.querySelectorAll(".notes-btn").forEach(b => b.addEventListener("click", () => openNotes(b.dataset.k, b)));
+}
+/* the parts of a passage as stored, with the paper's own spacing (none where a mark begins or ends inside a word) */
+const joinParts = parts => parts.map(([s, m]) => m ? `<mark>${esc(s)}</mark>` : esc(s.replace(/\s{2,}/g, " "))).join("");
+function openNotes(k, from){
+  const r = LIT.refs[k], N = NOTES[k], L = N.passages, nc = L.reduce((a, n) => a + (n.comments || []).length, 0);
+  const box = document.createElement("div");
+  box.className = "nv";
+  box.setAttribute("role", "dialog"); box.setAttribute("aria-modal", "true"); box.setAttribute("aria-labelledby", "nv-t");
+  box.innerHTML = `<div class="nv-back"></div><article class="nv-panel" tabindex="-1">
+    <header class="nv-head"><div class="au">${esc(refAuthors(r.authors))} (${esc(r.year)}) · ${esc(r.venue)}</div>
+      <h2 id="nv-t">${esc(r.title)}</h2>
+      <div class="sub"><i></i>${plural(N.marks, "mark")}${L.length !== N.marks ? ` in ${plural(L.length, "passage")}` : ""}${nc ? `, ${plural(nc, "comment")}` : ""}, in page order. Page numbers are the PDF's.</div>
+      <button class="nv-x" aria-label="Close the notes">×</button></header>
+    <ol class="nv-list">${L.map(n => `<li class="nv-item"><span class="nv-pg">p. ${esc(n.page)}</span><div>
+      <p class="nv-p">${joinParts(n.parts)}</p>
+      ${(n.comments || []).map(c => `<div class="nv-c"><span>Comment${n.parts.filter(x => x[1]).length > 1 ? ` on “${esc(c.on)}…”` : ""}</span>${esc(c.text)}</div>`).join("")}</div></li>`).join("")}</ol></article>`;
+  document.body.appendChild(box);
+  document.body.classList.add("nv-open");
+  const panel = box.querySelector(".nv-panel");
+  panel.focus();
+  const close = () => { box.remove(); document.body.classList.remove("nv-open"); document.removeEventListener("keydown", key); if(from) from.focus(); };
+  const key = e => { if(e.key === "Escape") close(); };
+  document.addEventListener("keydown", key);
+  box.querySelector(".nv-back").addEventListener("click", close);
+  box.querySelector(".nv-x").addEventListener("click", close);
+  window.addEventListener("hashchange", close, {once: true});
+}
 
 /* ------------------------------------------------------------------ start */
 (async () => {

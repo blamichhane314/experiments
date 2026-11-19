@@ -11,6 +11,7 @@ The site: https://blamichhane314.github.io/experiments/belief-networks/
 | [articles](articles/) | `articles.csv`: every news article used in the six experiments, with its date, outlet, headline, the number of words given to the model, and its address. The article texts are not included. |
 | [prompts](prompts/) | One folder per experiment. Each step has a Markdown file with the prompt template, where one exists, and example requests exactly as sent, each with the model's reply. `requests.json` holds the same requests for the site. |
 | [results](results/) | One folder per kind of result. Each holds the files the site reads (`.json`) and the same data as tables (`.csv`). |
+| [literature](literature/) | The related literature shown on the site: `references.json` (what the site reads) and `references.bib` (the same references as BibTeX), each with its published version and DOI; `notes.json` and `notes/`: the passages marked while reading, each with the sentence before and after, and the comments made on them. |
 | [assets](assets/) | The site's index files, fonts and image. |
 
 ## Experiments
@@ -22,7 +23,7 @@ The site: https://blamichhane314.github.io/experiments/belief-networks/
 | Experiment 8, prompt test: how far what a model reports an article to contain depends on how it is asked | 16 October 2026, 12:44 to 14:29 | 67 | [prompts/experiment-8](prompts/experiment-8/) | [results/propositions-from-articles](results/propositions-from-articles/) |
 | Calibration: wording, paraphrase and negation, structure, article effects, size | 29 September 2026, 12:25 to 14:37 | 10,185 | [prompts/calibration](prompts/calibration/) | [results/networks-over-a-fixed-list](results/networks-over-a-fixed-list/) |
 | Experiment 3: new information and pressure over rounds, and eight agents on a social network (ICE enforcement) | 11 October 2026, 16:56 to 17:24 | 2,013 | [prompts/experiment-3](prompts/experiment-3/) | [results/ratings-over-rounds](results/ratings-over-rounds/) |
-| Experiment 9: does the answer come from the model's own record? | 28 October 2026, 21:05 to 23:42 | 2,472 | [prompts/experiment-9](prompts/experiment-9/) | [results/networks-across-articles](results/networks-across-articles/) |
+| Experiment 9: does the answer come from the model's own record? | 28 October 2026, 21:05 to 23:42 | 1,374 | [prompts/experiment-9](prompts/experiment-9/) | [results/networks-across-articles](results/networks-across-articles/) |
 
 ## Notes
 
