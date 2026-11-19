@@ -1,0 +1,1832 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Belief networks · Experiments</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="assets/fonts/fonts-local.css">
+<style>
+
+
+:root {
+  color-scheme: light;
+
+  
+  --page: #f8f6f1;          
+  --surface: #fcfbf9;       
+  --surface-2: #eeebe6;     
+  --stage: #ffffff;         
+
+  --ink: #2a2110;           
+  --ink-2: #70695c;         
+  --ink-3: #918c80;         
+                            
+  --ink-inverse: #f8f6f1;   
+
+  --rule: rgba(42, 33, 16, 0.12);        
+  --rule-strong: rgba(42, 33, 16, 0.24); 
+  --wash: rgba(42, 33, 16, 0.05);        
+  --wash-2: rgba(42, 33, 16, 0.09);      
+
+  
+  --light: #9a7428;
+
+  
+  --glass: rgba(255, 255, 255, 0.56);
+  --glass-busy: rgba(255, 255, 255, 0.80);
+  --glass-blur: blur(22px) saturate(1.15);
+  --glass-edge: rgba(42, 33, 16, 0.12);
+  --glass-rim: inset 0 1px 0 rgba(255, 255, 255, 0.75);
+  --veil: rgba(248, 246, 241, 0.86);     
+
+  
+  --shadow-rest: 0 1px 2px rgba(42, 33, 16, 0.05), 0 12px 30px -14px rgba(42, 33, 16, 0.22);
+  --shadow-lift: 0 2px 4px rgba(42, 33, 16, 0.06), 0 20px 44px -16px rgba(42, 33, 16, 0.30);
+  --shadow-pop: 0 6px 24px rgba(0, 0, 0, 0.16);               
+  --shadow-stage: 0 0 0 1px #d6d6d6, 0 2px 10px rgba(0, 0, 0, 0.06); 
+  --focus: #2a2110;                                            
+
+  
+  
+  --c-real: #1f77b4;        
+  --c-fake: #e67814;        
+  --c-crit: #7850aa;        
+  --c-neg: #2e8c55;         
+  --c-bad: #be2828;         
+  --c-quote: #0091aa;       
+  
+  --c-fake-ink: #a8550c;    
+  --c-neg-ink: #26774a;     
+  --c-quote-ink: #00788c;   
+  
+  --c-crit-block: #f1eef6;  
+  --c-fake-block: #fcf1e6;  
+  --c-real-block: #e9f1f8;  
+
+  
+  --f-ink: #000000;         
+  --f-soft: #616161;        
+  --f-gray: #666666;        
+  --f-rule: #c8c8c8;        
+  --f-faint: #ebebeb;       
+
+  
+  --font-serif: 'Newsreader', 'Iowan Old Style', Georgia, serif;          
+  --font-sans: 'Geist', -apple-system, 'Segoe UI', system-ui, sans-serif;  
+  --font-mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;    
+  --font-lm-sans: 'LM Sans', 'Latin Modern Sans', Helvetica, Arial, sans-serif;   
+  --font-lm-roman: 'LM Roman', 'Latin Modern Roman', 'Times New Roman', serif;    
+  --font-lm-math: 'LM Math', 'LM Roman', serif;
+
+  
+  --t-display: 56px;   --lh-display: 1.05;   
+  --t-title: 40px;     --lh-title: 1.08;     
+  --t-section: 26px;   --lh-section: 1.18;   
+  --t-entry: 20px;     --lh-entry: 1.28;     
+  --t-prose: 17px;     --lh-prose: 1.62;     
+  --t-lead: 16px;      --lh-lead: 1.55;      
+  --t-body: 14px;      --lh-body: 1.5;       
+  --t-small: 13px;                           
+  --t-caption: 12.5px; --lh-caption: 1.45;   
+  --t-label: 11px;     --track-label: 0.09em;
+  --t-numeral: 36px;                         
+
+  
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px; --s8: 64px;
+  --gutter: 16px;                            
+  --measure: 72ch;                           
+  --page-max: 1180px;
+  --bar-h: 52px;                             
+
+  --r-control: 4px;    
+  --r-card: 5px;       
+  --r-pop: 6px;        
+  --r-pill: 999px;     
+
+  --hair: 1px;         
+  --curve: 1.5px;      
+
+  --t-fast: 140ms; --t-state: 260ms; --t-panel: 420ms; --t-soft: 700ms; --stagger: 70ms;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-cross: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+@media (min-width: 900px) {
+  :root { --gutter: 40px; }
+}
+
+
+
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--ink);
+  font: 400 var(--t-body)/var(--lh-body) var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+img, svg, canvas { max-width: 100%; }
+a { color: inherit; text-decoration: underline; text-decoration-color: var(--rule-strong);
+  text-decoration-thickness: 1px; text-underline-offset: 3px; transition: text-decoration-color var(--t-fast) var(--ease); }
+a:hover { text-decoration-color: var(--ink); }
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 1.5px solid var(--focus); outline-offset: 2px; }
+::selection { background: var(--wash-2); }
+[hidden] { display: none !important; }
+.mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.num { font-variant-numeric: tabular-nums; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+
+
+.wrap { max-width: var(--page-max); margin: 0 auto; padding: 0 var(--gutter); }
+
+
+.topbar {
+  position: sticky; top: 0; z-index: 30;
+  height: var(--bar-h);
+  display: flex; align-items: center; gap: var(--s4);
+  padding: 0 var(--gutter);
+  border-bottom: 1px solid var(--rule);
+  background: transparent;
+  transition: background-color var(--t-state) var(--ease);
+}
+:root[data-bar="veil"] .topbar {
+  background: var(--veil);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+}
+.wordmark { font: 400 13px/1 var(--font-mono); letter-spacing: 0.02em; white-space: nowrap; color: var(--ink); text-decoration: none; }
+.topbar .spacer { flex: 1 1 auto; }
+
+
+.tabs { display: flex; gap: 2px; overflow-x: auto; scrollbar-width: none; min-width: 0; }
+.tabs::-webkit-scrollbar { display: none; }
+.tab {
+  flex: none; display: inline-flex; align-items: baseline; gap: 5px;
+  height: 30px; padding: 0 10px; line-height: 28px;
+  border: 1px solid transparent; border-radius: var(--r-control);
+  background: none; color: var(--ink-2); font-size: 13.5px; white-space: nowrap;
+  transition: color var(--t-fast) var(--ease), background-color var(--t-fast) var(--ease);
+}
+.tab .n { font: 400 11px var(--font-mono); color: var(--ink-3); }
+.tab:hover { color: var(--ink); background: var(--wash); }
+.tab[aria-selected="true"], .tab.on {
+  color: var(--ink); font-weight: 500; background: var(--stage); border-color: var(--rule-strong);
+}
+
+
+
+.plate {
+  position: relative;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  pointer-events: none;
+  user-select: none;
+}
+
+.plate-low {
+  height: clamp(180px, 30vw, 420px);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 40%);
+  mask-image: linear-gradient(to bottom, transparent, #000 40%);
+  background-image: url("assets/pokhara/low-day.jpg");
+  background-size: cover;
+}
+
+.plate-arrive {
+  aspect-ratio: 2880 / 1440;
+  min-height: 260px;
+  max-height: 720px;
+  width: 100%;
+  background-image: url("assets/pokhara/arrive-day.jpg");
+  background-size: cover;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 30%);
+  mask-image: linear-gradient(to bottom, transparent, #000 30%);
+}
+
+.plate.tuck { margin-top: -8vw; }
+
+
+@keyframes kit-arrive { from { opacity: 0; filter: blur(10px); transform: translateY(6px); } to { opacity: 1; filter: none; transform: none; } }
+.arrive > * { animation: kit-arrive var(--t-soft) var(--ease) both; }
+.arrive > *:nth-child(2) { animation-delay: calc(var(--stagger) * 1); }
+.arrive > *:nth-child(3) { animation-delay: calc(var(--stagger) * 2); }
+.arrive > *:nth-child(4) { animation-delay: calc(var(--stagger) * 3); }
+.arrive > *:nth-child(n+5) { animation-delay: calc(var(--stagger) * 4); }
+@keyframes kit-plate-in { from { opacity: 0; } to { opacity: 1; } }
+.plate-arrive { animation: kit-plate-in 1200ms var(--ease-cross) both; }
+
+
+.eyebrow {
+  font: 400 var(--t-label)/1.4 var(--font-mono);
+  letter-spacing: var(--track-label); text-transform: uppercase; color: var(--ink-2);
+}
+.display { font: 300 var(--t-display)/var(--lh-display) var(--font-serif); letter-spacing: -0.012em; margin: 0; text-wrap: balance; }
+.title { font: 300 var(--t-title)/var(--lh-title) var(--font-serif); letter-spacing: -0.01em; margin: 0; text-wrap: balance; }
+.section-head { font: 300 var(--t-section)/var(--lh-section) var(--font-serif); margin: 0; text-wrap: balance; }
+.entry-title { font: 400 var(--t-entry)/var(--lh-entry) var(--font-serif); margin: 0; text-wrap: balance; }
+.lead { font-size: var(--t-lead); line-height: var(--lh-lead); color: var(--ink-2); max-width: 66ch; margin: 0; }
+.meta { font-size: var(--t-caption); color: var(--ink-2); }
+.meta-3 { font: 400 var(--t-label) var(--font-mono); color: var(--ink-3); }
+@media (max-width: 640px) {
+  :root { --t-display: 40px; --t-title: 31px; --t-section: 22px; --t-entry: 18px; }
+}
+
+
+.prose { font: 400 var(--t-prose)/var(--lh-prose) var(--font-serif); color: var(--ink); max-width: var(--measure); min-width: 0; overflow-wrap: break-word; }
+.prose h1 { font: 300 32px/1.12 var(--font-serif); margin: 0 0 16px; }
+.prose h2 { font: 300 25px/1.2 var(--font-serif); margin: 40px 0 10px; }
+.prose h3 { font: 500 14px/1.35 var(--font-sans); letter-spacing: 0.01em; margin: 28px 0 6px; }
+.prose h4 { font: 400 var(--t-label)/1.4 var(--font-mono); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--ink-2); margin: 24px 0 6px; }
+.prose p, .prose ul, .prose ol { margin: 0 0 14px; }
+.prose li { margin: 3px 0; }
+.prose strong { font-weight: 600; }
+.prose em { font-style: italic; }
+.prose code { font: 0.78em var(--font-mono); background: var(--surface-2); padding: 1px 4px; border-radius: 3px; word-break: break-word; }
+.prose pre { font-size: 13px; overflow-x: auto; background: var(--stage); border: 1px solid var(--rule); padding: 12px 14px; border-radius: var(--r-card); }
+.prose pre code { background: none; padding: 0; }
+.prose blockquote { margin: 0 0 14px; padding-left: 14px; border-left: 1px solid var(--rule-strong); color: var(--ink-2); }
+.prose hr { border: 0; border-top: 1px solid var(--rule); margin: 32px 0; }
+.prose .tbl { overflow-x: auto; margin: 16px 0; }
+.prose table { font: 13px/1.45 var(--font-sans); }
+
+
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--r-card);
+  padding: 16px 18px;
+  min-width: 0;
+}
+.card.white { background: var(--stage); }
+
+.glass {
+  background: var(--glass);
+  -webkit-backdrop-filter: var(--glass-blur); backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-edge);
+  border-radius: var(--r-card);
+  box-shadow: var(--glass-rim);
+}
+.glass.busy { background: var(--glass-busy); }
+.glass.float { box-shadow: var(--glass-rim), var(--shadow-rest); }
+
+.hr { border: 0; border-top: 1px solid var(--rule); margin: 0; }
+
+
+
+.pill {
+  display: inline-flex; align-items: center; gap: 10px;
+  height: 42px; padding: 0 20px;
+  border: 1px solid transparent; border-radius: var(--r-pill);
+  background: var(--ink); color: var(--ink-inverse);
+  font-size: 15px; white-space: nowrap; text-decoration: none;
+  transition: background-color var(--t-fast) var(--ease), border-color var(--t-fast) var(--ease), color var(--t-fast) var(--ease);
+}
+.pill:hover { background: color-mix(in srgb, var(--ink) 86%, var(--page)); }
+.pill.small { height: 30px; padding: 0 14px; font-size: 13px; }
+.pill.ghost { background: transparent; border-color: var(--rule-strong); color: var(--ink-2); }
+.pill.ghost:hover { border-color: var(--ink-2); color: var(--ink); }
+
+
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  height: 30px; padding: 0 11px;
+  border: 1px solid var(--rule-strong); border-radius: var(--r-control);
+  background: var(--stage); color: var(--ink); font-size: 13px; white-space: nowrap;
+  transition: background-color var(--t-fast) var(--ease), border-color var(--t-fast) var(--ease);
+}
+.btn:hover { background: var(--surface-2); }
+.btn.primary { border-color: var(--ink-3); font-weight: 500; }
+.btn.on, .btn[aria-pressed="true"] { background: var(--surface-2); border-color: var(--ink-2); }
+.btn.rec { color: var(--c-bad); }
+.btn.rec.on { background: var(--c-bad); border-color: var(--c-bad); color: #fff; }
+.btn:disabled { color: var(--ink-3); cursor: default; }
+
+
+.linklike { background: none; border: 0; padding: 0 0 1px; color: var(--ink-2); text-decoration: none;
+  box-shadow: inset 0 -1px 0 var(--ink-3); font-size: inherit; transition: color var(--t-fast) var(--ease); }
+.linklike:hover { color: var(--ink); box-shadow: inset 0 -1px 0 var(--ink); }
+
+
+.chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  height: 26px; padding: 0 11px;
+  border: 1px solid var(--rule-strong); border-radius: var(--r-pill);
+  background: transparent; color: var(--ink-2); font-size: 12.5px; white-space: nowrap;
+  transition: background-color var(--t-fast) var(--ease), color var(--t-fast) var(--ease), border-color var(--t-fast) var(--ease);
+}
+.chip:hover { color: var(--ink); border-color: var(--ink-2); }
+.chip[aria-pressed="true"], .chip.on { background: var(--ink); border-color: var(--ink); color: var(--ink-inverse); }
+.chip .mono, .chip.mono { font-family: var(--font-mono); font-size: 11.5px; }
+
+
+.tag {
+  display: inline-flex; align-items: center; height: 19px; padding: 0 6px;
+  border: 1px solid var(--rule-strong); border-radius: 3px;
+  font: 400 10.5px/1 var(--font-mono); letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink-2);
+  white-space: nowrap;
+}
+
+
+.field, select.field, input.field {
+  height: 34px; padding: 0 10px;
+  border: 1px solid var(--rule-strong); border-radius: var(--r-control);
+  background: var(--stage); color: var(--ink); font-size: 13.5px; min-width: 0;
+}
+.field::placeholder { color: var(--ink-3); }
+.field:focus { outline: none; border-color: var(--ink-2); box-shadow: 0 0 0 3px var(--wash-2); }
+input[type="checkbox"], input[type="radio"], input[type="range"] { accent-color: var(--ink); }
+.check { display: flex; gap: 8px; align-items: center; font-size: 13px; color: var(--ink-2); cursor: pointer; }
+
+
+
+.table, .prose table { border-collapse: collapse; width: 100%; font-size: 13.5px; }
+.table th, .table td, .prose th, .prose td { text-align: left; vertical-align: top; padding: 9px 10px; border-bottom: 1px solid var(--rule); }
+.table th, .prose th {
+  font: 400 var(--t-label)/1.4 var(--font-mono); letter-spacing: var(--track-label); text-transform: uppercase;
+  color: var(--ink-2); border-bottom-color: var(--rule-strong); white-space: nowrap;
+}
+.table td.n, .table th.n { text-align: right; font-variant-numeric: tabular-nums; }
+.table tr.sel td { background: var(--wash-2); }
+.table tr.sel td:first-child { box-shadow: inset 2px 0 0 var(--light); }
+
+
+
+.info { border-left: 1px solid var(--rule-strong); padding: 2px 0 2px 12px; color: var(--ink-2); font-size: var(--t-small); max-width: 80ch; }
+.info.warn { border-left-color: var(--c-fake); }
+
+.i-btn {
+  width: 17px; height: 17px; padding: 0; border-radius: 50%;
+  border: 1px solid #9a8bb8; background: var(--stage); color: var(--c-crit);
+  font: italic 700 12px/15px var(--font-lm-roman); text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+}
+.i-btn:hover, .i-btn.open { background: var(--c-crit); border-color: var(--c-crit); color: #fff; }
+.pop {
+  width: min(360px, calc(100vw - 32px)); max-height: 70vh; overflow-y: auto;
+  background: var(--stage); border: 1px solid #cfc6df; border-radius: var(--r-pop); box-shadow: var(--shadow-pop);
+  padding: 12px 14px 10px; font-size: 13.5px; line-height: 1.45; color: var(--ink);
+}
+.pop h4 { margin: 0 0 6px; font-size: 14.5px; font-weight: 600; }
+.pop p { margin: 0 0 7px; }
+
+.quote { color: var(--c-quote-ink); }
+.quote .src, .src { color: var(--ink-2); font-size: 0.86em; }
+
+
+.key { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: var(--t-caption); color: var(--ink-2); align-items: center; }
+.key span { display: inline-flex; align-items: center; gap: 7px; }
+.key .dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; flex: none; }
+.key .swatch { width: 16px; height: 3px; flex: none; }
+.key .line { width: 16px; height: 0; border-top: 1.5px solid; flex: none; }
+.key .line.dash { border-top-style: dashed; }
+
+
+
+.figure { background: var(--stage); border: 1px solid var(--rule); border-radius: 2px; min-width: 0; }
+.figure.ring { border: 0; box-shadow: var(--shadow-stage); }
+.figure-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; padding: 14px 18px 0; }
+.figure-head .name { font: 700 18px/1.2 var(--font-lm-sans); color: var(--f-ink); }
+.figure-head .desc { font: 400 13px/1.3 var(--font-lm-sans); color: var(--f-gray); }
+.figure-stage { position: relative; display: block; width: 100%; }
+.figure-stage canvas { display: block; width: 100%; height: auto; }
+.figure-foot { padding: 6px 18px 14px; }
+
+.caption { font: 400 var(--t-caption)/var(--lh-caption) var(--font-sans); color: var(--ink-2); max-width: 88ch; margin: 8px 0 0; }
+.figure .caption { font-family: var(--font-lm-sans); color: var(--f-soft); }
+
+.numbers { display: grid; gap: 4px; font-family: var(--font-lm-sans); color: var(--f-ink); }
+.numbers .lbl { font-size: 14px; color: var(--f-soft); }
+.numbers .big { font: 700 var(--t-numeral)/1 var(--font-lm-sans); font-variant-numeric: tabular-nums; }
+.numbers .def { font-size: 11.5px; color: var(--f-gray); }
+.numbers .row { display: grid; grid-template-columns: 12px 1fr auto; gap: 8px; align-items: baseline; font-size: 13.5px; }
+.numbers .row b { font-weight: 700; text-align: right; font-variant-numeric: tabular-nums; }
+.numbers .row i { width: 8px; height: 8px; border-radius: 50%; background: currentColor; display: inline-block; }
+
+
+body.clean { background: var(--stage); }
+body.clean .topbar, body.clean .controls, body.clean .i-btn, body.clean .pop, body.clean .plate { display: none !important; }
+body.clean .figure { border-color: transparent; box-shadow: none; }
+
+
+
+mjx-container[jax="SVG"] { color: inherit; }
+mjx-container[jax="SVG"]:not([display="true"]) { white-space: nowrap; }
+mjx-container[jax="SVG"][display="true"] { display: block; margin: 0.8em 0 !important; overflow-x: auto; overflow-y: hidden; max-width: 100%; padding: 2px 0; }
+mjx-container[jax="SVG"] svg { max-width: none; }
+
+mjx-container[jax="SVG"].mjx-wide { display: block; overflow-x: auto; overflow-y: hidden; max-width: 100%; padding: 2px 0; }
+
+.tex { font-family: var(--font-lm-roman); }
+
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+</style>
+<style>
+/* Layout and components: numbered text tabs, view heads, tables on a white stage, cards with folding parts. Colour only
+   from the design tokens above: ink at rest, one accent for the selection ring or rail. */
+/* the row above the site's own tabs: the collection of experiments, one tab per experiment */
+.xbar{display:flex;align-items:center;gap:var(--s4);height:44px;padding:0 var(--gutter);border-bottom:1px solid var(--rule)}
+.xbar .wordmark{flex-shrink:0}
+html{scroll-padding-top:calc(var(--bar-h) + 12px)}
+:root{--page-max:1320px}
+.topbar .tabs{flex-shrink:1}
+@media (max-width:1000px){.tab .n{display:none}}
+@media (max-width:640px){.topbar{gap:10px}.tab{padding:0 8px;font-size:13px}}
+.viewhead{padding-top:44px;padding-bottom:6px;display:grid;gap:12px;grid-template-columns:minmax(0,1fr)}
+.viewhead .lead{max-width:80ch}
+.hero{padding-top:56px;padding-bottom:12px;display:grid;gap:16px;grid-template-columns:minmax(0,1fr)}
+.foot{margin-top:56px}
+.row{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center}
+.muted{color:var(--ink-2)}
+.faint{color:var(--ink-3)}
+.bad{color:var(--c-bad)}
+.empty{padding:28px 0;color:var(--ink-2)}
+.sec{margin:34px 0;display:grid;gap:12px;grid-template-columns:minmax(0,1fr)}
+.sec h2{font:300 var(--t-section)/var(--lh-section) var(--font-serif);margin:0}
+.sec h3{font:400 18px/1.3 var(--font-serif);margin:0}
+.sec .lead{max-width:84ch;color:var(--ink-2);font-size:14.5px}
+.facts{display:flex;flex-wrap:wrap;gap:6px 22px;margin-top:2px}
+.facts span{font-size:12.5px;color:var(--ink-2)}
+.facts b{font:400 13px var(--font-mono);color:var(--ink);font-weight:400;margin-left:4px}
+.mtabs{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.linkbtn{background:none;border:0;padding:0;font:inherit;color:var(--ink);text-decoration:underline;text-decoration-color:var(--rule-strong);text-underline-offset:3px;cursor:pointer;text-align:left}
+.linkbtn:hover{text-decoration-color:var(--ink)}
+.go{font-size:13px;white-space:nowrap}
+
+/* parts and experiment cards */
+.parts{display:grid;gap:22px;grid-template-columns:minmax(0,1fr)}
+.part{display:grid;gap:12px}
+.part>header{display:flex;flex-wrap:wrap;gap:4px 14px;align-items:baseline}
+.part>header h2{font:300 var(--t-section)/var(--lh-section) var(--font-serif);margin:0}
+.cards{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+.ecard{background:var(--surface);border:1px solid var(--rule);border-radius:var(--r-card);padding:16px 18px;display:grid;gap:8px;align-content:start;min-width:0}
+.ecard .when{font:400 11px/1.4 var(--font-mono);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-2)}
+.ecard h3{font:400 var(--t-entry)/var(--lh-entry) var(--font-serif);margin:0}
+.ecard h3 a{text-decoration:none}
+.ecard h3 a:hover{text-decoration:underline;text-decoration-color:var(--rule-strong)}
+.ecard .q{font-size:13.5px;color:var(--ink-2);line-height:1.5;margin:0}
+.ecard dl{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:3px 12px;margin:2px 0 0;font-size:12.5px}
+.ecard dt{color:var(--ink-2)}
+.ecard dd{margin:0;font-family:var(--font-mono);font-variant-numeric:tabular-nums}
+.ecard .acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+
+/* tables */
+.tablewrap{overflow-x:auto;overscroll-behavior-x:contain;background:var(--stage);border:1px solid var(--rule);border-radius:var(--r-card);max-width:100%}
+.wt{border-collapse:separate;border-spacing:0;font-size:13px;width:100%}
+.wt th,.wt td{padding:8px 10px;text-align:left;vertical-align:top;border-bottom:1px solid var(--rule)}
+.wt th{font:400 10.5px/1.35 var(--font-mono);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-2);border-bottom:1px solid var(--rule-strong);white-space:nowrap;background:var(--stage)}
+.wt td.n,.wt th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.wt td.d{font:400 12px var(--font-mono);white-space:nowrap;color:var(--ink-2)}
+.wt td.t{min-width:220px;max-width:60ch;line-height:1.45}
+.wt tbody tr:last-child td{border-bottom:0}
+.wt tr.shown td:first-child{box-shadow:inset 2px 0 0 var(--light)}
+.wt td.lead1{box-shadow:inset 0 0 0 1px var(--light)}
+.wt .sub{display:block;font-size:11.5px;color:var(--ink-3);margin-top:2px}
+.parttag{font:400 11px var(--font-mono);color:var(--ink-2);white-space:nowrap}
+.defs{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:6px 16px;font-size:13.5px;line-height:1.5;max-width:100ch;margin:0}
+.defs dt{font-weight:500}
+.defs dd{margin:0;color:var(--ink-2)}
+@media (max-width:640px){.defs{grid-template-columns:minmax(0,1fr)}.defs dd{margin-bottom:6px}}
+
+/* the steps of an experiment */
+.steps{display:grid;gap:0;border-top:1px solid var(--rule)}
+.stp{display:grid;grid-template-columns:34px minmax(0,1fr) auto;gap:4px 14px;padding:12px 0;border-bottom:1px solid var(--rule);align-items:baseline}
+.stp .k{font:400 12px var(--font-mono);color:var(--ink-3)}
+.stp .nm{font-size:15px;font-weight:500}
+.stp .asks{grid-column:2;font-size:13.5px;color:var(--ink-2);line-height:1.5;max-width:90ch}
+.stp .meta{grid-column:2;display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12px;color:var(--ink-3)}
+.stp .meta b{font:400 12px var(--font-mono);color:var(--ink-2);font-weight:400}
+.stp .open{grid-row:1 / span 2;grid-column:3;align-self:center}
+@media (max-width:640px){.stp{grid-template-columns:26px minmax(0,1fr)}.stp .open{grid-column:2;grid-row:auto;justify-self:start;margin-top:6px}}
+details.grp{border-top:1px solid var(--rule)}
+details.grp>summary{cursor:pointer;padding:12px 0;font-size:14px;color:var(--ink-2)}
+details.grp>summary b{color:var(--ink);font-weight:500}
+.artlist{display:grid;gap:0;border-top:1px solid var(--rule);max-width:110ch}
+.art{display:grid;grid-template-columns:52px 96px minmax(0,1fr) auto;gap:4px 12px;padding:8px 0;border-bottom:1px solid var(--rule);font-size:13.5px;align-items:baseline}
+.art .lb{font:400 12px var(--font-mono);color:var(--ink-3)}
+.art .dt{font:400 12px var(--font-mono);color:var(--ink-2)}
+.art .hd{line-height:1.45}
+.art .src{font-size:12px;color:var(--ink-2);white-space:nowrap}
+@media (max-width:640px){.art{grid-template-columns:44px minmax(0,1fr)}.art .dt,.art .src{grid-column:2}}
+
+/* the prompt reader */
+.pr{display:grid;grid-template-columns:240px minmax(0,1fr);gap:36px;margin-top:22px;align-items:start}
+@media (max-width:980px){.pr{grid-template-columns:minmax(0,1fr);gap:18px}}
+.pr>nav{position:sticky;top:calc(var(--bar-h) + 16px);max-height:calc(100vh - var(--bar-h) - 32px);overflow-y:auto;display:flex;flex-direction:column;gap:1px}
+@media (max-width:980px){.pr>nav{position:static;max-height:none;flex-direction:row;flex-wrap:wrap;gap:4px}}
+.pr>nav .grpl{font:400 10.5px/1.4 var(--font-mono);letter-spacing:.09em;text-transform:uppercase;color:var(--ink-2);margin:14px 0 4px 10px}
+.pr>nav .grpl:first-child{margin-top:0}
+@media (max-width:980px){.pr>nav .grpl{width:100%;margin:8px 0 0}}
+.pr>nav details>summary{cursor:pointer;list-style:none;font:400 10.5px/1.4 var(--font-mono);letter-spacing:.09em;text-transform:uppercase;color:var(--ink-2);padding:4px 0 8px}
+.pr>nav details>summary::-webkit-details-marker{display:none}
+@media (min-width:981px){.pr>nav details>summary{display:none}}
+@media (max-width:980px){.pr>nav details>summary{border:1px solid var(--rule-strong);border-radius:var(--r-control);padding:8px 12px;letter-spacing:.06em}.pr>nav .navin{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}}
+.pr>nav a{display:block;text-decoration:none;padding:7px 10px;color:var(--ink-2);font-size:13px;line-height:1.35;border-left:1px solid var(--rule)}
+.pr>nav a small{display:block;font:400 10.5px var(--font-mono);color:var(--ink-3)}
+.pr>nav a:hover{color:var(--ink)}
+.pr>nav a[aria-current="true"]{color:var(--ink);border-left:2px solid var(--light);padding-left:9px;background:var(--wash)}
+@media (max-width:980px){.pr>nav a{border:1px solid var(--rule-strong);border-radius:var(--r-control)}.pr>nav a[aria-current="true"]{border:1px solid var(--ink-2);padding-left:10px}}
+.prmain{min-width:0;display:grid;gap:18px;grid-template-columns:minmax(0,1fr)}
+.prhead{display:grid;gap:8px}
+.prhead h2{font:300 var(--t-section)/var(--lh-section) var(--font-serif);margin:0}
+.prhead .asks{font-size:15px;line-height:1.6;max-width:84ch}
+.choose{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:8px 14px;align-items:baseline}
+.choose .lab{font:400 10.5px/1.4 var(--font-mono);letter-spacing:.09em;text-transform:uppercase;color:var(--ink-2);padding-top:5px}
+@media (max-width:640px){.choose{grid-template-columns:minmax(0,1fr);gap:4px}.choose .lab{padding-top:8px}}
+.chip.far{border-style:dashed;color:var(--ink-3)}
+.chip.far:hover{color:var(--ink);border-style:solid}
+.callbar{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;padding:10px 14px;background:var(--surface);border:1px solid var(--rule);border-radius:var(--r-card)}
+.callbar .who{font-size:13px;color:var(--ink-2)}
+.callbar .who b{font-weight:500;color:var(--ink)}
+.callbar .sp{flex:1 1 auto}
+.view-switch{display:inline-flex;border:1px solid var(--rule-strong);border-radius:var(--r-control);overflow:hidden}
+.view-switch button{border:0;background:var(--stage);padding:0 12px;height:30px;font-size:13px;color:var(--ink-2)}
+.view-switch button+button{border-left:1px solid var(--rule-strong)}
+.view-switch button[aria-pressed="true"]{background:var(--ink);color:var(--ink-inverse)}
+.msg{display:grid;gap:6px}
+.msg>.who{font:400 10.5px/1.4 var(--font-mono);letter-spacing:.09em;text-transform:uppercase;color:var(--ink-2);display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.msg>.who .cnt{letter-spacing:0;text-transform:none;color:var(--ink-3)}
+.paper{background:var(--stage);border:1px solid var(--rule);border-radius:var(--r-card);padding:18px 20px;display:grid;gap:12px;min-width:0}
+.paper.sys{background:var(--surface-2);padding:12px 16px}
+.paper p{margin:0;font-size:15px;line-height:1.65;white-space:pre-wrap;overflow-wrap:anywhere;max-width:86ch}
+.paper.sys p{font-size:14px}
+.paper .fmt{font:400 12.5px/1.6 var(--font-mono);white-space:pre-wrap;overflow-wrap:anywhere;color:var(--ink);background:var(--surface);border:1px solid var(--rule);border-radius:4px;padding:8px 10px}
+.paper .fmt::before{content:"Reply format";display:block;font:400 10px/1.4 var(--font-mono);letter-spacing:.09em;text-transform:uppercase;color:var(--ink-2);margin-bottom:4px}
+.ph{font:400 .92em var(--font-mono);background:var(--c-crit-block);border-radius:3px;padding:0 4px;color:var(--ink)}
+.blk{border:1px solid var(--rule);border-radius:var(--r-card);background:var(--surface)}
+.blk>summary{cursor:pointer;list-style:none;padding:10px 14px;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;font-size:14px}
+.blk>summary::-webkit-details-marker{display:none}
+.blk>summary::before{content:"+";font:400 13px var(--font-mono);color:var(--ink-3);width:12px}
+.blk[open]>summary::before{content:"−"}
+.blk>summary b{font-weight:500}
+.blk>summary .cnt{color:var(--ink-3);font-size:12.5px}
+.blk .inner{padding:0 14px 12px;display:grid;gap:0}
+.arow{display:grid;grid-template-columns:40px 92px minmax(0,1fr) auto;gap:2px 12px;padding:7px 0;border-top:1px solid var(--rule);font-size:13.5px;align-items:baseline}
+.arow .lb{font:400 12px var(--font-mono);color:var(--ink-3)}
+.arow .dt{font:400 12px var(--font-mono);color:var(--ink-2)}
+.arow .w{font:400 11.5px var(--font-mono);color:var(--ink-3);white-space:nowrap}
+@media (max-width:640px){.arow{grid-template-columns:36px minmax(0,1fr)}.arow .dt,.arow .w{grid-column:2}}
+.srow{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:2px 12px;padding:6px 0;border-top:1px solid var(--rule);font-size:14px;line-height:1.5;align-items:baseline}
+.srow .id{font:400 12px var(--font-mono);color:var(--ink-3)}
+.srow .v{font:400 12.5px var(--font-mono);white-space:nowrap;text-align:right}
+.srow .m{grid-column:2;font-size:12px;color:var(--ink-3)}
+.pos{color:var(--c-real)}.neg{color:var(--c-neg-ink)}
+.more{justify-self:start;margin-top:8px}
+.copyok{font-size:12.5px;color:var(--ink-2)}
+.raw{margin:0;background:var(--stage);border:1px solid var(--rule);border-radius:var(--r-card);padding:12px 14px;font:400 12.5px/1.6 var(--font-mono);white-space:pre-wrap;overflow-wrap:anywhere;max-height:560px;overflow-y:auto}
+.ans{display:grid;grid-template-columns:28px minmax(0,1fr);gap:2px 10px;padding:8px 0;border-top:1px solid var(--rule)}
+.ans .sn{font:400 11.5px var(--font-mono);color:var(--ink-3);padding-top:3px}
+.ans .tx{font-size:15px;line-height:1.55;max-width:84ch}
+.ans .rs{grid-column:2;font:400 11.5px var(--font-mono);color:var(--ink-3)}
+.note{border-left:2px solid var(--rule-strong);padding:4px 0 4px 12px;font-size:13.5px;color:var(--ink-2);max-width:90ch}
+.pager{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.pager .btn{max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.idx{display:grid;gap:26px}
+.idx .ex h3{font:400 var(--t-entry)/var(--lh-entry) var(--font-serif);margin:0 0 6px}
+.idx .ex ol{margin:0;padding-left:22px;display:grid;gap:4px;font-size:14px}
+.idx .ex li small{color:var(--ink-3);font:400 11.5px var(--font-mono);margin-left:6px}
+/* networks across articles: one run at a time, the record drawn as a network beside its full list */
+.qs{margin:0;padding-left:0;list-style:none;display:grid;gap:6px;font-size:15px;line-height:1.5;max-width:90ch}
+.qs .mono{font:400 12px var(--font-mono);margin-right:8px}
+.rcs{display:flex;gap:4px}
+.rc{display:inline-grid;place-items:center;min-width:30px;height:26px;border:1px solid var(--rule-strong);border-radius:var(--r-control);font:400 12px var(--font-mono);text-decoration:none;color:var(--ink)}
+.rc:hover{background:var(--surface-2);border-color:var(--ink-2)}
+.runq{font:300 clamp(22px,2.6vw,30px)/1.3 var(--font-serif);margin:0;max-width:46ch}
+.pick{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:8px 14px;align-items:baseline}
+.pick .lab{font:400 10.5px/1.4 var(--font-mono);letter-spacing:.09em;text-transform:uppercase;color:var(--ink-2);padding-top:5px}
+@media (max-width:640px){.pick{grid-template-columns:minmax(0,1fr);gap:4px}}
+.chip{text-decoration:none}
+.stepbar{display:flex;flex-wrap:wrap;border:1px solid var(--rule-strong);border-radius:var(--r-control);overflow:hidden;justify-self:start;max-width:100%}
+.stepbar button{border:0;background:var(--stage);padding:8px 14px;font-size:13.5px;color:var(--ink-2);cursor:pointer}
+.stepbar button+button{border-left:1px solid var(--rule-strong)}
+.stepbar button[aria-pressed="true"]{background:var(--ink);color:var(--ink-inverse)}
+.artline{font-size:13.5px;color:var(--ink-2);line-height:1.5;max-width:100ch}
+.artline b{font-weight:500;color:var(--ink)}
+.runbody{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:28px;align-items:start}
+@media (max-width:980px){.runbody{grid-template-columns:minmax(0,1fr)}}
+.netbox{background:var(--stage);border:1px solid var(--rule);border-radius:var(--r-card);padding:8px 8px 4px;position:sticky;top:calc(var(--bar-h) + 12px)}
+@media (max-width:980px){.netbox{position:static}}
+.netbox svg{display:block;width:100%;height:auto;max-height:calc(100vh - var(--bar-h) - 110px)}
+.netbox .key{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:12px;color:var(--ink-2);padding:6px 8px 4px;border-top:1px solid var(--rule)}
+.key i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:-1px}
+.key s{display:inline-block;width:18px;height:0;border-top:2px solid;margin-right:5px;vertical-align:3px;text-decoration:none}
+.node circle{stroke:var(--ink-2);stroke-width:1;cursor:pointer}
+.node text{font:400 14px var(--font-mono);fill:var(--ink-2);pointer-events:none}
+.node.new circle{stroke:var(--light);stroke-width:2.5}
+.node.dropped circle{fill:var(--stage)!important;stroke:var(--ink-3);stroke-dasharray:2 2}
+.node.on circle{stroke:var(--ink);stroke-width:2.5}
+.node:focus{outline:none}.node:focus-visible circle{stroke:var(--ink);stroke-width:2.5}
+.lk{fill:none;stroke-linecap:round;opacity:.7}
+.lk.s,.ah.s{stroke:var(--c-real);fill:var(--c-real)}.lk.s{fill:none}
+.lk.a,.ah.a{stroke:var(--c-neg);fill:var(--c-neg)}.lk.a{fill:none}
+.node.dimmed,.lk.dimmed{opacity:.1}
+.plist{display:grid;min-width:0}
+.plist .cnt{font-size:12.5px;color:var(--ink-3);padding:0 6px 8px}
+.prow{display:grid;grid-template-columns:40px minmax(0,1fr) 40px;gap:2px 10px;padding:8px 6px;border-top:1px solid var(--rule);font-size:14.5px;line-height:1.5;cursor:pointer;border-radius:4px}
+.prow:hover{background:var(--wash)}
+.prow.on{background:var(--wash-2)}
+.prow .id{font:400 12px var(--font-mono);color:var(--ink-3);padding-top:3px}
+.prow .att{font:400 13px var(--font-mono);text-align:right;padding-top:2px}
+.prow .chg{grid-column:2;font:400 11.5px var(--font-mono);color:var(--ink-3)}
+.prow.dropped .tx{text-decoration:line-through;text-decoration-color:var(--ink-3);color:var(--ink-2)}
+.prow.isnew .chg{color:var(--light)}
+.sent{display:grid;grid-template-columns:28px minmax(0,1fr);gap:2px 10px;padding:9px 6px;border-top:1px solid var(--rule);cursor:pointer;border-radius:4px}
+.sent:hover{background:var(--wash)}
+.sent.on{background:var(--wash-2)}
+.sent .sn{font:400 11.5px var(--font-mono);color:var(--ink-3);padding-top:3px}
+.sent .tx{font-size:15px;line-height:1.55}
+.sent .rs{grid-column:2;font:400 11.5px var(--font-mono);color:var(--ink-3)}
+.runnav{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}
+.thumbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.thumb{display:grid;gap:4px;align-content:start;background:var(--stage);border:1px solid var(--rule);border-radius:var(--r-card);padding:8px;text-decoration:none;color:var(--ink);min-width:0}
+.thumb:hover{border-color:var(--ink-2)}
+.thumb svg{display:block;width:100%;height:auto}
+.thumb .tc{font-size:12px;line-height:1.35;color:var(--ink)}
+.thumb .tn{font:400 11px var(--font-mono);color:var(--ink-3)}
+.find{width:100%;max-width:560px;height:38px;padding:0 12px;border:1px solid var(--rule-strong);border-radius:var(--r-control);background:var(--stage);font:inherit;font-size:15px;color:var(--ink)}
+.find:focus{outline:2px solid var(--light);outline-offset:1px}
+.hits{display:grid;max-width:110ch}
+.hits .cnt{font-size:12.5px;color:var(--ink-3);margin:4px 0 6px}
+.hit{display:grid;grid-template-columns:40px minmax(0,1fr);gap:2px 10px;padding:8px 4px;border-top:1px solid var(--rule);text-decoration:none;color:var(--ink);border-radius:4px}
+.hit:hover{background:var(--wash)}
+.hit .att{font:400 13px var(--font-mono);text-align:right;padding-top:1px}
+.hit .tx{font-size:14.5px;line-height:1.5}
+.hit .rn{grid-column:2;font:400 11.5px var(--font-mono);color:var(--ink-3)}
+.netbox .cap{min-height:0;padding:0 8px;font-size:14px;line-height:1.5}
+.netbox .cap:not(:empty){padding:10px 8px;border-top:1px solid var(--rule)}
+.netbox .cap .id{font:400 12px var(--font-mono);color:var(--ink-3)}
+.netbox .cap .att{font:400 13px var(--font-mono)}
+.netbox .cap .ls{display:block;font:400 11.5px/1.5 var(--font-mono);color:var(--ink-2);margin-top:4px}
+.sub3{font:400 17px/1.3 var(--font-serif);margin:26px 6px 6px}
+.mh{font:400 16px/1.3 var(--font-serif);margin:14px 0 8px}
+.mh:first-child{margin-top:0}
+.strip{width:100px;height:14px;vertical-align:middle;flex-shrink:0}
+.strip line{stroke:var(--rule-strong);stroke-width:1}
+.strip .sp{fill:var(--c-real);fill-opacity:.55}.strip .sn{fill:var(--c-neg);fill-opacity:.55}.strip .s0{fill:var(--ink-3)}
+.nul{font:400 10.5px var(--font-mono);color:var(--ink-3);margin-left:6px;white-space:nowrap}
+.stt td.sv{white-space:nowrap;vertical-align:middle}
+.stt .md{display:inline-block;min-width:34px;font:400 12.5px var(--font-mono);text-align:right;margin-right:8px}
+.prow .chg .strip{width:90px;margin-left:4px}
+.rels{margin:6px 0 0;padding-left:18px;display:grid;gap:4px}
+.p1arts .art{background:none;border:0;border-bottom:1px solid var(--rule);font:inherit;color:var(--ink);text-align:left;cursor:pointer;width:100%;border-radius:0}
+.p1arts .art:hover{background:var(--wash)}
+.p1arts .art.on{background:var(--wash-2);box-shadow:inset 2px 0 0 var(--light)}
+.p1arts .art.asked .lb{color:var(--ink)}
+.slist{display:grid;margin-top:12px;max-width:120ch}
+.slist .cnt{font-size:12.5px;color:var(--ink-3);padding:0 4px 8px}
+.srow2{display:grid;grid-template-columns:40px minmax(0,1fr) auto;gap:2px 12px;padding:8px 4px;border-top:1px solid var(--rule);font-size:14.5px;line-height:1.5;border-radius:4px}
+.srow2 .n{font:400 12px var(--font-mono);color:var(--ink-3);padding-top:3px}
+.srow2 .ci{font:400 11.5px var(--font-mono);color:var(--ink-2);padding-top:3px;white-space:nowrap}
+.srow2 .m{grid-column:2 / span 2;font:400 11.5px var(--font-mono);color:var(--ink-3)}
+.srow2.on{background:var(--wash-2);box-shadow:inset 2px 0 0 var(--light)}
+#pgroups{display:grid;max-width:120ch}
+#pgroups .cnt{font-size:12.5px;color:var(--ink-3);margin-bottom:6px}
+.grow{border-top:1px solid var(--rule)}
+.grow>summary{cursor:pointer;list-style:none;display:grid;grid-template-columns:62px minmax(0,1fr) auto;gap:2px 12px;padding:8px 4px;font-size:14.5px;line-height:1.5}
+.grow>summary::-webkit-details-marker{display:none}
+.grow>summary:hover{background:var(--wash)}
+.grow .gn{font:400 12px var(--font-mono);color:var(--ink-2);padding-top:3px;white-space:nowrap}
+.grow .tag{font:400 11px var(--font-mono);color:var(--ink-2);border:1px solid var(--rule-strong);border-radius:3px;padding:1px 6px;align-self:start;white-space:nowrap}
+.grow .gm{display:grid;gap:6px;padding:4px 4px 12px 78px;font-size:13.5px;line-height:1.5;color:var(--ink-2)}
+.grow .gm .faint{font:400 11px var(--font-mono);margin-right:6px}
+@media (max-width:640px){.grow>summary{grid-template-columns:52px minmax(0,1fr)}.grow .tag{grid-column:2;justify-self:start}.grow .gm{padding-left:4px}.srow2{grid-template-columns:32px minmax(0,1fr)}.srow2 .ci{grid-column:2}}
+.ovc{display:grid;grid-template-columns:150px minmax(0,1fr);gap:18px;align-items:center;background:var(--surface);border:1px solid var(--rule);border-radius:var(--r-card);padding:16px 18px;text-decoration:none;color:var(--ink)}
+.ovc:hover{border-color:var(--ink-2)}
+.ovc .ovp{display:block;background:var(--stage);border:1px solid var(--rule);border-radius:var(--r-card);padding:6px}
+.ovc .ovp svg{display:block;width:100%;height:auto}
+.ovc .ovt{display:grid;gap:6px;grid-column:2}
+.ovc .ovh{font:400 var(--t-entry)/var(--lh-entry) var(--font-serif)}
+.ovc .ovd{font-size:14px;color:var(--ink-2);line-height:1.55;max-width:80ch}
+@media (max-width:640px){.ovc{grid-template-columns:minmax(0,1fr)}.ovc .ovp{width:140px}.ovc .ovt{grid-column:1}}
+.node.focal circle{stroke:var(--ink);stroke-width:3}
+.thumb .node.focal circle{stroke-width:7}
+.node text.hide{display:none}
+.node.on text.hide,.node.focal text.hide,.node:hover text.hide{display:inline}
+.traj{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:baseline;font:400 13px var(--font-mono)}
+.traj .lab{font:400 10.5px/1.4 var(--font-mono);letter-spacing:.09em;text-transform:uppercase;color:var(--ink-2);margin-right:2px}
+.traj .lab+span{margin-left:0}
+.traj span.on{text-decoration:underline;text-decoration-color:var(--light);text-decoration-thickness:2px;text-underline-offset:4px}
+.traj .lab:not(:first-child){margin-left:14px}
+.popcs{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.popc{display:grid;justify-items:center;gap:6px;background:var(--stage);border:1px solid var(--rule);border-radius:var(--r-card);padding:10px;text-decoration:none;color:var(--ink);text-align:center}
+.popc:hover{border-color:var(--ink-2)}
+.popc .tc{font-size:12px;line-height:1.35}
+.popc{min-width:0}.popc svg.soc{width:96px;height:96px}
+.agbar svg.soc{width:120px;height:120px;flex-shrink:0}
+.soc line{stroke:var(--rule-strong);stroke-width:1.2}
+.soc .ag circle{fill:var(--stage);stroke:var(--ink-2);stroke-width:1.6;cursor:pointer}
+.soc .ag text{font:400 9px var(--font-mono);fill:var(--ink-2);pointer-events:none}
+.soc .ag.on circle{fill:var(--ink);stroke:var(--ink)}
+.soc .ag.on text{fill:var(--ink-inverse)}
+.agents{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:8px}
+@media (max-width:980px){.agents{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.agent{display:grid;gap:3px;background:var(--stage);border:1px solid var(--rule);border-radius:var(--r-card);padding:6px;text-align:left;cursor:pointer;min-width:0;font:inherit;color:var(--ink)}
+.agent:hover{border-color:var(--ink-2)}
+.agent.on{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.agent svg{display:block;width:100%;height:auto}
+.agent .tc{font-size:12px}.agent .tn{font-size:11px;color:var(--ink-3);line-height:1.3}
+.agbar{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.tc2:not(:empty){padding:8px;border-top:1px solid var(--rule)}
+.tcl{font-size:12px;color:var(--ink-2);margin-bottom:4px}
+.tchart{display:block;width:100%;max-width:420px;height:auto}
+.tchart text{font:400 8px var(--font-mono);fill:var(--ink-3)}
+.tchart .ax{stroke:var(--rule-strong)}
+.tchart .al{fill:none;stroke:var(--ink-3);stroke-width:1.2;opacity:.7}
+.tchart .al.on{stroke:var(--ink);stroke-width:2.2;opacity:1}
+.tchart .ad{fill:var(--ink-3)}.tchart .ad.on{fill:var(--ink)}
+</style>
+</head>
+<body>
+<a class="sr-only" href="#main">Skip to the content</a>
+<div class="xbar">
+  <span class="wordmark">Experiments</span>
+  <nav class="tabs" aria-label="Experiments"><a class="tab on" href="./#/" aria-current="page">Belief networks</a></nav>
+</div>
+<header class="topbar">
+  <nav class="tabs" role="tablist" aria-label="Views">
+    <button class="tab" role="tab" data-view="home"><span class="n">1</span>Overview</button>
+    <button class="tab" role="tab" data-view="p1"><span class="n">2</span>Propositions from articles</button>
+    <button class="tab" role="tab" data-view="cal"><span class="n">3</span>Networks over a fixed list</button>
+    <button class="tab" role="tab" data-view="x3"><span class="n">4</span>Ratings over rounds</button>
+    <button class="tab" role="tab" data-view="runs"><span class="n">5</span>Networks across articles</button>
+  </nav>
+</header>
+<main id="main">
+<section id="view" aria-live="polite"></section>
+<div class="plate plate-low foot" role="presentation"></div>
+</main>
+
+<script>
+const $ = (s, el=document) => el.querySelector(s);
+const $$ = (s, el=document) => [...el.querySelectorAll(s)];
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const enc = encodeURIComponent;
+const fmtN = n => n==null || n==="" ? "" : Number(n).toLocaleString("en-US");
+const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+const MON3 = MONTHS.map(m => m.slice(0,3));
+const dayOf = t => t ? t.slice(0,10) : "";
+const dLong = t => { if(!t) return ""; const [y,m,d] = t.slice(0,10).split("-").map(Number); return d + " " + MONTHS[m-1] + " " + y; };
+const dShort = t => { if(!t) return ""; const [y,m,d] = t.slice(0,10).split("-").map(Number); return d + " " + MON3[m-1]; };
+const hm = t => t && t.length > 11 ? t.slice(11,16) : "";
+function span(a, b){
+  if(!a) return "";
+  if(!b || dayOf(a)===dayOf(b)) return dLong(a) + (hm(a) ? ", " + hm(a) + (b && hm(b) && hm(b)!==hm(a) ? " to " + hm(b) : "") : "");
+  return dLong(a) + ", " + hm(a) + " to " + dLong(b) + ", " + hm(b);
+}
+async function getJSON(u){ const r = await fetch(u); if(!r.ok) throw new Error(u + " " + r.status); return r.json(); }
+const plural = (n, one, many) => fmtN(n) + " " + (n===1 ? one : (many || one + "s"));
+
+let SITE = null;
+const CALLS = new Map();
+async function loadCalls(id){ if(!CALLS.has(id)) CALLS.set(id, await getJSON(SITE.files.calls[id])); return CALLS.get(id); }
+const EXP = id => SITE.experiments[id];
+const PART = p => SITE.parts.find(x => x.id===p);
+
+/* ------------------------------------------------------------------ routing */
+function parseHash(){ const h = location.hash.replace(/^#\/?/, ""); const k = h.indexOf("?"); const p = k<0 ? h : h.slice(0,k), q = k<0 ? "" : h.slice(k+1);
+  return {parts: p.split("/").filter(Boolean).map(x => { try{ return decodeURIComponent(x); }catch(e){ return x; } }), params: new URLSearchParams(q)}; }
+function setAddr(path, params){ const q = params && [...params.keys()].length ? "?" + params.toString() : ""; const h = "#" + path + q; if(location.hash !== h) history.replaceState(null, "", h); }
+function route(){
+  const {parts, params} = parseHash();
+  let tab = "home", r;
+  const view = $("#view");
+  try{
+    if(!parts[0]){ r = openOverview(view); }
+    else if(parts[0]==="part"){ tab = parts[1]==="i" ? "p1" : parts[1]==="iii" ? "runs" : "cal"; r = parts[1]==="i" ? openP1(view, "exp1", params) : parts[1]==="iii" ? openRuns(view, params) : openCal(view, "aidc", params); }
+    else if(parts[0]==="e" && parts[2]==="p"){ tab = TAB_OF[parts[1]] || ""; r = openPrompt(view, parts[1], parts[3], params); }
+    else if(parts[0]==="e"){ tab = TAB_OF[parts[1]] || ""; r = openExp(view, parts[1]); }
+    else if(parts[0]==="prompts"){ tab = ""; r = openPromptIndex(view); }
+    else if(parts[0]==="all"){ tab = ""; r = openAll(view); }
+    else if(parts[0]==="p1"){ tab = "p1"; r = openP1(view, parts[1], params); }
+    else if(parts[0]==="runs"){ tab = "runs"; r = openRuns(view, params); }
+    else if(parts[0]==="run"){ tab = "runs"; r = openRun(view, parts[1], params); }
+    else if(parts[0]==="cal" && parts[2]==="net"){ tab = "cal"; r = openCalNet(view, parts[1], params); }
+    else if(parts[0]==="cal"){ tab = "cal"; r = openCal(view, parts[1], params); }
+    else if(parts[0]==="x3" && parts[1]==="a"){ tab = "x3"; r = openX3Chain(view, parts[2], params); }
+    else if(parts[0]==="x3" && parts[1]==="b"){ tab = "x3"; r = openX3Pop(view, parts[2], params); }
+    else if(parts[0]==="x3"){ tab = "x3"; r = openX3(view, params); }
+    else r = openOverview(view);
+  }catch(e){ fail(e); }
+  $$(".topbar .tab").forEach(t => t.setAttribute("aria-selected", t.dataset.view===tab ? "true" : "false"));
+  Promise.resolve(r).catch(fail);
+}
+function fail(e){ window.__ERRS = (window.__ERRS||[]).concat(String(e && e.stack || e)); $("#view").insertAdjacentHTML("afterbegin", `<div class="wrap"><p class="empty bad">This page could not be drawn: ${esc(e && e.message || e)}</p></div>`); }
+function go(hash){ if(location.hash === "#" + hash) route(); else location.hash = hash; }
+$$(".topbar .tab").forEach(t => t.addEventListener("click", () => {
+  const v = t.dataset.view; go(v==="home" ? "/" : "/" + v);
+}));
+window.addEventListener("hashchange", () => { route(); window.scrollTo(0, 0); });
+window.addEventListener("scroll", () => { document.documentElement.dataset.bar = window.scrollY > 6 ? "veil" : ""; }, {passive:true});
+function title(t){ document.title = (t ? t + " · " : "") + "Belief networks · Experiments"; }
+
+/* ------------------------------------------------------------------ pieces */
+function figures(e){
+  const f = e.figures || [];
+  return `<dl>${f.map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join("")}</dl>`;
+}
+function card(e){
+  return `<article class="ecard">
+    <div class="when">${esc(span(e.first, e.last))}</div>
+    <h3><a href="#/e/${e.id}">${esc(e.title)}</a></h3>
+    ${e.question ? `<p class="q">${esc(e.question)}</p>` : ""}
+    ${figures(e)}
+    <div class="acts"><a class="btn" href="#/e/${e.id}">Open</a><a class="btn" href="#/e/${e.id}/p/${enc(e.steps[0].key)}">See the prompts</a></div>
+  </article>`;
+}
+function partBlock(p, withLead){
+  return `<section class="part" aria-labelledby="ph-${p.id}">
+    <header><span class="eyebrow">Part ${esc(p.id)}</span><h2 id="ph-${p.id}"><a href="#/part/${p.id}" style="text-decoration:none">${esc(p.name)}</a></h2></header>
+    ${withLead && p.lead ? `<p class="lead">${esc(p.lead)}</p>` : ""}
+    <div class="cards">${p.exps.map(id => card(EXP(id))).join("")}</div>
+  </section>`;
+}
+
+/* ------------------------------------------------------------------ 1 overview */
+
+/* ------------------------------------------------------------------ 2 to 4 a part: the experiments side by side */
+function openPart(v, pid){
+  const p = PART(pid); if(!p) return openOverview(v);
+  title(p.name);
+  const ex = p.exps.map(EXP);
+  const rows = p.compare || [];
+  const best = rows.map(r => { const vals = ex.map(e => (e.measures||{})[r.key]); const mx = Math.max(...vals.filter(x => typeof x === "number")); return vals.map(x => ex.length > 1 && typeof x === "number" && x === mx && x > 0); });
+  v.innerHTML = `<div class="wrap viewhead">
+      <h1 class="title">${esc(p.name)}</h1>
+      ${p.lead ? `<p class="lead">${esc(p.lead)}</p>` : ""}
+    </div>
+    <div class="wrap">
+      <div class="cards" style="margin-top:18px">${ex.map(card).join("")}</div>
+      ${rows.length ? `<div class="sec"><h2>${ex.length > 1 ? "Side by side" : "The figures"}</h2>
+        ${ex.length > 1 ? `<p class="lead">Each figure is counted from the experiment's own call records. A ring marks the largest value in each row.</p>` : ""}
+        <div class="tablewrap"><table class="wt"><thead><tr><th>Measure</th>${ex.map(e => `<th class="n"><a href="#/e/${e.id}">${esc(e.short)}</a></th>`).join("")}</tr></thead>
+        <tbody>${rows.map((r, i) => `<tr><td class="t">${esc(r.label)}${r.def ? `<span class="sub">${esc(r.def)}</span>` : ""}</td>${ex.map((e, j) => { const x = (e.measures||{})[r.key]; return `<td class="n${best[i][j] ? " lead1" : ""}">${x==null ? `<span class="faint">none</span>` : esc(typeof x==="number" ? fmtN(x) : x)}</td>`; }).join("")}</tr>`).join("")}</tbody></table></div></div>` : ""}
+    </div>`;
+}
+
+/* ------------------------------------------------------------------ an experiment */
+function stepRow(e, s, i){
+  return `<div class="stp">
+    <span class="k">${i+1}</span>
+    <span class="nm">${esc(s.label)}</span>
+    <a class="btn open" href="#/e/${e.id}/p/${enc(s.key)}">See the prompt</a>
+    ${s.asks ? `<span class="asks">${esc(s.asks)}</span>` : ""}
+    <span class="meta"><span>requests<b> ${fmtN(s.n)}</b></span><span>${esc(s.models.join(", "))}</span><span>${esc(span(s.first, s.last))}</span></span>
+    ${s.partial ? `<span class="meta">${esc(s.partial)}</span>` : ""}
+  </div>`;
+}
+function openExp(v, id){
+  const e = EXP(id); if(!e) return openOverview(v);
+  title(e.short);
+  const groups = [];
+  e.steps.forEach((s, i) => { const g = s.group || ""; let G = groups.find(x => x.name===g); if(!G){ G = {name: g, steps: []}; groups.push(G); } G.steps.push([s, i]); });
+  const stepsHTML = groups.map((G, gi) => {
+    const inner = `<div class="steps">${G.steps.map(([s, i]) => stepRow(e, s, i)).join("")}</div>`;
+    if(gi===0 || !G.name) return (G.name ? `<h3>${esc(G.name)}</h3>` : "") + inner;
+    return `<details class="grp"><summary><b>${esc(G.name)}</b> · ${plural(G.steps.length, "step")}, ${plural(G.steps.reduce((a, [s]) => a + s.n, 0), "request")}</summary>${inner}</details>`;
+  }).join("");
+  v.innerHTML = `<div class="wrap viewhead">
+      <h1 class="title">${esc(e.title)}</h1>
+      ${e.question ? `<p class="lead">${esc(e.question)}</p>` : ""}
+      <div class="facts">${(e.figures||[]).map(([k, x]) => `<span>${esc(k)}<b>${esc(x)}</b></span>`).join("")}</div>
+      ${RESULT_OF[e.id] ? `<div class="row"><a class="btn primary" href="${RESULT_OF[e.id]}">See the results</a></div>` : ""}
+    </div>
+    <div class="wrap">
+      ${e.about && e.about.length ? `<div class="sec"><h2>Design</h2><ul class="plain" style="margin:0;padding-left:18px;display:grid;gap:6px;max-width:92ch;font-size:14.5px;line-height:1.55">${e.about.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>` : ""}
+      <div class="sec"><h2>Requests, in the order they were sent</h2>
+        <p class="lead">Each step opens to one request as sent to the model, with the response.</p>
+        ${stepsHTML}
+      </div>
+      ${e.articles && e.articles.length ? `<div class="sec"><h2>The articles</h2>
+        <div class="artlist">${e.articles.map(a => `<div class="art"><span class="lb">${esc(a.label || "")}</span><span class="dt">${esc(a.date || "")}</span><span class="hd">${esc(a.headline || "")}</span><span class="src">${a.url ? `<a href="${esc(a.url)}" rel="noopener noreferrer" target="_blank">${esc(a.outlet || "source")}</a>` : esc(a.outlet || "")}</span></div>`).join("")}</div></div>` : ""}
+    </div>`;
+}
+
+/* ------------------------------------------------------------------ the prompt reader */
+const COPYTXT = new Map();
+function segText(segs){
+  return segs.map(s => s.t==="text" ? s.s : s.t==="articles" ? s.items.map(a => `[Article ${a.label} | ${a.date} | ${a.headline} | ${a.words} words]`).join("\n\n")
+    : s.t==="list" ? s.items.map(x => `${x[0]}: ${x[1]}`).join("\n") : "").join("");
+}
+function renderText(str){
+  // paragraphs; the reply-format line set apart
+  const out = [];
+  const parts = String(str).split(/\n{2,}/);
+  for(const p of parts){
+    if(!p.trim()) continue;
+    if(/^(Return JSON|Reply with|Respond with a JSON|Return a JSON)/.test(p.trim())) out.push(`<div class="fmt">${esc(p.trim())}</div>`);
+    else out.push(`<p>${esc(p.replace(/^\n+|\n+$/g, ""))}</p>`);
+  }
+  return out.join("");
+}
+function renderSegs(segs){
+  return segs.map((s, i) => {
+    if(s.t==="text") return renderText(s.s);
+    if(s.t==="articles"){
+      const n = s.items.length;
+      return `<details class="blk"${n<=1 ? " open" : ""}><summary><b>${n===1 ? "The article" : n + " news articles"}</b><span class="cnt">${fmtN(s.items.reduce((a, x) => a + (x.words||0), 0))} words, in the order shown</span></summary>
+        <div class="inner">${s.items.map(a => `<div class="arow"><span class="lb">${esc(a.label)}</span><span class="dt">${esc(a.date || "")}</span><span>${esc(a.headline || "")}${a.outlet ? ` <span class="faint">· ${esc(a.outlet)}</span>` : ""}</span><span class="w">${fmtN(a.words)} words</span></div>`).join("")}</div></details>`;
+    }
+    if(s.t==="list"){
+      const n = s.items.length, k = 6;
+      const row = x => `<div class="srow"><span class="id">${esc(x[0])}</span><span>${esc(x[1])}</span></div>`;
+      return `<details class="blk"${n<=k ? " open" : ""}><summary><b>${esc(s.label || (n + " statements"))}</b><span class="cnt">${n>k ? "show all " + n : ""}</span></summary><div class="inner">${s.items.map(row).join("")}</div></details>`;
+    }
+    return "";
+  }).join("");
+}
+function replyHTML(r){
+  if(!r) return `<p class="faint">No response was recorded.</p>`;
+  if(r.kind==="statements"){
+    const n = r.total || (r.items.length + (r.held || 0));
+    const tail = (r.more && r.more.length ? r.more.map(([a, k]) => `${a}: ${fmtN(k)} in all`).join(", ") : "");
+    return `<p class="faint" style="margin:0 0 4px;font-size:13px">${plural(n, "statement")}${r.items.length < n ? ", " + fmtN(r.items.length) + " listed here" : ""}${tail ? " (" + esc(tail) + ")" : ""}</p>` + r.items.map((x, i) => `<div class="srow"><span class="id">${i+1}</span><span>${esc(x.text)}${x.meta ? `<span class="m" style="display:block">${esc(x.meta)}</span>` : ""}</span></div>`).join("");
+  }
+  if(r.kind==="stances"){
+    return `<p class="faint" style="margin:0 0 4px;font-size:13px">${plural(r.items.length, "rating")}${r.scale ? ", " + esc(r.scale) : ""}</p>` + r.items.map(x => `<div class="srow"><span class="id">${esc(x[0])}</span><span>${esc(x[2] || "")}</span><span class="v ${typeof x[1]==="number" ? (x[1]>0?"pos":x[1]<0?"neg":"") : ""}">${x[1]==null ? "null" : esc(x[1])}</span></div>`).join("");
+  }
+  if(r.kind==="edges"){
+    return `<p class="faint" style="margin:0 0 4px;font-size:13px">${plural(r.items.length, "related pair")}</p>` + r.items.map(x => `<div class="srow"><span class="id">${esc(x[0])}–${esc(x[1])}</span><span>${esc(x[3] || "")}</span><span class="v ${x[2]>0?"pos":x[2]<0?"neg":""}">${x[2]>0?"+":""}${esc(x[2])}</span></div>`).join("");
+  }
+  if(r.kind==="record"){
+    const ps = r.props || [], ls = r.links || [];
+    return `<p class="faint" style="margin:0 0 4px;font-size:13px">${plural(ps.length + (r.held||0), "proposition")}${r.held ? ", " + fmtN(ps.length) + " listed here" : ""}, ${plural(ls.length, "link")}</p>` +
+      ps.map(p => `<div class="srow"><span class="id">${esc(p.id)}</span><span${p.dropped ? ' style="text-decoration:line-through;color:var(--ink-3)"' : ""}>${esc(p.text)}</span><span class="v ${p.attitude>0?"pos":p.attitude<0?"neg":""}">${p.attitude==null ? "" : (p.attitude>0?"+":"") + p.attitude}</span></div>`).join("") +
+      (ls.length ? `<details class="blk" style="margin-top:10px"><summary><b>The links</b><span class="cnt">${ls.length}</span></summary><div class="inner">${ls.map(l => `<div class="srow"><span class="id">${esc(l.from)}→${esc(l.to)}</span><span>${esc(l.kind || "")}</span><span class="v">${esc(l.strength ?? l.w ?? "")}</span></div>`).join("")}</div></details>` : "");
+  }
+  if(r.kind==="summary") return `<p style="white-space:pre-wrap;font-size:15px;line-height:1.65;margin:0">${esc(r.text)}</p>`;
+  if(r.kind==="answer") return r.sentences.map((s, i) => `<div class="ans"><span class="sn">${i+1}</span><span class="tx">${esc(s.sentence)}</span>${s.rests_on && s.rests_on.length ? `<span class="rs">rests on ${esc(s.rests_on.join(", "))}</span>` : ""}</div>`).join("");
+  if(r.kind==="text") return `<p style="white-space:pre-wrap;font-size:15px;line-height:1.65;margin:0">${esc(r.text)}</p>`;
+  return `<pre class="raw">${esc(JSON.stringify(r.value ?? r, null, 1))}</pre>`;
+}
+function tplHTML(t){
+  return `<p>${esc(t).replace(/\{([a-z_0-9]+)\}/gi, (m, k) => `<span class="ph" title="Filled in for each request">{${k}}</span>`)}</p>`;
+}
+async function openPrompt(v, id, key, params){
+  const e = EXP(id); if(!e) return openOverview(v);
+  const s = e.steps.find(x => x.key===key) || e.steps[0];
+  const calls = await loadCalls(id);
+  const ex = s.examples.map(cid => calls[cid]).filter(Boolean);
+  title(s.label + " · " + e.short);
+  // facets: each one a row of chips; a choice keeps the others where possible
+  const facets = s.facets || [];
+  let cur = {};
+  facets.forEach(f => { const q = params.get(f.key); if(q != null && f.values.some(x => x[0]===q)) cur[f.key] = q; });
+  const match = c => facets.every(f => cur[f.key]==null || String(c.f[f.key])===cur[f.key]);
+  let call = ex.find(match) || ex[0];
+  facets.forEach(f => { cur[f.key] = String(call.f[f.key]); });
+  const mode = params.get("view")==="template" && s.template ? "template" : "sent";
+  const idx = e.steps.indexOf(s);
+  const prev = e.steps[idx-1], next = e.steps[idx+1];
+  const nav = (() => {
+    let h = "", g = null;
+    e.steps.forEach((x, i) => { if((x.group||"") !== g){ g = x.group || ""; h += `<div class="grpl">${esc(g || "Steps")}</div>`; } h += `<a href="#/e/${e.id}/p/${enc(x.key)}" aria-current="${x===s}">${esc(x.label)}<small>${fmtN(x.n)} requests</small></a>`; });
+    return h;
+  })();
+  const avail = (f, val) => ex.some(c => String(c.f[f.key])===val && facets.every(g => g.key===f.key || cur[g.key]==null || String(c.f[g.key])===cur[g.key]));
+  const chooseHTML = facets.filter(f => f.values.length > 1).map(f => `<span class="lab">${esc(f.label)}</span><div class="mtabs" role="group" aria-label="${esc(f.label)}">${f.values.map(([val, lab]) => `<button class="chip${avail(f, val) || cur[f.key]===val ? "" : " far"}" data-f="${esc(f.key)}" data-v="${esc(val)}" aria-pressed="${cur[f.key]===val}" title="${avail(f, val) || cur[f.key]===val ? "" : "Shown with other choices changed"}">${esc(lab)}</button>`).join("")}</div>`).join("");
+  const words = c => c.words_in ? `${fmtN(c.words_in)} words` : "";
+  v.innerHTML = `<div class="wrap viewhead">
+      <div class="eyebrow"><a href="#/e/${e.id}">${esc(e.short)}</a> · step ${idx+1} of ${e.steps.length}</div>
+    </div>
+    <div class="wrap"><div class="pr"><nav aria-label="Steps of this experiment"><details class="stepsnav"${matchMedia("(max-width: 980px)").matches ? "" : " open"}><summary>Steps of this experiment <span class="faint">(${e.steps.length})</span></summary><div class="navin">${nav}</div></details></nav>
+      <div class="prmain">
+        <div class="prhead"><h2>${esc(s.label)}</h2>${s.asks ? `<div class="asks">${esc(s.asks)}</div>` : ""}
+          <div class="facts"><span>requests<b>${fmtN(s.n)}</b></span><span>models<b>${esc(s.models.join(", "))}</b></span><span>when<b>${esc(span(s.first, s.last))}</b></span></div>
+          ${s.partial ? `<div class="note">${esc(s.partial)}</div>` : ""}
+        </div>
+        ${chooseHTML ? `<div class="choose">${chooseHTML}</div>` : ""}
+        <div class="callbar"><span class="who">Request shown: <b>${esc(call.model)}</b>, ${esc(call.time ? dLong(call.time) + ", " + hm(call.time) : "")}${call.label ? " · " + esc(call.label) : ""}</span><span class="sp"></span>
+          ${s.template ? `<div class="view-switch" role="group" aria-label="Show"><button data-mode="sent" aria-pressed="${mode==="sent"}">As sent</button><button data-mode="template" aria-pressed="${mode==="template"}">The template</button></div>` : ""}
+          <button class="btn" id="copyBtn">Copy the prompt</button><span class="copyok" id="copyOk" aria-live="polite"></span></div>
+        ${mode==="template" ? `<div class="msg"><div class="who">The template<span class="cnt">${esc(s.template.name)}: the parts in braces are filled in for each request</span></div><div class="paper">${tplHTML(s.template.text)}</div></div>` : `
+        ${call.system ? `<div class="msg"><div class="who">System prompt</div><div class="paper sys"><p>${esc(call.system)}</p></div></div>` : `<div class="msg"><div class="who">System prompt</div><div class="paper sys"><p class="faint">None.</p></div></div>`}
+        <div class="msg"><div class="who">The request<span class="cnt">${esc(words(call))}</span></div><div class="paper">${renderSegs(call.segs)}</div></div>`}
+        <div class="msg"><div class="who">The response<span class="cnt">${call.words_out ? fmtN(call.words_out) + " words" : ""}</span></div><div class="paper">${replyHTML(call.reply)}
+          ${call.raw ? `<details class="blk"><summary><b>The response as returned</b><span class="cnt">raw text</span></summary><div class="inner"><pre class="raw">${esc(call.raw)}</pre></div></details>` : ""}</div></div>
+        <div class="pager">${prev ? `<a class="btn" href="#/e/${e.id}/p/${enc(prev.key)}">← ${esc(prev.label)}</a>` : ""}${next ? `<a class="btn" href="#/e/${e.id}/p/${enc(next.key)}">${esc(next.label)} →</a>` : ""}</div>
+      </div></div></div>`;
+  const p = new URLSearchParams();
+  facets.forEach(f => { if(f.values.length > 1) p.set(f.key, cur[f.key]); });
+  if(mode==="template") p.set("view", "template");
+  setAddr("/e/" + e.id + "/p/" + enc(s.key), p);
+  $$(".chip[data-f]", v).forEach(b => b.addEventListener("click", () => {
+    const q = new URLSearchParams(p); q.set(b.dataset.f, b.dataset.v);
+    // keep the other choices only if a request exists for them
+    const want = Object.fromEntries(q.entries());
+    if(!ex.some(c => facets.every(f => want[f.key]==null || String(c.f[f.key])===want[f.key]))){
+      facets.forEach(f => { if(f.key!==b.dataset.f) q.delete(f.key); });
+    }
+    go("/e/" + e.id + "/p/" + enc(s.key) + "?" + q.toString());
+  }));
+  $$(".view-switch button", v).forEach(b => b.addEventListener("click", () => { const q = new URLSearchParams(p); if(b.dataset.mode==="template") q.set("view", "template"); else q.delete("view"); go("/e/" + e.id + "/p/" + enc(s.key) + "?" + q.toString()); }));
+  $("#copyBtn", v).addEventListener("click", async () => {
+    const txt = mode==="template" ? s.template.text : (call.system ? "SYSTEM PROMPT\n" + call.system + "\n\nMESSAGE\n" : "") + segText(call.segs);
+    try{ await navigator.clipboard.writeText(txt); $("#copyOk").textContent = "Copied."; }catch(err){ $("#copyOk").textContent = "Copying is blocked here; select the text instead."; }
+    setTimeout(() => { const o = $("#copyOk"); if(o) o.textContent = ""; }, 2400);
+  });
+}
+
+/* ------------------------------------------------------------------ 5 prompts: every step of the six */
+function openPromptIndex(v){
+  title("Prompts");
+  v.innerHTML = `<div class="wrap viewhead"><div class="eyebrow">Method</div><div class="mtabs"><a class="chip" href="#/all">Every experiment</a><a class="chip on" href="#/prompts">Every prompt</a></div><h1 class="title">Every prompt</h1>
+      <p class="lead">The requests of the six experiments, in the order they were sent. Each opens to one request as sent to the model, with the response.</p></div>
+    <div class="wrap"><div class="idx" style="margin-top:20px">${SITE.parts.map(p => p.exps.map(id => { const e = EXP(id); return `<div class="ex"><div class="eyebrow">${esc(p.name)} · ${esc(span(e.first, e.last))}</div><h3><a href="#/e/${e.id}">${esc(e.short)}</a></h3><ol>${e.steps.map(s => `<li><a href="#/e/${e.id}/p/${enc(s.key)}">${esc(s.label)}</a><small>${fmtN(s.n)}</small></li>`).join("")}</ol></div>`; }).join("")).join("")}</div></div>`;
+}
+
+/* ------------------------------------------------------------------ 6 every experiment */
+function openAll(v){
+  title("Every experiment");
+  const S = SITE.survey, cols = SITE.survey_cols;
+  const lead = {};
+  cols.filter(c => c.num).forEach(c => { const mx = Math.max(...S.map(r => r[c.key] || 0)); lead[c.key] = mx; });
+  v.innerHTML = `<div class="wrap viewhead"><div class="eyebrow">Method</div><div class="mtabs"><a class="chip on" href="#/all">Every experiment</a><a class="chip" href="#/prompts">Every prompt</a></div><h1 class="title">${esc(SITE.survey_title)}</h1>
+      <p class="lead">${esc(SITE.survey_lead)}</p></div>
+    <div class="wrap">
+      <div class="sec"><h2>What each column counts</h2><dl class="defs">${cols.filter(c => c.def).map(c => `<dt>${esc(c.label)}</dt><dd>${esc(c.def)}</dd>`).join("")}</dl></div>
+      <div class="tablewrap"><table class="wt"><thead><tr>${cols.map(c => `<th class="${c.num ? "n" : ""}">${esc(c.label)}</th>`).join("")}</tr></thead>
+      <tbody>${S.map(r => `<tr class="${r.shown ? "shown" : ""}">${cols.map(c => {
+        const x = r[c.key];
+        if(c.key==="title") return `<td class="t">${r.shown ? `<a href="#/e/${r.shown}">${esc(x)}</a>` : esc(x)}${r.note ? `<span class="sub">${esc(r.note)}</span>` : ""}</td>`;
+        if(c.key==="when") return `<td class="d">${esc(dShort(r.first))}<span class="sub">${esc(hm(r.first))}</span></td>`;
+        if(c.key==="parts") return `<td><span class="parttag">${esc(x || "")}</span></td>`;
+        if(c.num) return `<td class="n${x && x===lead[c.key] ? " lead1" : ""}">${x ? fmtN(x) : `<span class="faint">·</span>`}</td>`;
+        return `<td>${esc(x || "")}</td>`;
+      }).join("")}</tr>`).join("")}</tbody></table></div>
+      <p class="faint" style="font-size:12.5px;margin-top:10px">${esc(SITE.survey_foot)}</p>
+    </div>`;
+}
+
+/* ------------------------------------------------------------------ networks across articles (experiment 9) */
+let RUNS = null;
+async function loadRuns(){
+  if(!RUNS){
+    RUNS = await getJSON(SITE.files.runs);
+    RUNS.byId = Object.fromEntries(RUNS.runs.map(r => [r.id, r]));
+    RUNS.index = RUNS.runs.flatMap(r => r.steps[3].props.filter(p => !p[3]).map(p => ({r, id: p[0], text: p[1], att: p[2], low: p[1].toLowerCase()})));
+  }
+  return RUNS;
+}
+const RUN_CONDS = ["N1A", "N2A", "N3A", "N1B", "N2B", "N3B"], RUN_QS = ["Q1", "Q2", "Q3", "Q4"];
+const EXTRACT = {A: "Own beliefs", B: "Reader-neutral"};
+const EXTRACT_D = {A: "At each step the prompt asked for “the propositions you yourself now believe or doubt about this topic”, with an attitude toward each.",
+  B: "At each step the prompt asked first for “the propositions that a reader might come to believe after reading this article”, worded neutrally, and then for an attitude toward each."};
+const SETUP = {N1: "Current article, reason links", N2: "All articles so far, reason links", N3: "Current article, fit-or-clash links"};
+const SETUP_D = {N1: "Each prompt contained the record and the new article. Links were reasons, with a direction.",
+  N2: "Each prompt contained the record and every article given so far. Links were reasons, with a direction.",
+  N3: "Each prompt contained the record and the new article. Links stated whether two propositions fit together or clash, without a direction."};
+const runName = r => `${r.q}, ${EXTRACT[r.cond[2]].toLowerCase()}, ${SETUP[r.cond.slice(0, 2)].toLowerCase()}, repetition ${r.rep}`;
+const signed = a => a==null ? "·" : a>0 ? "+" + a : a<0 ? "−" + (-a) : "0";
+const attCls = a => a>0 ? "pos" : a<0 ? "neg" : "faint";
+const alive = s => s.props.filter(p => !p[3]);
+
+function runKey(n3, added){
+  return `<div class="key"><span><i style="background:var(--c-real)"></i>agree</span><span><i style="background:var(--c-neg)"></i>disagree</span><span>paler: attitude nearer 0</span>${n3
+    ? `<span><s style="color:var(--c-real)"></s>fit</span><span><s style="color:var(--c-neg)"></s>clash</span>`
+    : `<span><s style="color:var(--c-real)"></s>supports</span><span><s style="color:var(--c-neg)"></s>counts against</span>`}<span>thicker: stronger link</span>${added ? `<span><i style="border:2.5px solid var(--light);background:none;width:6px;height:6px"></i>added at this step</span>` : ""}</div>`;
+}
+
+function runTerms(){
+  return `<dl class="defs">
+    <dt>Proposition</dt><dd>A sentence in the record, defined in the prompt as “one statement or perspective, written as a single sentence in your own words. It does not have to be a sentence from the article.” Propositions are numbered p1, p2, and so on; the prompt forbids rewording a proposition later but allows marking it as dropped.</dd>
+    <dt>Attitude</dt><dd>The model’s agreement with a proposition: “an integer from -10 (completely disagree) to 10 (completely agree)”. It may change from one article to the next.</dd>
+    <dt>Reason link</dt><dd>“‘p2 supports p5’ means that believing p2 is part of why you agree with p5. ‘p2 counts against p5’ means that believing p2 is part of why you disagree with p5.” A reason link has a direction and a strength from 1 (weak) to 3 (strong).</dd>
+    <dt>Fit-or-clash link</dt><dd>Whether “agreeing with one makes it more natural to agree with the other (positive) or to disagree with it (negative)”, as an integer from -3 to 3, never 0. It has no direction.</dd>
+    <dt>Record</dt><dd>“The record is a network: numbered propositions, your attitude toward each, and the links between them.” It is returned in full after every article, and the question is answered from it.</dd>
+    <dt>Run</dt><dd>One sequence of four article prompts, in a fixed order, followed by three answers to one user question.</dd>
+  </dl><p class="faint" style="font-size:12.5px;margin:8px 0 0">Quoted passages are from the prompts the model was given.</p>`;
+}
+
+function runMethod(R){
+  const e = EXP("exp9");
+  return `<details class="grp"><summary><b>Method</b> · the design, the articles, the dates and the prompts</summary>
+      <div style="display:grid;gap:14px;padding:4px 0 18px;max-width:100ch">
+        <p class="lead" style="margin:0">${esc(e.question || "")}</p>
+        <div class="tablewrap"><table class="wt"><thead><tr><th>Set-up</th><th>Extraction</th><th>Contents of each prompt</th></tr></thead><tbody>
+          ${RUN_CONDS.map(c => `<tr><td class="d">${c}</td><td>${esc(EXTRACT[c[2]])}</td><td class="t">${esc(SETUP_D[c.slice(0, 2)])}</td></tr>`).join("")}</tbody></table></div>
+        <p style="margin:0;font-size:14px">${esc(EXTRACT_D.A)} In the reader-neutral version: ${esc(EXTRACT_D.B.replace("At each step the model ", "the model "))}</p>
+        <div class="artlist">${R.articles.map((a, i) => `<div class="art"><span class="lb">${i + 1}</span><span class="dt">${esc(a.date)}</span><span class="hd">${esc(a.headline)}</span><span class="src">${esc(a.outlet)} · ${fmtN(a.words)} words</span></div>`).join("")}</div>
+        <p style="margin:0;font-size:14px">Model: Claude Haiku 4.5. Run on ${esc(span(e.first, e.last))}. The main run also had 60 runs that used a written summary or no record, and there were 80 prompt-test runs with Haiku 4.5, Sonnet 5.5 and Gemini 3.8 Flash; those are not drawn here.</p>
+        <p class="row" style="margin:0"><a class="btn" href="#/e/exp9">The experiment, step by step</a><a class="btn" href="#/e/exp9/p/step1">The prompts</a></p>
+      </div>
+    </details>`;
+}
+
+async function openRuns(v, params){
+  title("Experiment 9");
+  const R = await loadRuns();
+  const f = {q: params.get("q") || "", x: params.get("x") || "", s: params.get("s") || ""};
+  const total = R.index.length, links = R.runs.reduce((t, r) => t + r.steps[3].links.length, 0);
+  v.innerHTML = `<div class="wrap viewhead">
+      <h1 class="title">Belief networks updated across a sequence of news articles</h1>
+      <p class="lead">Claude Haiku 4.5 was given four news articles on immigration enforcement in the United States, one per prompt and in a fixed order. After each article it returned an updated record: a list of propositions (single sentences worded by the model), an attitude toward each from −10 to +10, and links between propositions (supports or counts against; in one of the three set-ups, fits or clashes). After the fourth article the model was prompted to answer a user’s question from the record. The design crossed four questions, two ways of extracting propositions and three set-ups, with five repetitions of each: ${R.runs.length} runs, whose final records contain ${fmtN(total)} propositions and ${fmtN(links)} links.</p>
+    </div>
+    <div class="wrap">
+      <section class="sec" aria-labelledby="rh-rec"><h2 id="rh-rec">The records</h2>
+        <p class="lead">Each drawing is one run’s record after the fourth article: a point for every proposition, coloured by the model’s attitude, and a line for every link. Selecting a record opens the run at each step, from the first article to the answer.</p>
+        <div class="pick" id="rfilt"></div>
+        <div id="rqtext"></div>
+        <div class="thumbs" id="rthumbs"></div>
+        ${runKey(false, false)}
+      </section>
+      <section class="sec" aria-labelledby="rh-find"><h2 id="rh-find">Search the propositions</h2>
+        <p class="lead">Every proposition in the ${R.runs.length} final records. A result opens its run with the proposition selected.</p>
+        <input class="find" id="rfind" type="search" placeholder="For example: criminal record, check-in, safer" aria-label="Search the propositions" autocomplete="off">
+        <div id="rhits" class="hits" aria-live="polite"></div>
+      </section>
+      <section class="sec" aria-labelledby="rh-terms"><h2 id="rh-terms">Terms</h2>${runTerms()}</section>
+      ${runMethod(R)}
+    </div>`;
+
+  const chipB = (key, val, txt, tip) => `<button class="chip${f[key]===val ? " on" : ""}" data-k="${key}" data-v="${val}"${tip ? ` title="${esc(tip)}"` : ""}>${esc(txt)}</button>`;
+  function drawFilters(){
+    $("#rfilt", v).innerHTML = `<div class="lab">Question</div><div class="mtabs">${chipB("q", "", "All")}${RUN_QS.map(q => chipB("q", q, q, R.questions[q])).join("")}</div>
+      <div class="lab">Extraction</div><div class="mtabs">${chipB("x", "", "Both")}${["A", "B"].map(x => chipB("x", x, EXTRACT[x], EXTRACT_D[x])).join("")}</div>
+      <div class="lab">Set-up</div><div class="mtabs">${chipB("s", "", "All")}${["N1", "N2", "N3"].map(s => chipB("s", s, SETUP[s], SETUP_D[s])).join("")}</div>`;
+    $("#rqtext", v).innerHTML = `<ol class="qs">${RUN_QS.filter(q => !f.q || f.q===q).map(q => `<li><span class="mono faint">${q}</span>${esc(R.questions[q])}</li>`).join("")}</ol>`;
+    $$("#rfilt .chip", v).forEach(b => b.addEventListener("click", () => {
+      f[b.dataset.k] = b.dataset.v;
+      const p = new URLSearchParams(); for(const k of ["q", "x", "s"]) if(f[k]) p.set(k, f[k]);
+      setAddr("/runs", p); drawFilters(); drawThumbs();
+    }));
+  }
+  function drawThumbs(){
+    const rs = R.runs.filter(r => (!f.q || r.q===f.q) && (!f.x || r.cond[2]===f.x) && (!f.s || r.cond.startsWith(f.s)))
+      .sort((a, b) => a.q.localeCompare(b.q) || RUN_CONDS.indexOf(a.cond) - RUN_CONDS.indexOf(b.cond) || a.rep - b.rep);
+    $("#rthumbs", v).innerHTML = rs.map(r => { const s = r.steps[3];
+      return `<a class="thumb" href="#/run/${enc(r.id)}?at=4" title="${esc(runName(r))}">${netSVG(s, r.cond.startsWith("N3"), new Set(), true)}<span class="tc">${esc(r.q)} · ${esc(EXTRACT[r.cond[2]])}<br>${esc(SETUP[r.cond.slice(0, 2)])} · rep. ${r.rep}</span><span class="tn">${alive(s).length} propositions, ${s.links.length} links</span></a>`;
+    }).join("") || `<p class="empty">No run matches.</p>`;
+  }
+  function find(){
+    const words = $("#rfind", v).value.toLowerCase().split(/\s+/).filter(w => w.length > 1);
+    const out = $("#rhits", v);
+    if(!words.length){ out.innerHTML = ""; return; }
+    const hits = R.index.filter(x => words.every(w => x.low.includes(w)));
+    const runsHit = new Set(hits.map(x => x.r.id)).size;
+    out.innerHTML = `<p class="cnt">${plural(hits.length, "proposition")} in ${plural(runsHit, "run")}${hits.length > 80 ? "; the first 80 are listed" : ""}</p>` +
+      hits.slice(0, 80).map(x => `<a class="hit" href="#/run/${enc(x.r.id)}?at=4&p=${enc(x.id)}"><span class="att ${attCls(x.att)}">${esc(signed(x.att))}</span><span class="tx">${esc(x.text)}</span><span class="rn">${esc(runName(x.r))}, ${esc(x.id)}</span></a>`).join("");
+  }
+  drawFilters(); drawThumbs();
+  let t = 0;
+  $("#rfind", v).addEventListener("input", () => { clearTimeout(t); t = setTimeout(find, 120); });
+}
+
+function netSVG(s, n3, newIds, mini, dir, focal){
+  focal = focal || new Set();
+  const P = s.props, n = P.length, cx = 320, cy = 320, R0 = mini ? 270 : n > 24 ? 250 : 225, nr = mini ? 16 : n > 30 ? 8 : 11, W = mini ? [0, 3, 5, 8] : [0, 1.2, 2.4, 4];
+  const pos = {};
+  P.forEach((p, i) => { const a = -Math.PI/2 + 2*Math.PI*i/Math.max(n, 1); pos[p[0]] = {x: cx + R0*Math.cos(a), y: cy + R0*Math.sin(a), a}; });
+  const f1 = x => x.toFixed(1);
+  const links = s.links.map(l => {
+    const p = pos[l[0]], q = pos[l[1]];
+    if(!p || !q) return "";
+    const kind = n3 ? (l[2] > 0 ? "s" : "a") : l[2], w = n3 ? Math.abs(l[2]) : l[3];
+    const mx = (p.x + q.x)/2, my = (p.y + q.y)/2, c = {x: cx + (mx - cx)*.3, y: cy + (my - cy)*.3};
+    let ex = q.x, ey = q.y;
+    if((!n3 || dir) && !mini){ const dx = q.x - c.x, dy = q.y - c.y, d = Math.hypot(dx, dy) || 1; ex = q.x - dx/d*(nr + 3); ey = q.y - dy/d*(nr + 3); }
+    return `<path class="lk ${kind}" data-a="${esc(l[0])}" data-b="${esc(l[1])}" d="M${f1(p.x)},${f1(p.y)} Q${f1(c.x)},${f1(c.y)} ${f1(ex)},${f1(ey)}" stroke-width="${W[w] || W[1]}"${(n3 && !dir) || mini ? "" : ` marker-end="url(#ar-${kind})"`}/>`;
+  }).join("");
+  const nodes = P.map(p => {
+    const [pid, text, att, dropped] = p, q = pos[pid], lx = cx + (R0 + 20)*Math.cos(q.a), ly = cy + (R0 + 20)*Math.sin(q.a);
+    const op = att==null ? 0 : .15 + .85*Math.min(1, Math.abs(att)/10), col = att > 0 ? "var(--c-real)" : att < 0 ? "var(--c-neg)" : "var(--stage)";
+    const circle = `<circle cx="${f1(q.x)}" cy="${f1(q.y)}" r="${nr}" style="fill:${col};fill-opacity:${op}"/>`;
+    if(mini) return `<g class="node${dropped ? " dropped" : ""}${focal.has(pid) ? " focal" : ""}">${circle}</g>`;
+    const anchor = Math.abs(Math.cos(q.a)) < .3 ? "middle" : Math.cos(q.a) > 0 ? "start" : "end";
+    return `<g class="node${dropped ? " dropped" : ""}${newIds.has(pid) ? " new" : ""}${focal.has(pid) ? " focal" : ""}" data-id="${esc(pid)}" tabindex="0" role="button" aria-label="${esc(pid)}, attitude ${esc(signed(att))}: ${esc(text)}">${circle}<text x="${f1(lx)}" y="${f1(ly)}" text-anchor="${anchor}" dominant-baseline="middle"${n > 40 ? ' class="hide"' : ""}>${esc(pid)}</text><title>${esc(pid)} (${esc(signed(att))}) ${esc(text)}</title></g>`;
+  }).join("");
+  if(mini) return `<svg viewBox="0 0 640 640" aria-hidden="true">${links}${nodes}</svg>`;
+  const marks = ["s", "a"].map(k => `<marker id="ar-${k}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path class="ah ${k}" d="M0,0 L10,5 L0,10 z"/></marker>`).join("");
+  return `<svg viewBox="-40 -30 720 700" role="img" aria-label="The record drawn as a network: ${n} propositions and ${s.links.length} links"><defs>${marks}</defs><g>${links}</g><g>${nodes}</g></svg>`;
+}
+
+async function openRun(v, id, params){
+  const R = await loadRuns(), r = R.byId[id];
+  if(!r) return openRuns(v, new URLSearchParams());
+  const n3 = r.cond.startsWith("N3"), st = {at: params.get("at") || "1", ans: 0, p: params.get("p") || null};
+  if(!["1", "2", "3", "4", "answer"].includes(st.at)) st.at = "1";
+  title(`${runName(r)} · Experiment 9`);
+  const sib = (q, c, rep) => R.runs.find(x => x.q===q && x.cond===c && x.rep===rep);
+  const i = R.runs.indexOf(r), prev = R.runs[i - 1], next = R.runs[i + 1];
+  const chip = (txt, x, on, tip) => x ? `<a class="chip${on ? " on" : ""}" href="#/run/${enc(x.id)}${st.at!=="1" ? "?at=" + st.at : ""}"${tip ? ` title="${esc(tip)}"` : ""}>${esc(txt)}</a>` : "";
+  const ltext = (l, pid) => n3 ? `${l[2] > 0 ? "fits" : "clashes with"} ${l[0]===pid ? l[1] : l[0]} (${l[2] > 0 ? "+" : "−"}${Math.abs(l[2])})`
+    : l[0]===pid ? `${l[2]==="s" ? "supports" : "counts against"} ${l[1]} (${l[3]})` : `${l[0]} ${l[2]==="s" ? "supports" : "counts against"} it (${l[3]})`;
+
+  function draw(){
+    const atAns = st.at==="answer", k = atAns ? 3 : +st.at - 1, s = r.steps[k];
+    const before = !atAns && k > 0 ? Object.fromEntries(r.steps[k - 1].props.map(p => [p[0], p])) : null;
+    const newIds = new Set(before ? s.props.filter(p => !before[p[0]]).map(p => p[0]) : []);
+    const art = R.articles[k] || {};
+    const writes = r.cond[2], sees = r.cond.slice(0, 2);
+    const rows = s.props.map(p => {
+      const [pid, text, att, dropped] = p, b = before && before[pid];
+      const chg = !before ? "" : !b ? "added at this step" : dropped && !b[3] ? "dropped at this step" : b[2]!==att ? "previously " + signed(b[2]) : "";
+      return `<div class="prow${dropped ? " dropped" : ""}${before && !b ? " isnew" : ""}" data-id="${esc(pid)}"><span class="id">${esc(pid)}</span><span class="tx">${esc(text)}</span><span class="att ${attCls(att)}">${esc(signed(att))}</span>${chg ? `<span class="chg">${esc(chg)}</span>` : ""}</div>`;
+    }).join("");
+    const answers = r.answers || [], A = answers[st.ans] || [];
+    const head = `<div class="cnt">${plural(alive(s).length, "proposition")}${s.props.length > alive(s).length ? `, ${s.props.length - alive(s).length} dropped` : ""}, ${plural(s.links.length, "link")}</div>`;
+    const right = atAns
+      ? `<div class="plist"><div class="row" style="padding:0 6px 10px"><span class="muted" style="font-size:13.5px">Three answers from the same record.</span>${answers.length > 1 ? `<span class="mtabs">${answers.map((_, j) => `<button class="chip${j===st.ans ? " on" : ""}" data-ans="${j}">Answer ${j + 1}</button>`).join("")}</span>` : ""}</div>
+          ${A.map((x, j) => `<div class="sent" data-on="${esc(x.on.join(" "))}"><span class="sn">${j + 1}</span><span class="tx">${esc(x.s)}</span><span class="rs">${x.on.length ? "rests on " + esc(x.on.join(", ")) : "rests on no proposition"}</span></div>`).join("")}
+          <h3 class="sub3">The record given with the question</h3>${head}${rows}</div>`
+      : `<div class="plist">${head}${rows}</div>`;
+    v.innerHTML = `<div class="wrap viewhead">
+        <div class="faint" style="font-size:13px">User question</div>
+        <h1 class="runq">“${esc(R.questions[r.q])}”</h1>
+        <p class="lead">Claude Haiku 4.5 was given four news articles on the topic, one per prompt and in a fixed order. ${esc(EXTRACT_D[writes])} ${esc(SETUP_D[sees])} After the fourth article the model was prompted to answer the question from the record${sees==="N2" ? " and the four articles" : " alone"}.</p>
+        <div class="pick">
+          <div class="lab">Question</div><div class="mtabs">${RUN_QS.map(q => chip(q, sib(q, r.cond, r.rep), q===r.q, R.questions[q])).join("")}</div>
+          <div class="lab">Extraction</div><div class="mtabs">${["A", "B"].map(x => chip(EXTRACT[x], sib(r.q, sees + x, r.rep), x===writes, EXTRACT_D[x])).join("")}</div>
+          <div class="lab">Set-up</div><div class="mtabs">${["N1", "N2", "N3"].map(c => chip(SETUP[c], sib(r.q, c + writes, r.rep), c===sees, SETUP_D[c])).join("")}</div>
+          <div class="lab">Repetition</div><div class="mtabs">${[1, 2, 3, 4, 5].map(rep => chip(String(rep), sib(r.q, r.cond, rep), rep===r.rep)).join("")}</div>
+        </div>
+      </div>
+      <div class="wrap" style="display:grid;grid-template-columns:minmax(0,1fr);gap:14px;margin-top:18px">
+        <div class="stepbar" role="group" aria-label="Step">${["1", "2", "3", "4"].map(a => `<button data-at="${a}" aria-pressed="${st.at===a}">After article ${a}</button>`).join("")}<button data-at="answer" aria-pressed="${atAns}">Answer</button></div>
+        <p class="artline">${atAns ? `The record after the fourth article and the answers generated from it. Selecting a sentence marks the propositions it was reported to rest on.`
+          : `<b>Article ${k + 1} of 4.</b> ${esc(art.outlet || "")}, ${esc(dLong(art.date))}. “${esc(art.headline || "")}” (${fmtN(art.words)} words).`}</p>
+        <div class="runbody"><div class="netbox">${netSVG(s, n3, newIds)}<div class="cap" aria-live="polite"></div>${runKey(n3, newIds.size > 0)}</div>${right}</div>
+        <div class="runnav">${prev ? `<a class="btn" href="#/run/${enc(prev.id)}">← Previous run</a>` : "<span></span>"}${next ? `<a class="btn" href="#/run/${enc(next.id)}">Next run →</a>` : ""}</div>
+        <section class="sec" style="margin-top:8px"><details class="grp"><summary><b>Terms</b> · proposition, attitude, link, record</summary><div style="padding:4px 0 16px">${runTerms()}</div></details>
+        ${runMethod(R)}
+        <p class="faint" style="font-size:12.5px;margin:0">This run: ${esc(r.cond)}, ${esc(dLong(r.time))}, ${esc(hm(r.time))}.</p></section>
+      </div>`;
+    wire(s);
+  }
+
+  function wire(s){
+    const svg = $(".netbox svg", v), cap = $(".netbox .cap", v);
+    const byId = Object.fromEntries(s.props.map(p => [p[0], p]));
+    const nb = id => new Set(s.links.flatMap(l => l[0]===id ? [l[1]] : l[1]===id ? [l[0]] : []));
+    let focus = null;
+    const show = (ids, touch) => {
+      $$(".node", svg).forEach(g => { g.classList.toggle("dimmed", !!ids && !ids.has(g.dataset.id)); g.classList.toggle("on", !!touch && touch.has(g.dataset.id)); });
+      $$(".lk", svg).forEach(l => l.classList.toggle("dimmed", !!ids && !((touch || ids).has(l.dataset.a) || (touch || ids).has(l.dataset.b))));
+    };
+    const caption = id => {
+      const p = id && byId[id];
+      if(!p){ cap.innerHTML = ""; return; }
+      const ls = s.links.filter(l => l[0]===id || l[1]===id).map(l => ltext(l, id));
+      cap.innerHTML = `<span class="id">${esc(id)}</span> <span class="att ${attCls(p[2])}">${esc(signed(p[2]))}</span> ${esc(p[1])}<span class="ls">${ls.length ? esc(ls.join("; ")) : "no links"}</span>`;
+    };
+    const pick = (id, scroll) => {
+      focus = focus===id ? null : id;
+      $$(".prow", v).forEach(x => x.classList.toggle("on", x.dataset.id===focus));
+      caption(focus);
+      if(!focus) return show(null);
+      show(new Set([focus, ...nb(focus)]), new Set([focus]));
+      const row = $(`.prow[data-id="${CSS.escape(focus)}"]`, v);
+      if(row && scroll) row.scrollIntoView({block: "nearest", behavior: "smooth"});
+      if(st.at==="answer") $$(".sent", v).forEach(x => x.classList.toggle("on", x.dataset.on.split(" ").includes(focus)));
+    };
+    $$(".node", svg).forEach(g => { g.addEventListener("click", () => pick(g.dataset.id, true)); g.addEventListener("keydown", e => { if(e.key==="Enter" || e.key===" "){ e.preventDefault(); pick(g.dataset.id, true); } }); });
+    $$(".prow", v).forEach(x => x.addEventListener("click", () => pick(x.dataset.id, false)));
+    $$(".sent", v).forEach(x => x.addEventListener("click", () => {
+      const on = !x.classList.contains("on");
+      $$(".sent", v).forEach(y => y.classList.remove("on"));
+      x.classList.toggle("on", on); focus = null; caption(null);
+      const ids = new Set(x.dataset.on.split(" ").filter(Boolean));
+      show(on ? ids : null, on ? ids : null);
+    }));
+    $$(".stepbar button", v).forEach(b => b.addEventListener("click", () => {
+      st.at = b.dataset.at; st.p = null; setAddr(`/run/${enc(r.id)}`, st.at==="1" ? null : new URLSearchParams({at: st.at})); draw();
+    }));
+    $$("[data-ans]", v).forEach(b => b.addEventListener("click", () => { st.ans = +b.dataset.ans; draw(); }));
+    if(st.p && byId[st.p]){ pick(st.p, false); const row = $(`.prow[data-id="${CSS.escape(st.p)}"]`, v); if(row) setTimeout(() => row.scrollIntoView({block: "center"}), 50); }
+  }
+  draw();
+}
+
+/* ------------------------------------------------------------------ networks over a fixed list (calibration) */
+const CALT = ["aidc", "rtx", "tar", "glp", "ail", "nuc", "cgp"];
+const CALD = new Map();
+async function loadCal(t){ if(!CALD.has(t)) CALD.set(t, await getJSON(SITE.files.cal[t])); return CALD.get(t); }
+const CAL_REL = {fit: "Fit or clash", fit_shuf: "Fit or clash, statements shuffled", evidence: "Evidence", cause: "Cause", cause_dir: "Cause, with direction"};
+const CAL_REL_D = {
+  fit: "“Whether agreeing with one makes it more natural to agree with the other (positive) or to disagree with it (negative), and how strongly, as an integer from -3 (strongly in conflict) to 3 (strongly support each other), never 0.”",
+  fit_shuf: "The same request as fit or clash, with the 24 statements listed in a shuffled order.",
+  evidence: "“Learning that one statement is true would make the other more likely to be true (positive) or less likely to be true (negative)”, from -3 to 3, never 0.",
+  cause: "“What one describes causes, contributes to, or prevents what the other describes (in either direction)”, from -3 (strongly prevents) to 3 (strongly causes or contributes to), never 0.",
+  cause_dir: "“What statement a describes causes, contributes to, or prevents what statement b describes: put the cause as \"a\" and the effect as \"b\"”, from -3 to 3, never 0."};
+const CAL_POSNEG = {fit: ["fit", "clash"], fit_shuf: ["fit", "clash"], evidence: ["evidence for", "evidence against"], cause: ["causes", "prevents"], cause_dir: ["causes", "prevents"]};
+const calArt = a => a==="none" ? "No articles" : a==="all" ? "All ten articles" : a==="rev" ? "All ten, in reverse order" : a==="noname" ? "All ten, outlet names removed"
+  : a.startsWith("wo") ? "All but article " + +a.slice(2) : "Only article " + +a.slice(4);
+const CAL_ARTS = ["none", "all", "rev", "noname", ...Array.from({length: 10}, (_, i) => "wo" + String(i + 1).padStart(2, "0")), ...Array.from({length: 10}, (_, i) => "only" + String(i + 1).padStart(2, "0"))];
+const median = xs => { const v = xs.filter(x => x!=null).sort((a, b) => a - b); if(!v.length) return null; const k = v.length >> 1; return v.length % 2 ? v[k] : (v[k - 1] + v[k]) / 2; };
+const fmtMed = x => x==null ? "·" : signed(Number.isInteger(x) ? x : +x.toFixed(1));
+
+function strip(vals){
+  const dots = vals.map(v => v==null ? "" : `<circle cx="${(4 + (v + 10) * 4.6).toFixed(1)}" cy="7" r="2.6" class="${v > 0 ? "sp" : v < 0 ? "sn" : "s0"}"/>`).join("");
+  const nul = vals.filter(v => v==null).length;
+  return `<svg class="strip" viewBox="0 0 100 14" aria-hidden="true"><line x1="4" x2="96" y1="7" y2="7"/><line x1="50" x2="50" y1="3" y2="11"/>${dots}</svg>${nul ? `<span class="nul">${nul} null</span>` : ""}`;
+}
+
+function calStances(D, m, art){
+  const L = D.stances.filter(s => s.m===m && s.art===art);
+  return {n: L.length, of: id => L.map(s => s.s[id] ?? null)};
+}
+
+function calKey(rel, medianNote){
+  const [p, n] = CAL_POSNEG[rel];
+  return `<div class="key"><span><i style="background:var(--c-real)"></i>agree</span><span><i style="background:var(--c-neg)"></i>disagree</span><span>${esc(medianNote)}</span><span><i style="border:1px solid var(--ink-2);background:var(--stage);width:8px;height:8px"></i>no stance (null)</span><span><s style="color:var(--c-real)"></s>${p}</span><span><s style="color:var(--c-neg)"></s>${n}</span><span>thicker: stronger link</span></div>`;
+}
+
+function calTerms(){
+  return `<dl class="defs">
+    <dt>Statement</dt><dd>One of the 24 sentences given for a topic. The same list, with the same numbers b0 to b23, was given in every request on that topic.</dd>
+    <dt>Stance</dt><dd>“How strongly you agree or disagree with it, as an integer from -10 (completely disagree) to 10 (completely agree), where 0 means you neither agree nor disagree. If you cannot form a view on a statement, give null for it.”</dd>
+    <dt>Relation</dt><dd>A pair of statements returned as related, with a signed strength from -3 to 3. “Pairs you do not list are treated as unrelated.” Five definitions were asked for, in separate requests:
+      <ul class="rels">${Object.keys(CAL_REL).map(k => `<li><b>${esc(CAL_REL[k])}.</b> ${esc(CAL_REL_D[k])}</li>`).join("")}</ul></dd>
+    <dt>Network</dt><dd>The relations returned in one response: the statements are its points and the related pairs its links. Stances come from separate prompts to the same model with the same articles.</dd>
+  </dl><p class="faint" style="font-size:12.5px;margin:8px 0 0">Quoted passages are from the prompts the models were given.</p>`;
+}
+
+function calMethod(D){
+  return `<details class="grp"><summary><b>Method</b> · the articles, the models, the dates and the prompts</summary>
+      <div style="display:grid;gap:14px;padding:4px 0 18px;max-width:100ch">
+        <p style="margin:0;font-size:14px">Models: ${esc(D.models.map(m => "Claude " + m).join(", "))}, run through the command-line tool. Run on ${esc(span(D.first, D.last))}. The articles, when given, came before the statements in the same request, in this order:</p>
+        <div class="artlist">${D.articles.map((a, i) => `<div class="art"><span class="lb">${i + 1}</span><span class="dt">${esc(a.date)}</span><span class="hd">${esc(a.headline)}</span><span class="src">${esc(a.outlet)} · ${fmtN(a.words)} words</span></div>`).join("")}</div>
+        <p style="margin:0;font-size:14px">The networks under “All ten articles” and “Fit or clash” come from two parts of the calibration whose prompts are identical word for word; their repetitions are shown together, and so are the stance lists with all ten articles. Stance lists here use the main wording only; eight other wordings, paraphrased statements, longer statement lists and single-statement requests were also run and are not drawn.</p>
+        <p class="row" style="margin:0"><a class="btn" href="#/e/cal">The calibration, step by step</a><a class="btn" href="#/e/cal/p/C">The prompts</a></p>
+      </div>
+    </details>`;
+}
+
+async function openCal(v, topic, params){
+  const t = CALT.includes(topic) ? topic : "aidc", D = await loadCal(t);
+  title("Networks over a fixed list · " + D.name);
+  const f = {rel: params.get("rel") || "fit", art: params.get("art") || "all", sa: params.get("sa") || "all"};
+  if(!CAL_REL[f.rel]) f.rel = "fit";
+  const arts = new Set(D.nets.filter(n => n.rel===f.rel).map(n => n.art));
+  if(!arts.has(f.art)) f.art = "all";
+  const allN = await Promise.all(CALT.map(loadCal)).catch(() => []);
+  const totN = allN.reduce((a, d) => a + d.nets.length, 0), totS = allN.reduce((a, d) => a + d.stances.length, 0);
+  v.innerHTML = `<div class="wrap viewhead">
+      <h1 class="title">Networks over a fixed list of statements</h1>
+      <p class="lead">Each prompt presented a fixed list of 24 statements on one news topic. Stance prompts asked for agreement with each statement, from −10 to +10; relation prompts, sent separately, asked for the related pairs of statements, with a signed strength from −3 to +3. The prompts were repeated without articles, with ten news articles on the topic, and with the articles varied (one left out, one alone, reversed order, outlet names removed), and under five definitions of a relation. Models: Claude Haiku 4.5 and Sonnet 5 on seven topics, and Claude Opus 4.5 on two. ${totN ? `In total, ${fmtN(totN)} relation lists and ${fmtN(totS)} stance lists.` : ""}</p>
+      <div class="pick"><div class="lab">Topic</div><div class="mtabs">${CALT.map(x => `<a class="chip${x===t ? " on" : ""}" href="#/cal/${x}">${esc((allN.find(d => d.topic===x) || {}).name || x)}</a>`).join("")}</div></div>
+    </div>
+    <div class="wrap">
+      <section class="sec"><h2>The networks</h2>
+        <p class="lead">Each drawing is one network: the ${D.statements.length} statements in a fixed order around the circle, and a line for every related pair in the response. Point colour is the median stance given by the same model with the same articles. Selecting a network opens it.</p>
+        <div class="pick" id="cfilt"></div>
+        <div id="cthumbs"></div>
+      </section>
+      <section class="sec"><h2>The statements and the stances</h2>
+        <p class="lead">Each row is one statement. Each dot is one stance list; the number is the median.</p>
+        <div class="pick" id="sfilt"></div>
+        <div class="tablewrap"><table class="wt stt" id="stab"></table></div>
+      </section>
+      <section class="sec"><h2>Terms</h2>${calTerms()}</section>
+      ${calMethod(D)}
+    </div>`;
+  const setp = () => { const p = new URLSearchParams(); if(f.rel!=="fit") p.set("rel", f.rel); if(f.art!=="all") p.set("art", f.art); if(f.sa!=="all") p.set("sa", f.sa); setAddr("/cal/" + t, p); };
+  function drawNets(){
+    const A = [...new Set(D.nets.filter(n => n.rel===f.rel).map(n => n.art))].sort((a, b) => CAL_ARTS.indexOf(a) - CAL_ARTS.indexOf(b));
+    $("#cfilt", v).innerHTML = `<div class="lab">Relation</div><div class="mtabs">${Object.keys(CAL_REL).map(k => `<button class="chip${k===f.rel ? " on" : ""}" data-rel="${k}" title="${esc(CAL_REL_D[k])}">${esc(CAL_REL[k])}</button>`).join("")}</div>
+      <div class="lab">Articles</div><div class="mtabs">${A.map(a => `<button class="chip${a===f.art ? " on" : ""}" data-art="${a}">${esc(calArt(a))}</button>`).join("")}</div>`;
+    $$("#cfilt [data-rel]", v).forEach(b => b.addEventListener("click", () => { f.rel = b.dataset.rel; if(!D.nets.some(n => n.rel===f.rel && n.art===f.art)) f.art = "all"; setp(); drawNets(); }));
+    $$("#cfilt [data-art]", v).forEach(b => b.addEventListener("click", () => { f.art = b.dataset.art; setp(); drawNets(); }));
+    $("#cthumbs", v).innerHTML = D.models.map(m => {
+      const N = D.nets.filter(n => n.m===m && n.rel===f.rel && n.art===f.art), S = calStances(D, m, f.art);
+      if(!N.length) return "";
+      const props = D.statements.map(([id, text]) => [id, text, median(S.of(id)), false]);
+      return `<h3 class="mh">Claude ${esc(m)} <span class="faint">· ${plural(N.length, "network")}</span></h3><div class="thumbs">${N.map(n =>
+        `<a class="thumb" href="#/cal/${t}/net?m=${enc(m)}&rel=${f.rel}&art=${f.art}&rep=${n.rep}">${netSVG({props, links: n.e}, true, new Set(), true, f.rel==="cause_dir")}<span class="tc">Repetition ${n.rep}</span><span class="tn">${plural(n.e.length, "link")}</span></a>`).join("")}</div>`;
+    }).join("") + calKey(f.rel, "paler: median nearer 0");
+  }
+  function drawStances(){
+    const A = ["none", "all"];
+    $("#sfilt", v).innerHTML = `<div class="lab">Articles</div><div class="mtabs">${A.map(a => `<button class="chip${a===f.sa ? " on" : ""}" data-sa="${a}">${esc(calArt(a))}</button>`).join("")}</div>`;
+    $$("#sfilt [data-sa]", v).forEach(b => b.addEventListener("click", () => { f.sa = b.dataset.sa; setp(); drawStances(); }));
+    const S = D.models.map(m => [m, calStances(D, m, f.sa)]);
+    $("#stab", v).innerHTML = `<thead><tr><th>#</th><th>Statement</th>${S.map(([m, s]) => `<th>${esc(m)} <span class="sub">${plural(s.n, "list")}</span></th>`).join("")}</tr></thead>
+      <tbody>${D.statements.map(([id, text]) => `<tr><td class="d">${esc(id)}</td><td class="t">${esc(text)}</td>${S.map(([m, s]) => { const xs = s.of(id), md = median(xs);
+        return `<td class="sv"><span class="md ${attCls(md)}">${esc(fmtMed(md))}</span>${strip(xs)}</td>`; }).join("")}</tr>`).join("")}</tbody>`;
+  }
+  drawNets(); drawStances();
+}
+
+async function openCalNet(v, topic, params){
+  const t = CALT.includes(topic) ? topic : "aidc", D = await loadCal(t);
+  const st = {m: params.get("m") || D.models[0], rel: params.get("rel") || "fit", art: params.get("art") || "all", rep: +(params.get("rep") || 1)};
+  let n = D.nets.find(x => x.m===st.m && x.rel===st.rel && x.art===st.art && x.rep===st.rep) || D.nets.find(x => x.m===st.m && x.rel===st.rel && x.art===st.art);
+  if(!n) return openCal(v, t, new URLSearchParams());
+  st.rep = n.rep;
+  title(`${D.name}, ${st.m}, ${CAL_REL[st.rel]}, ${calArt(st.art)}, repetition ${st.rep}`);
+  const S = calStances(D, st.m, st.art), dir = st.rel==="cause_dir", [pw, nw] = CAL_POSNEG[st.rel];
+  const props = D.statements.map(([id, text]) => [id, text, median(S.of(id)), false]);
+  const deg = id => n.e.filter(l => l[0]===id || l[1]===id).length;
+  const href = o => { const q = Object.assign({}, st, o); return `#/cal/${t}/net?m=${enc(q.m)}&rel=${q.rel}&art=${q.art}&rep=${q.rep}`; };
+  const has = o => { const q = Object.assign({}, st, o); return D.nets.some(x => x.m===q.m && x.rel===q.rel && x.art===q.art && (o.rep==null || x.rep===q.rep)); };
+  const chip = (txt, o, on) => has(o) ? `<a class="chip${on ? " on" : ""}" href="${href(Object.assign({rep: o.rep ?? 1}, o))}">${esc(txt)}</a>` : "";
+  const arts = [...new Set(D.nets.filter(x => x.m===st.m && x.rel===st.rel).map(x => x.art))].sort((a, b) => CAL_ARTS.indexOf(a) - CAL_ARTS.indexOf(b));
+  const reps = D.nets.filter(x => x.m===st.m && x.rel===st.rel && x.art===st.art).map(x => x.rep);
+  const rows = props.map(([id, text, md]) => `<div class="prow" data-id="${esc(id)}"><span class="id">${esc(id)}</span><span class="tx">${esc(text)}</span><span class="att ${attCls(md)}">${esc(fmtMed(md))}</span><span class="chg">${plural(deg(id), "link")} · stances ${strip(S.of(id))}</span></div>`).join("");
+  v.innerHTML = `<div class="wrap viewhead">
+      <h1 class="title">${esc(D.name)}: one network</h1>
+      <p class="lead">The prompt to Claude ${esc(st.m)} contained the ${D.statements.length} statements below${st.art==="none" ? ", with no articles" : `, preceded by ${esc(calArt(st.art).toLowerCase())}`}, and asked for the pairs that are related. Relation asked for: ${esc(CAL_REL[st.rel].toLowerCase())}. ${esc(CAL_REL_D[st.rel])} This is repetition ${st.rep} of ${reps.length}.</p>
+      <div class="pick">
+        <div class="lab">Model</div><div class="mtabs">${D.models.map(m => chip(m, {m}, m===st.m)).join("")}</div>
+        <div class="lab">Relation</div><div class="mtabs">${Object.keys(CAL_REL).map(k => chip(CAL_REL[k], {rel: k, art: has({rel: k}) ? st.art : "all"}, k===st.rel)).join("")}</div>
+        <div class="lab">Articles</div><div class="mtabs">${arts.map(a => chip(calArt(a), {art: a}, a===st.art)).join("")}</div>
+        <div class="lab">Repetition</div><div class="mtabs">${reps.map(r => chip(String(r), {rep: r}, r===st.rep)).join("")}</div>
+      </div>
+    </div>
+    <div class="wrap" style="display:grid;grid-template-columns:minmax(0,1fr);gap:14px;margin-top:18px">
+      <div class="runbody"><div class="netbox">${netSVG({props, links: n.e}, true, new Set(), false, dir)}<div class="cap" aria-live="polite"></div>${calKey(st.rel, `paler: median stance nearer 0 (${plural(S.n, "stance list")})`)}</div>
+        <div class="plist"><div class="cnt">${plural(D.statements.length, "statement")}, ${plural(n.e.length, "link")}. The number is the median stance; the dots are the ${plural(S.n, "stance list")} by the same model with the same articles.</div>${rows}</div></div>
+      <section class="sec" style="margin-top:8px"><details class="grp"><summary><b>Terms</b> · statement, stance, relation, network</summary><div style="padding:4px 0 16px">${calTerms()}</div></details>${calMethod(D)}</section>
+    </div>`;
+  const svg = $(".netbox svg", v), cap = $(".netbox .cap", v), byId = Object.fromEntries(props.map(p => [p[0], p]));
+  const lt = (l, id) => { const other = l[0]===id ? l[1] : l[0], w = (l[2] > 0 ? "+" : "−") + Math.abs(l[2]);
+    return dir ? (l[0]===id ? `${l[2] > 0 ? pw : nw} ${other} (${w})` : `${other} ${l[2] > 0 ? pw : nw} it (${w})`) : `${l[2] > 0 ? pw : nw} ${other} (${w})`; };
+  let focus = null;
+  const pick = (id, scroll) => {
+    focus = focus===id ? null : id;
+    $$(".prow", v).forEach(x => x.classList.toggle("on", x.dataset.id===focus));
+    const nb = new Set(focus ? n.e.flatMap(l => l[0]===focus ? [l[1]] : l[1]===focus ? [l[0]] : []) : []);
+    $$(".node", svg).forEach(g => { g.classList.toggle("dimmed", !!focus && g.dataset.id!==focus && !nb.has(g.dataset.id)); g.classList.toggle("on", g.dataset.id===focus); });
+    $$(".lk", svg).forEach(l => l.classList.toggle("dimmed", !!focus && l.dataset.a!==focus && l.dataset.b!==focus));
+    if(!focus){ cap.innerHTML = ""; return; }
+    const p = byId[focus], ls = n.e.filter(l => l[0]===focus || l[1]===focus).map(l => lt(l, focus));
+    cap.innerHTML = `<span class="id">${esc(focus)}</span> <span class="att ${attCls(p[2])}">${esc(fmtMed(p[2]))}</span> ${esc(p[1])}<span class="ls">${ls.length ? esc(ls.join("; ")) : "no links"}</span>`;
+    const row = $(`.prow[data-id="${CSS.escape(focus)}"]`, v);
+    if(row && scroll) row.scrollIntoView({block: "nearest", behavior: "smooth"});
+  };
+  $$(".node", svg).forEach(g => { g.addEventListener("click", () => pick(g.dataset.id, true)); g.addEventListener("keydown", e => { if(e.key==="Enter" || e.key===" "){ e.preventDefault(); pick(g.dataset.id, true); } }); });
+  $$(".prow", v).forEach(x => x.addEventListener("click", () => pick(x.dataset.id, false)));
+}
+
+/* ------------------------------------------------------------------ ratings over rounds (experiment 3) */
+let X3 = null;
+async function loadX3(){
+  if(!X3){
+    X3 = await getJSON(SITE.files.x3);
+    X3.ids = X3.statements.map(s => s[0]);
+    const neg = t => X3.statements.find(s => s[1]===t);
+    for(const k of ["held", "installed"]){ const f = X3.focal[k], n = neg(f.negation); f.neg = n ? n[0] : null; }
+  }
+  return X3;
+}
+const X3_COND = {nothing: "Nothing", same: "Articles from the same side", opposite: "Articles from the other side", report: "A report stating the opposite", pressure: "Pressure to reconsider"};
+const X3_FOCAL = {held: "Consistently agreed with", installed: "No earlier rating", none: "None"};
+const X3_VAR = {main: "Main settings", temp03: "Temperature 0.3", think: "Reasoning on"};
+const X3_TOPO = {complete: "Complete", ring: "Ring", communities: "Two communities"};
+const X3_SET = {charged_left: "left-leaning articles", charged_right: "right-leaning articles", balanced: "balanced articles"};
+const X3_DASH = {charged_left: "", charged_right: "5 3", balanced: "1.5 2.5"};
+const x3props = (D, s) => D.statements.map(([id, text], i) => [id, text, s[i], false]);
+const x3links = (D, e) => e.map(([i, j, w]) => [D.ids[i], D.ids[j], w]);
+const x3focal = (D, c) => c.focal==="none" ? new Set() : new Set([D.focal[c.focal].id, D.focal[c.focal].neg].filter(Boolean));
+
+function x3Arrival(D, c, r){
+  const a = c.rounds[r].arr;
+  if(r===0) return "Round 0: ratings and relations returned with six news articles (a balanced set) in the prompt, reused from an earlier experiment.";
+  if(!a) return `Round ${r}: no new item. The prompt contained the previous ratings and relations only.`;
+  if(a.kind==="same" || a.kind==="opposite"){ const m = D.articles[a.art] || {};
+    return `Round ${r}: the prompt added a news article from ${a.kind==="same" ? "the same side as" : "the other side from"} the focal statement. <b>${esc(m.outlet || "")}</b>, ${esc(dLong(m.date))}. “${esc(m.headline || "")}” (${fmtN(m.words)} words).`; }
+  const f = D.focal[c.focal];
+  if(a.kind==="report") return `Round ${r}: the prompt added “A new report states: "${esc(f.negation)}"”.`;
+  return `Round ${r}: the prompt added “The person you are advising believes the opposite of statement ${esc(f.id)} and asks you to reconsider.”`;
+}
+
+function x3SocialSVG(p, sel, size){
+  const n = 8, cx = 60, cy = 60, R = 42, pos = i => [cx + R*Math.cos(-Math.PI/2 + 2*Math.PI*i/n), cy + R*Math.sin(-Math.PI/2 + 2*Math.PI*i/n)];
+  const sets = p.rounds[0].map(a => a.set);
+  return `<svg class="soc" viewBox="0 0 120 120" width="${size}" height="${size}" aria-hidden="true">${p.graph.map(([i, j]) => { const [x1, y1] = pos(i), [x2, y2] = pos(j); return `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}"/>`; }).join("")}
+    ${sets.map((s, i) => { const [x, y] = pos(i); return `<g class="ag${sel===i + 1 ? " on" : ""}" data-a="${i + 1}"><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="9" stroke-dasharray="${X3_DASH[s]}"/><text x="${x.toFixed(1)}" y="${(y + .5).toFixed(1)}" text-anchor="middle" dominant-baseline="middle">${i + 1}</text></g>`; }).join("")}</svg>`;
+}
+
+function x3Terms(){
+  return `<dl class="defs">
+    <dt>Statement</dt><dd>One of 80 sentences about ICE enforcement: 40 statements and, for each, its negation. The same list, numbered b0 to b79, was given in every request.</dd>
+    <dt>Rating</dt><dd>“An integer from -10 (completely disagree) to 10 (completely agree), where 0 means you neither agree nor disagree. If you cannot form a view on a statement, give null for it.”</dd>
+    <dt>Related pair</dt><dd>Two statements returned as related: “-3 strongly in conflict to 3 strongly support each other; pairs not listed are unrelated.”</dd>
+    <dt>Focal statement</dt><dd>The statement each arrival bears on, fixed by a rule before any request: one rated with the same sign in nearly all of the networks of an earlier experiment (b43), and one rated null in every balanced-set network of that experiment (b72).</dd>
+    <dt>Round</dt><dd>One rating prompt and one relation prompt. Each prompt contained the ratings and relations of the previous round.</dd>
+  </dl><p class="faint" style="font-size:12.5px;margin:8px 0 0">Quoted passages are from the prompts the models were given.</p>`;
+}
+
+function x3Method(D){
+  return `<details class="grp"><summary><b>Method</b> · the design, the models, the dates and the prompts</summary>
+      <div style="display:grid;gap:12px;padding:4px 0 18px;max-width:100ch;font-size:14px">
+        <p style="margin:0">Models: Claude Haiku 4.5 and Claude Sonnet 5.5 through the API, at the default temperature. Run on ${esc(span(D.first, D.last))}.</p>
+        <p style="margin:0"><b>One model over five rounds.</b> Round 0 is the model’s network after six news articles, from an earlier experiment (three replicates per model, reused, not sent again). From round 1 the articles are gone, and in each round one item arrives: an article from the same side as the focal statement, an article from the other side, a report stating the focal statement’s negation, pressure to reconsider it, or nothing. Three repetitions of each; for two variants (Haiku at temperature 0.3, Sonnet with reasoning on), the other-side condition only.</p>
+        <p style="margin:0"><b>Eight models on a social network.</b> In round 0, agents 1 to 3 were given a set of left-leaning articles, agents 4 to 6 a right-leaning set, and agents 7 and 8 a balanced set. From round 1, each agent’s prompt contained the ratings its neighbours gave in the previous round. Networks: complete, a ring, or two communities of four joined by one link. Each agent was also asked, for each statement, whether most other people would agree with it; those answers are not drawn.</p>
+        <p style="margin:0">Not shown: three records the experiment set aside in its discarded folders, and one chain that could not run (Sonnet 5.5 does not accept a temperature of 0.3).</p>
+        <p class="row" style="margin:0"><a class="btn" href="#/e/exp3">Experiment 3, step by step</a><a class="btn" href="#/e/exp3/p/a_stance">The prompts</a></p>
+      </div>
+    </details>`;
+}
+
+async function openX3(v, params){
+  title("Experiment 3");
+  const D = await loadX3();
+  const f = {m: params.get("m") || "", fo: params.get("fo") || "", c: params.get("c") || "", va: params.get("va") || "main"};
+  v.innerHTML = `<div class="wrap viewhead">
+      <h1 class="title">Ratings and relations over repeated rounds</h1>
+      <p class="lead">Claude Haiku 4.5 and Claude Sonnet 5.5 were given 80 statements on immigration enforcement in the United States (40 statements and their negations). Each round consisted of a rating prompt (agreement from −10 to +10 for every statement) and a relation prompt (related pairs with a signed strength). In setting A, a single model started from its ratings and relations after six news articles, and in each of five rounds one new item bearing on a focal statement was added to the prompt. In setting B, eight instances of a model, each first given a different set of articles, received their network neighbours’ ratings from the previous round, over eight rounds. In total, ${D.chains.length} chains and ${D.pops.length} populations.</p>
+    </div>
+    <div class="wrap">
+      <section class="sec"><h2>One model over five rounds</h2>
+        <p class="lead">Each drawing is one chain’s network after round 5: the 80 statements in a fixed order around the circle, coloured by the rating, and a line for every related pair. The focal statement and its negation are ringed. Selecting a chain opens it round by round.</p>
+        <div class="pick" id="xfilt"></div>
+        <div class="thumbs" id="xthumbs"></div>
+        ${calKey("fit", "paler: rating nearer 0")}
+      </section>
+      <section class="sec"><h2>Eight models on a social network</h2>
+        <p class="lead">Each population consists of eight instances of one model. In round 0, agents 1 to 3 were given left-leaning articles (solid ring), 4 to 6 right-leaning articles (dashed), and 7 and 8 a balanced set (dotted). Selecting a population opens every agent’s network, round by round.</p>
+        <div class="popcs">${D.pops.map(p => `<a class="popc" href="#/x3/b/${enc(p.key)}">${x3SocialSVG(p, 0, 96)}<span class="tc">Claude ${esc(p.model)}<br>${esc(X3_TOPO[p.topo])} · population ${p.pop}</span></a>`).join("")}</div>
+      </section>
+      <section class="sec"><h2>Terms</h2>${x3Terms()}</section>
+      ${x3Method(D)}
+    </div>`;
+  const chipB = (k, val, txt) => `<button class="chip${f[k]===val ? " on" : ""}" data-k="${k}" data-v="${val}">${esc(txt)}</button>`;
+  function draw(){
+    $("#xfilt", v).innerHTML = `<div class="lab">Model</div><div class="mtabs">${chipB("m", "", "Both")}${chipB("m", "Haiku 4.5", "Haiku 4.5")}${chipB("m", "Sonnet 5.5", "Sonnet 5.5")}</div>
+      <div class="lab">Focal statement</div><div class="mtabs">${chipB("fo", "", "All")}${Object.keys(X3_FOCAL).map(k => chipB("fo", k, X3_FOCAL[k] + (k!=="none" ? " (" + D.focal[k].id + ")" : ""))).join("")}</div>
+      <div class="lab">What arrived</div><div class="mtabs">${chipB("c", "", "All")}${Object.keys(X3_COND).map(k => chipB("c", k, X3_COND[k])).join("")}</div>
+      <div class="lab">Settings</div><div class="mtabs">${Object.keys(X3_VAR).map(k => chipB("va", k, X3_VAR[k])).join("")}</div>
+      <div></div><div class="faint" style="font-size:13px">${["held", "installed"].filter(k => !f.fo || f.fo===k).map(k => `${esc(D.focal[k].id)}: “${esc(D.focal[k].text)}”`).join("<br>")}</div>`;
+    $$("#xfilt .chip", v).forEach(b => b.addEventListener("click", () => {
+      f[b.dataset.k] = b.dataset.v;
+      const p = new URLSearchParams(); for(const k of ["m", "fo", "c"]) if(f[k]) p.set(k, f[k]); if(f.va!=="main") p.set("va", f.va);
+      setAddr("/x3", p); draw();
+    }));
+    const cs = D.chains.filter(c => (!f.m || c.model===f.m) && (!f.fo || c.focal===f.fo) && (!f.c || c.cond===f.c) && c.variant===f.va);
+    $("#xthumbs", v).innerHTML = cs.map(c => { const r = c.rounds[c.rounds.length - 1];
+      return `<a class="thumb" href="#/x3/a/${enc(c.key)}?r=${c.rounds.length - 1}">${netSVG({props: x3props(D, r.s), links: x3links(D, r.e)}, true, new Set(), true, false, x3focal(D, c))}<span class="tc">${esc(c.model)} · ${esc(X3_COND[c.cond])}<br>${esc(c.focal==="none" ? "no focal statement" : "focal " + D.focal[c.focal].id)} · rep. ${c.rep}</span><span class="tn">${plural(r.e.length, "pair")}</span></a>`;
+    }).join("") || `<p class="empty">No chain matches.</p>`;
+  }
+  draw();
+}
+
+function x3Rows(D, s, prev, extra){
+  return D.statements.map(([id, text], i) => {
+    const v0 = s[i], b = prev ? prev[i] : undefined, chg = prev && b!==v0 ? "previously " + signed(b) : "";
+    return `<div class="prow${chg ? " ch" : ""}" data-id="${esc(id)}"><span class="id">${esc(id)}</span><span class="tx">${esc(text)}</span><span class="att ${attCls(v0)}">${esc(signed(v0))}</span>${chg || extra ? `<span class="chg">${esc(chg)}${extra ? extra(i) : ""}</span>` : ""}</div>`;
+  }).join("");
+}
+
+function x3Wire(v, D, s, e, onPick){
+  const svg = $(".netbox svg", v), cap = $(".netbox .cap", v), L = x3links(D, e);
+  let focus = null;
+  const pick = (id, scroll) => {
+    focus = focus===id ? null : id;
+    $$(".prow", v).forEach(x => x.classList.toggle("on", x.dataset.id===focus));
+    const nb = new Set(focus ? L.flatMap(l => l[0]===focus ? [l[1]] : l[1]===focus ? [l[0]] : []) : []);
+    $$(".node", svg).forEach(g => { g.classList.toggle("dimmed", !!focus && g.dataset.id!==focus && !nb.has(g.dataset.id)); g.classList.toggle("on", g.dataset.id===focus); });
+    $$(".lk", svg).forEach(l => l.classList.toggle("dimmed", !!focus && l.dataset.a!==focus && l.dataset.b!==focus));
+    if(onPick) onPick(focus);
+    if(!focus){ cap.innerHTML = ""; return; }
+    const i = D.ids.indexOf(focus), ls = L.filter(l => l[0]===focus || l[1]===focus).map(l => `${l[2] > 0 ? "fits" : "clashes with"} ${l[0]===focus ? l[1] : l[0]} (${l[2] > 0 ? "+" : "−"}${Math.abs(l[2])})`);
+    cap.innerHTML = `<span class="id">${esc(focus)}</span> <span class="att ${attCls(s[i])}">${esc(signed(s[i]))}</span> ${esc(D.statements[i][1])}<span class="ls">${ls.length ? esc(ls.join("; ")) : "no related pairs"}</span>`;
+    const row = $(`.prow[data-id="${CSS.escape(focus)}"]`, v);
+    if(row && scroll) row.scrollIntoView({block: "nearest", behavior: "smooth"});
+  };
+  $$(".node", svg).forEach(g => { g.addEventListener("click", () => pick(g.dataset.id, true)); g.addEventListener("keydown", ev => { if(ev.key==="Enter" || ev.key===" "){ ev.preventDefault(); pick(g.dataset.id, true); } }); });
+  $$(".prow", v).forEach(x => x.addEventListener("click", () => pick(x.dataset.id, false)));
+  return pick;
+}
+
+async function openX3Chain(v, key, params){
+  const D = await loadX3(), c = D.chains.find(x => x.key===key);
+  if(!c) return openX3(v, new URLSearchParams());
+  const st = {r: Math.min(c.rounds.length - 1, Math.max(0, +(params.get("r") ?? 0)))};
+  const F = c.focal==="none" ? null : D.focal[c.focal], fset = x3focal(D, c);
+  title(`${c.model}, ${X3_COND[c.cond]}, repetition ${c.rep} · Experiment 3`);
+  const sib = o => D.chains.find(x => ["model", "focal", "cond", "variant", "rep"].every(k => x[k]===(o[k] ?? c[k])));
+  const chip = (txt, o, on) => { const x = sib(o); return x ? `<a class="chip${on ? " on" : ""}" href="#/x3/a/${enc(x.key)}?r=${st.r}">${esc(txt)}</a>` : ""; };
+  function draw(){
+    const R = c.rounds[st.r], prev = st.r > 0 ? c.rounds[st.r - 1].s : null;
+    const fi = F ? D.ids.indexOf(F.id) : -1, ni = F && F.neg ? D.ids.indexOf(F.neg) : -1;
+    const traj = F ? `<div class="traj"><span class="lab">Rating of ${esc(F.id)} by round</span>${c.rounds.map((x, k) => `<span class="${k===st.r ? "on " : ""}${attCls(x.s[fi])}">${esc(signed(x.s[fi]))}</span>`).join("")}${ni >= 0 ? `<span class="lab">and of its negation ${esc(F.neg)}</span>${c.rounds.map((x, k) => `<span class="${k===st.r ? "on " : ""}${attCls(x.s[ni])}">${esc(signed(x.s[ni]))}</span>`).join("")}` : ""}</div>` : "";
+    v.innerHTML = `<div class="wrap viewhead">
+        <h1 class="title">${esc(F ? "“" + F.text + "”" : "No focal statement, nothing arriving")}</h1>
+        <p class="lead">${F ? `The focal statement, ${esc(F.id)}. ` : ""}Claude ${esc(c.model)}${c.variant!=="main" ? ` (${esc(X3_VAR[c.variant].toLowerCase())})` : ""} started from its ratings and relations after six news articles. In each of the following five rounds the prompt added: ${esc(X3_COND[c.cond].toLowerCase())}. Repetition ${c.rep} of 3.</p>
+        ${traj}
+        <div class="pick">
+          <div class="lab">Model</div><div class="mtabs">${["Haiku 4.5", "Sonnet 5.5"].map(m => chip(m, {model: m}, m===c.model)).join("")}</div>
+          <div class="lab">Focal statement</div><div class="mtabs">${Object.keys(X3_FOCAL).map(k => chip(X3_FOCAL[k], k==="none" ? {focal: k, cond: "nothing"} : {focal: k, cond: c.cond==="nothing" ? "opposite" : c.cond}, k===c.focal)).join("")}</div>
+          <div class="lab">What arrived</div><div class="mtabs">${Object.keys(X3_COND).map(k => chip(X3_COND[k], k==="nothing" ? {cond: k, focal: "none"} : {cond: k, focal: c.focal==="none" ? "held" : c.focal}, k===c.cond)).join("")}</div>
+          <div class="lab">Settings</div><div class="mtabs">${Object.keys(X3_VAR).map(k => chip(X3_VAR[k], {variant: k, model: k==="temp03" ? "Haiku 4.5" : k==="think" ? "Sonnet 5.5" : c.model}, k===c.variant)).join("")}</div>
+          <div class="lab">Repetition</div><div class="mtabs">${[1, 2, 3].map(k => chip(String(k), {rep: k}, k===c.rep)).join("")}</div>
+        </div>
+      </div>
+      <div class="wrap" style="display:grid;grid-template-columns:minmax(0,1fr);gap:14px;margin-top:18px">
+        <div class="stepbar" role="group" aria-label="Round">${c.rounds.map((_, k) => `<button data-r="${k}" aria-pressed="${k===st.r}">Round ${k}</button>`).join("")}</div>
+        <p class="artline">${x3Arrival(D, c, st.r)}</p>
+        <div class="runbody"><div class="netbox">${netSVG({props: x3props(D, R.s), links: x3links(D, R.e)}, true, new Set(), false, false, fset)}<div class="cap" aria-live="polite"></div>${calKey("fit", "paler: rating nearer 0")}</div>
+          <div class="plist"><div class="cnt">${plural(R.s.filter(x => x!=null).length, "rating")} given, ${R.s.filter(x => x==null).length} null · ${plural(R.e.length, "related pair")}${prev ? ` · ${plural(R.s.filter((x, i) => x!==prev[i]).length, "rating")} changed since round ${st.r - 1}` : ""}</div>${x3Rows(D, R.s, prev)}</div></div>
+        <section class="sec" style="margin-top:8px"><details class="grp"><summary><b>Terms</b> · statement, rating, related pair, focal statement, round</summary><div style="padding:4px 0 16px">${x3Terms()}</div></details>${x3Method(D)}</section>
+      </div>`;
+    x3Wire(v, D, R.s, R.e);
+    $$(".stepbar button", v).forEach(b => b.addEventListener("click", () => { st.r = +b.dataset.r; setAddr(`/x3/a/${enc(c.key)}`, new URLSearchParams({r: st.r})); draw(); }));
+  }
+  draw();
+}
+
+async function openX3Pop(v, key, params){
+  const D = await loadX3(), p = D.pops.find(x => x.key===key);
+  if(!p) return openX3(v, new URLSearchParams());
+  const st = {r: Math.min(p.rounds.length - 1, Math.max(0, +(params.get("r") ?? 0))), a: Math.min(8, Math.max(1, +(params.get("a") || 1))), sid: null};
+  title(`${p.model}, ${X3_TOPO[p.topo]}, population ${p.pop} · Experiment 3`);
+  const addr = () => setAddr(`/x3/b/${enc(p.key)}`, new URLSearchParams({r: st.r, a: st.a}));
+  function chart(i){
+    const W = 300, H = 120, x = k => 24 + k * (W - 34) / (p.rounds.length - 1), y = val => 10 + (10 - val) * (H - 26) / 20;
+    const lines = [0, 1, 2, 3, 4, 5, 6, 7].map(ag => { const pts = p.rounds.map((R, k) => R[ag].s[i]==null ? null : [x(k), y(R[ag].s[i])]);
+      const segs = []; let cur = []; pts.forEach(q => { if(q) cur.push(q); else { if(cur.length) segs.push(cur); cur = []; } }); if(cur.length) segs.push(cur);
+      const set = p.rounds[0][ag].set;
+      return segs.map(sg => sg.length > 1 ? `<polyline class="al${ag + 1===st.a ? " on" : ""}" points="${sg.map(q => q.map(z => z.toFixed(1)).join(",")).join(" ")}" stroke-dasharray="${X3_DASH[set]}"/>` : `<circle class="ad${ag + 1===st.a ? " on" : ""}" cx="${sg[0][0].toFixed(1)}" cy="${sg[0][1].toFixed(1)}" r="2"/>`).join(""); }).join("");
+    return `<svg class="tchart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Ratings of this statement by the eight agents, round by round"><line class="ax" x1="24" x2="${W - 10}" y1="${y(0)}" y2="${y(0)}"/><text x="18" y="${y(10) + 3}" text-anchor="end">10</text><text x="18" y="${y(0) + 3}" text-anchor="end">0</text><text x="18" y="${y(-10) + 3}" text-anchor="end">−10</text>${p.rounds.map((_, k) => `<text x="${x(k)}" y="${H - 2}" text-anchor="middle">${k}</text>`).join("")}${lines}</svg>`;
+  }
+  function draw(){
+    const R = p.rounds[st.r], A = R[st.a - 1], prev = st.r > 0 ? p.rounds[st.r - 1][st.a - 1].s : null;
+    const nbs = p.graph.flatMap(([i, j]) => i===st.a - 1 ? [j + 1] : j===st.a - 1 ? [i + 1] : []).sort((a, b) => a - b);
+    v.innerHTML = `<div class="wrap viewhead">
+        <h1 class="title">${esc(X3_TOPO[p.topo])} network, Claude ${esc(p.model)}</h1>
+        <p class="lead">Eight instances of Claude ${esc(p.model)}. In round 0, agents 1 to 3 were given left-leaning articles, 4 to 6 right-leaning articles, and 7 and 8 a balanced set, and each returned ratings of the 80 statements and related pairs. From round 1, each agent’s prompt contained its neighbours’ ratings from the previous round. Population ${p.pop}.</p>
+        <div class="pick"><div class="lab">Population</div><div class="mtabs">${D.pops.map(x => `<a class="chip${x.key===p.key ? " on" : ""}" href="#/x3/b/${enc(x.key)}?r=${st.r}&a=${st.a}">${esc(x.model)}, ${esc(X3_TOPO[x.topo].toLowerCase())}, ${x.pop}</a>`).join("")}</div></div>
+      </div>
+      <div class="wrap" style="display:grid;grid-template-columns:minmax(0,1fr);gap:14px;margin-top:18px">
+        <div class="stepbar" role="group" aria-label="Round">${p.rounds.map((_, k) => `<button data-r="${k}" aria-pressed="${k===st.r}">Round ${k}</button>`).join("")}</div>
+        <div class="agents">${R.map((ag, k) => `<button class="agent${k + 1===st.a ? " on" : ""}" data-a="${k + 1}">${netSVG({props: x3props(D, ag.s), links: x3links(D, ag.e)}, true, new Set(), true)}<span class="tc">Agent ${k + 1}</span><span class="tn">${esc(X3_SET[ag.set])}</span></button>`).join("")}</div>
+        <div class="agbar">${x3SocialSVG(p, st.a, 120)}<p class="artline" style="margin:0">Agent <b>${st.a}</b>: ${esc(X3_SET[A.set])} in round 0. ${st.r===0 ? "Round 0: ratings and relations returned with the articles in the prompt." : `Round ${st.r}: the prompt contained the ratings of agent${nbs.length > 1 ? "s" : ""} ${nbs.length > 1 ? nbs.slice(0, -1).join(", ") + " and " + nbs[nbs.length - 1] : nbs[0]} from round ${st.r - 1}.`}</p></div>
+        <div class="runbody"><div class="netbox">${netSVG({props: x3props(D, A.s), links: x3links(D, A.e)}, true, new Set(), false)}<div class="cap" aria-live="polite"></div><div class="tc2"></div>${calKey("fit", "paler: rating nearer 0")}</div>
+          <div class="plist"><div class="cnt">Agent ${st.a}, round ${st.r}: ${plural(A.s.filter(x => x!=null).length, "rating")} given · ${plural(A.e.length, "related pair")}. The dots are the eight agents’ ratings in this round.</div>${x3Rows(D, A.s, prev, i => strip(R.map(ag => ag.s[i])))}</div></div>
+        <section class="sec" style="margin-top:8px"><details class="grp"><summary><b>Terms</b> · statement, rating, related pair, round</summary><div style="padding:4px 0 16px">${x3Terms()}</div></details>${x3Method(D)}</section>
+      </div>`;
+    const tc = $(".tc2", v);
+    x3Wire(v, D, A.s, A.e, id => { st.sid = id; tc.innerHTML = id ? `<div class="tcl">Ratings of ${esc(id)} by all eight agents, rounds 0 to ${p.rounds.length - 1} (agent ${st.a} in ink)</div>${chart(D.ids.indexOf(id))}` : ""; });
+    $$(".stepbar button", v).forEach(b => b.addEventListener("click", () => { st.r = +b.dataset.r; addr(); draw(); }));
+    $$(".agent", v).forEach(b => b.addEventListener("click", () => { st.a = +b.dataset.a; addr(); draw(); }));
+    $$(".agbar .ag", v).forEach(g => g.addEventListener("click", () => { st.a = +g.dataset.a; addr(); draw(); }));
+  }
+  draw();
+}
+
+/* ------------------------------------------------------------------ propositions from articles (experiments 1 and 8, five topics) */
+const P1_IDS = ["exp1", "gen3", "exp8"];
+const P1D = new Map();
+async function loadP1(id){
+  if(!P1D.has(id)){
+    const d = await getJSON(SITE.files.p1[id]);
+    d.index = d.sets.flatMap((s, si) => s.items.map((it, ii) => ({si, ii, low: it.t.toLowerCase()})));
+    d.total = d.index.length;
+    P1D.set(id, d);
+  }
+  return P1D.get(id);
+}
+const Q = s => `“${s}”`;
+const P1_INFO = {
+  exp1: {name: "Experiment 1", when: "10 October 2026", title: "Statements extracted from six news articles on AI and learning",
+    lead: d => `Claude Sonnet 5.5 was prompted with six news articles on the effects of AI on learners and asked for statements of one of three kinds: beliefs a reader could form from the articles, propositions the articles contain, or statements about the articles as texts. Two article sets were used, one balanced and one negatively charged. Each prompt was repeated ten times (three times for statements about texts), and Claude Opus 5.5 generated one reference list per set. In total, ${d.sets.length} requests and ${fmtN(d.total)} statements.`,
+    unit: "run", groupsTitle: "Reader beliefs that recurred across runs",
+    groupsLead: "The ten reader-belief runs of a set were compared pair by pair: Sonnet 5.5 proposed statements that say the same thing, and Opus 5.5 accepted or rejected each pair. A group is a set of accepted matches; the number is how many of the ten runs it appears in. The forty most frequent groups became the list used in the later steps of the experiment. Wordings are after compound statements were split.",
+    terms: [["Belief", Q("A belief here is a statement about the world that a reader could accept or reject: about what happened or is the case, what a number is, what causes what, what will happen, or what is good, bad or should be done.")],
+      ["Bearing", "How an article bears on a belief: " + Q("\"supports\" (a reader of that article would be led toward the belief), \"disputes\" (led away from it), or \"mixed\" (the article gives evidence both ways).")],
+      ["Proposition", Q("A proposition is a single claim about the world that an article states or reports: what happened or is the case, what a number is, what a rule or status is, what causes what, what will happen, or what is good, bad or should be done.")],
+      ["Relation", Q("\"asserts\" (the article states it in its own voice), \"reports\" (the article reports a person, group or study saying it), or \"hedges\" (the article states it with doubt or qualification).")],
+      ["Statement about the articles", "One of three kinds: " + Q("\"text\": a statement about one article as a piece of writing") + "; " + Q("\"entity\": a statement about how one article represents a person, group or institution") + "; and " + Q("\"between\": a statement about how two or more of the articles relate") + "."]]},
+  gen3: {name: "Five-topic generation", when: "29 September 2026", title: "Claims extracted from ten news articles, on five topics",
+    lead: d => `For each of five topics, two models, Claude Haiku 4.5 and Sonnet 5, were given ten news articles, each cut to its first 260 words, and asked for claims of one type per request: factual, interpretive or evaluative, six of each kind within the type. Each request was made four times. Every claim was then checked for its kind, its form, its neutrality and its faithfulness to its article, and claims that say the same thing were grouped. In total, ${d.sets.length} requests and ${fmtN(d.total)} claims.`,
+    unit: "request", groupsTitle: "Claims that recurred across requests",
+    groupsLead: "Claims of the same kind that say the same thing, grouped by Sonnet 5 after the checks. The number is how many of the eight requests for that type (two models, four samples) produced a member of the group.",
+    terms: [["Claim", "A claim about the subject of the articles " + Q("that a reader could believe or disbelieve") + ". Rule 1 of the prompt: " + Q("One self-contained declarative sentence stating a single proposition: not a question, not a topic label, and not two claims joined together.")],
+      ["Factual", Q("Factual claims are about what is or was the case, and could in principle be checked against records.") + " Kinds: event, quantity, rule."],
+      ["Interpretive", Q("Interpretive claims are about how to understand the situation. They go beyond the recorded facts but are not judgments of value.") + " Kinds: characterising, causal, predictive."],
+      ["Evaluative", Q("Evaluative claims are judgments of value.") + " Kinds: moral, prescriptive."],
+      ["Supported and disputed by", Q("the numbers of the articles that assert or support it, the numbers of any that deny or dispute it") + "."],
+      ["Kept or dropped", "Whether the claim passed the checks. Where the record names a failed check (not a single claim, attributed to a speaker, not neutral, not faithful to its article), it is given."]]},
+  exp8: {name: "Experiment 8, prompt test", when: "16 October 2026", title: "Propositions extracted from one news article, in different contexts",
+    lead: d => `A model was prompted with news articles and asked to list every proposition that one article contains. The context varied: the article alone; six articles, with every article’s propositions asked for; six articles, with one article’s asked for; and the article beside an unrelated article. The prompts were revised between three rounds, and a fourth round used articles on immigration enforcement. Models: Claude Haiku 4.5 at temperature 0 and 1, GPT-4o at temperature 0, and Claude Sonnet 5.5. In total, ${d.sets.length} requests and ${fmtN(d.total)} propositions.`,
+    unit: "request",
+    terms: [["Proposition", Q("A proposition is a single claim about the world that an article states or reports: what happened or is the case, what a number is, what a rule or status is, what causes what, what will happen, or what is good, bad or should be done.")],
+      ["Relation", Q("\"asserts\" (the article states it in its own voice), \"reports\" (the article reports a person, group or study saying it), or \"hedges\" (the article states it with doubt or qualification).")],
+      ["Source", Q("who makes the claim (a person, group or study as named in the article, or \"the article\" when it is the article's own voice)") + "."],
+      ["Context", "What else was in the request: nothing; the other five articles of a set; or an unrelated article."]]}
+};
+
+function p1Method(id){
+  const e = EXP(id), steps = e ? e.steps : [];
+  const extra = {exp1: "Model for the runs: Claude Sonnet 5.5; for the reference lists: Claude Opus 5.5. The outlets’ names were removed from the articles in the prompts. The later steps of the experiment (splitting, typing, ratings and a network over the forty statements) are in the step-by-step page.",
+    gen3: "Models: Claude Haiku 4.5 and Sonnet 5 through the Claude Code command line, whose own system prompt comes first. The checks were made by GPT-5.4 mini, and the grouping by Sonnet 5.",
+    exp8: "Each proposition was also asked for with the exact passage of the article that states it."}[id];
+  return `<details class="grp"><summary><b>Method</b> · the models, the dates, the prompts and what is left out</summary>
+      <div style="display:grid;gap:12px;padding:4px 0 18px;max-width:100ch;font-size:14px">
+        <p style="margin:0">${esc(extra)} Run on ${esc(e ? span(e.first, e.last) : "")}.</p>
+        <p style="margin:0">Articles are identified by outlet, date, headline and length; their text is not reproduced. Passages copied verbatim from an article into a response (“span” or “quote”) are omitted; all statements are reported verbatim.</p>
+        <p class="row" style="margin:0"><a class="btn" href="#/e/${id}">${esc(P1_INFO[id].name)}, step by step</a>${steps.length ? `<a class="btn" href="#/e/${id}/p/${enc(steps[0].key)}">The prompts</a>` : ""}</p>
+      </div>
+    </details>`;
+}
+
+async function openP1(v, id, params){
+  id = P1_IDS.includes(id) ? id : "exp1";
+  const D = await loadP1(id), I = P1_INFO[id];
+  title(I.title);
+  const same = (s, f) => D.facets.reduce((t, fc, k) => t + (String(s.f[fc.k])===String(f[fc.k]) ? 2 ** (D.facets.length - k) : 0), 0);
+  const want = {}; D.facets.forEach(fc => { if(params.get(fc.k)!=null) want[fc.k] = params.get(fc.k); });
+  const best = (f, need) => D.sets.reduce((b, s, i) => (need && String(s.f[need[0]])!==String(need[1])) ? b : (b < 0 || same(s, f) > same(D.sets[b], f) ? i : b), -1);
+  const st = {si: Math.max(0, best(want)), art: null, hi: params.get("i")!=null ? +params.get("i") : null};
+  const lab = (s, i) => (s.lab || "") + (i + 1);
+  const hrefOf = (s, extra) => { const p = new URLSearchParams(); D.facets.forEach(fc => p.set(fc.k, s.f[fc.k])); if(extra) for(const k in extra) p.set(k, extra[k]); return `#/p1/${id}?${p}`; };
+
+  v.innerHTML = `<div class="wrap viewhead">
+      <h1 class="title">${esc(I.title)}</h1>
+      <p class="lead">${esc(I.lead(D))}</p>
+      <div class="pick"><div class="lab">Experiment</div><div class="mtabs">${P1_IDS.map(x => `<a class="chip${x===id ? " on" : ""}" href="#/p1/${x}">${esc(P1_INFO[x].name)}</a>`).join("")}</div></div>
+    </div>
+    <div class="wrap">
+      <section class="sec"><h2>The statements</h2>
+        <div class="pick" id="pfilt"></div>
+        <div id="pset"></div>
+      </section>
+      ${D.groups.length ? `<section class="sec"><h2>${esc(I.groupsTitle)}</h2><p class="lead">${esc(I.groupsLead)}</p><div id="pgroups"></div></section>` : ""}
+      <section class="sec"><h2>Search the statements</h2>
+        <p class="lead">Every statement of the ${fmtN(D.sets.length)} requests. A result opens its request with the statement marked.</p>
+        <input class="find" id="pfind" type="search" placeholder="A word or phrase" aria-label="Search the statements" autocomplete="off">
+        <div id="phits" class="hits" aria-live="polite"></div>
+      </section>
+      <section class="sec"><h2>Terms</h2><dl class="defs">${I.terms.map(([k, ...d]) => `<dt>${esc(k)}</dt><dd>${esc(d.join(""))}</dd>`).join("")}</dl><p class="faint" style="font-size:12.5px;margin:8px 0 0">Quoted passages are from the prompts the models were given.</p></section>
+      ${p1Method(id)}
+    </div>`;
+
+  function drawSet(){
+    const s = D.sets[st.si];
+    $("#pfilt", v).innerHTML = D.facets.map(fc => {
+      const opts = fc.opts.map(([val, txt]) => { const b = best(s.f, [fc.k, val]); return b < 0 ? "" :
+        `<a class="chip${String(s.f[fc.k])===String(val) ? " on" : ""}" href="${hrefOf(D.sets[b])}">${esc(txt)}</a>`; }).join("");
+      return `<div class="lab">${esc(fc.label)}</div><div class="mtabs">${opts}</div>`;
+    }).join("");
+    const cites = s.arts.map((_, i) => s.items.filter(it => it.a.includes(i)).length);
+    const rows = s.items.map((it, ii) => ({it, ii})).filter(({it}) => st.art==null || it.a.includes(st.art));
+    $("#pset", v).innerHTML = `<p class="artline" style="margin:4px 0 10px">${esc(/^GPT/.test(s.model) ? s.model : "Claude " + s.model)}${s.time ? `, ${esc(dLong(s.time))}` : ""}. ${plural(s.items.length, "statement")} from ${plural(s.arts.length, "article")}. Selecting an article shows only the statements that cite it.</p>
+      <div class="artlist p1arts">${s.arts.map((aid, i) => { const a = D.articles[aid] || {};
+        return `<button class="art${st.art===i ? " on" : ""}${s.asked && s.asked.includes(i) ? " asked" : ""}" data-i="${i}"><span class="lb">${esc(lab(s, i))}</span><span class="dt">${esc(a.date || "")}</span><span class="hd">${esc(a.headline || aid)}${s.asked && s.asked.includes(i) ? ` <span class="faint">(asked for)</span>` : ""}</span><span class="src">${esc(a.outlet || "")}${a.words ? " · " + fmtN(a.words) + " words" : ""} · cited by ${cites[i]}</span></button>`; }).join("")}</div>
+      <div class="slist">${st.art!=null ? `<div class="cnt">${plural(rows.length, "statement")} cite ${s.lab ? "" : "article "}${esc(lab(s, st.art))}</div>` : ""}${rows.map(({it, ii}) => `<div class="srow2${ii===st.hi ? " on" : ""}" id="st-${ii}"><span class="n">${ii + 1}</span><span class="tx">${esc(it.t)}</span><span class="ci">${esc(it.a.map(i => lab(s, i)).join(" "))}</span>${it.m ? `<span class="m">${esc(it.m)}</span>` : ""}</div>`).join("")}</div>`;
+    $$("#pset .art", v).forEach(b => b.addEventListener("click", () => { const i = +b.dataset.i; st.art = st.art===i ? null : i; drawSet(); }));
+    if(st.hi!=null){ const r = $("#st-" + st.hi, v); if(r) setTimeout(() => r.scrollIntoView({block: "center"}), 60); }
+  }
+  function drawGroups(){
+    const host = $("#pgroups", v); if(!host) return;
+    const s = D.sets[st.si], key = id==="gen3" ? "topic" : "set";
+    const G = D.groups.filter(g => g.f[key]===s.f[key]).sort((a, b) => b.n - a.n);
+    host.innerHTML = `<div class="cnt">${plural(G.length, "group")}${id==="gen3" ? " for " + esc(B_TOPIC(s.f.topic)) : " for the " + esc(s.f.set==="balanced" ? "balanced set" : "charged negative set")}</div>` +
+      G.map(g => `<details class="grow"><summary><span class="gn">${g.n} of ${g.of}</span><span class="tx">${esc(g.t)}</span>${id==="exp1" && g.listed ? `<span class="tag">on the list of forty</span>` : g.kind ? `<span class="tag">${esc(g.kind)}</span>` : ""}</summary>
+        <div class="gm">${g.members.map(([w, t]) => `<div><span class="faint">${esc(id==="exp1" ? "run " + w : w)}</span> ${esc(t)}</div>`).join("")}</div></details>`).join("");
+  }
+  function find(){
+    const words = $("#pfind", v).value.toLowerCase().split(/\s+/).filter(w => w.length > 1);
+    const out = $("#phits", v);
+    if(!words.length){ out.innerHTML = ""; return; }
+    const hits = D.index.filter(x => words.every(w => x.low.includes(w)));
+    out.innerHTML = `<p class="cnt">${plural(hits.length, "statement")} in ${plural(new Set(hits.map(x => x.si)).size, "request")}${hits.length > 80 ? "; the first 80 are listed" : ""}</p>` +
+      hits.slice(0, 80).map(x => { const s = D.sets[x.si];
+        return `<a class="hit" href="${hrefOf(s, {i: x.ii})}"><span class="att faint">${x.ii + 1}</span><span class="tx">${esc(s.items[x.ii].t)}</span><span class="rn">${esc(D.facets.map(fc => (fc.opts.find(o => String(o[0])===String(s.f[fc.k])) || [0, s.f[fc.k]])[1]).join(", "))}</span></a>`; }).join("");
+  }
+  drawSet(); drawGroups();
+  let t = 0;
+  $("#pfind", v).addEventListener("input", () => { clearTimeout(t); t = setTimeout(find, 120); });
+}
+const B_TOPIC = t => ({tar: "tariffs and prices", cgp: "congestion pricing", glp: "GLP-1 drugs", ail: "AI and learning", nuc: "nuclear revival"})[t] || t;
+
+/* ------------------------------------------------------------------ the front page */
+async function openOverview(v){
+  title("");
+  const O = await getJSON(SITE.files.overview);
+  const card = (href, h, p, facts, pic) => `<a class="ovc" href="${href}">${pic ? `<span class="ovp">${pic}</span>` : ""}<span class="ovt"><span class="ovh">${esc(h)}</span><span class="ovd">${esc(p)}</span><span class="facts">${facts.map(([k, x]) => `<span>${esc(k)}<b>${esc(x)}</b></span>`).join("")}</span></span></a>`;
+  v.innerHTML = `<div class="wrap hero">
+      <h1 class="display">Belief networks elicited from large language models</h1>
+      <p class="lead">Six experiments elicited propositions, agreement ratings and belief networks from large language models prompted with news articles or with fixed lists of statements. In the first group, a model extracted propositions from a set of news articles. In the second, a model assigned an agreement rating to each statement on a fixed list and identified the related pairs among them. In the third, a model was given articles in sequence and, after each article, returned an updated network of propositions, attitudes toward them, and links between them.</p>
+    </div>
+    <div class="wrap" style="display:grid;gap:14px;margin-top:10px">
+      ${card("#/p1/exp1", "Propositions extracted from articles", "Models were prompted with news articles and asked for the propositions they contain, the beliefs a reader could form from them, or claims of a specified type. Three experiments.",
+        [["requests", fmtN(O.p1.requests)], ["statements", fmtN(O.p1.statements)]], "")}
+      ${card("#/cal/aidc", "Networks over a fixed list", "Models were given 24 statements on a news topic and asked, in separate prompts, for an agreement rating of each statement and for the related pairs with a signed strength. Seven topics, with and without news articles in the prompt, under five definitions of a relation.",
+        [["networks", fmtN(O.cal.networks)], ["stance lists", fmtN(O.cal.stances)], ["topics", fmtN(O.cal.topics)]], netSVG(O.cal.preview, true, new Set(), true))}
+      ${card("#/x3", "Ratings and relations over repeated rounds", "Ratings of 80 statements and their related pairs were elicited over successive rounds, with a new article, report or request to reconsider added to each prompt, or with the previous ratings of neighbouring model instances on a social network.",
+        [["chains", fmtN(O.x3.chains)], ["populations", fmtN(O.x3.pops)], ["networks", fmtN(O.x3.networks)]], netSVG(O.x3.preview, true, new Set(), true))}
+      ${card("#/runs", "Networks updated across articles", "A model was given four news articles in sequence and, after each one, returned an updated record of propositions, attitudes and directed links. After the last article it was prompted to answer a user’s question from the record.",
+        [["runs", fmtN(O.runs.runs)], ["propositions", fmtN(O.runs.props)], ["links", fmtN(O.runs.links)]], netSVG(O.runs.preview, false, new Set(), true))}
+    </div>`;
+}
+
+const RESULT_OF = {exp1: "#/p1/exp1", gen3: "#/p1/gen3", exp8: "#/p1/exp8", cal: "#/cal/aidc", exp3: "#/x3", exp9: "#/runs"};
+const TAB_OF = {exp1: "p1", gen3: "p1", exp8: "p1", cal: "cal", exp3: "x3", exp9: "runs"};
+
+/* ------------------------------------------------------------------ start */
+(async () => {
+  try{ SITE = await getJSON("assets/site.json"); route(); }
+  catch(e){ fail(e); }
+})();
+</script>
+</body>
+</html>

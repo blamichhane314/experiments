@@ -1,0 +1,67 @@
+chain,model,settings,focal statement,what arrived each round,repetition
+haiku_main_held_opposite_0,Haiku 4.5,Main settings,Consistently agreed with,Articles from the other side,1
+haiku_main_held_opposite_1,Haiku 4.5,Main settings,Consistently agreed with,Articles from the other side,2
+haiku_main_held_opposite_2,Haiku 4.5,Main settings,Consistently agreed with,Articles from the other side,3
+haiku_main_held_pressure_0,Haiku 4.5,Main settings,Consistently agreed with,Pressure to reconsider,1
+haiku_main_held_pressure_1,Haiku 4.5,Main settings,Consistently agreed with,Pressure to reconsider,2
+haiku_main_held_pressure_2,Haiku 4.5,Main settings,Consistently agreed with,Pressure to reconsider,3
+haiku_main_held_report_0,Haiku 4.5,Main settings,Consistently agreed with,A report stating the opposite,1
+haiku_main_held_report_1,Haiku 4.5,Main settings,Consistently agreed with,A report stating the opposite,2
+haiku_main_held_report_2,Haiku 4.5,Main settings,Consistently agreed with,A report stating the opposite,3
+haiku_main_held_same_0,Haiku 4.5,Main settings,Consistently agreed with,Articles from the same side,1
+haiku_main_held_same_1,Haiku 4.5,Main settings,Consistently agreed with,Articles from the same side,2
+haiku_main_held_same_2,Haiku 4.5,Main settings,Consistently agreed with,Articles from the same side,3
+haiku_main_installed_opposite_0,Haiku 4.5,Main settings,No earlier rating,Articles from the other side,1
+haiku_main_installed_opposite_1,Haiku 4.5,Main settings,No earlier rating,Articles from the other side,2
+haiku_main_installed_opposite_2,Haiku 4.5,Main settings,No earlier rating,Articles from the other side,3
+haiku_main_installed_pressure_0,Haiku 4.5,Main settings,No earlier rating,Pressure to reconsider,1
+haiku_main_installed_pressure_1,Haiku 4.5,Main settings,No earlier rating,Pressure to reconsider,2
+haiku_main_installed_pressure_2,Haiku 4.5,Main settings,No earlier rating,Pressure to reconsider,3
+haiku_main_installed_report_0,Haiku 4.5,Main settings,No earlier rating,A report stating the opposite,1
+haiku_main_installed_report_1,Haiku 4.5,Main settings,No earlier rating,A report stating the opposite,2
+haiku_main_installed_report_2,Haiku 4.5,Main settings,No earlier rating,A report stating the opposite,3
+haiku_main_installed_same_0,Haiku 4.5,Main settings,No earlier rating,Articles from the same side,1
+haiku_main_installed_same_1,Haiku 4.5,Main settings,No earlier rating,Articles from the same side,2
+haiku_main_installed_same_2,Haiku 4.5,Main settings,No earlier rating,Articles from the same side,3
+haiku_main_none_nothing_0,Haiku 4.5,Main settings,None,Nothing,1
+haiku_main_none_nothing_1,Haiku 4.5,Main settings,None,Nothing,2
+haiku_main_none_nothing_2,Haiku 4.5,Main settings,None,Nothing,3
+haiku_temp03_held_opposite_0,Haiku 4.5,Temperature 0.3,Consistently agreed with,Articles from the other side,1
+haiku_temp03_held_opposite_1,Haiku 4.5,Temperature 0.3,Consistently agreed with,Articles from the other side,2
+haiku_temp03_held_opposite_2,Haiku 4.5,Temperature 0.3,Consistently agreed with,Articles from the other side,3
+haiku_temp03_installed_opposite_0,Haiku 4.5,Temperature 0.3,No earlier rating,Articles from the other side,1
+haiku_temp03_installed_opposite_1,Haiku 4.5,Temperature 0.3,No earlier rating,Articles from the other side,2
+haiku_temp03_installed_opposite_2,Haiku 4.5,Temperature 0.3,No earlier rating,Articles from the other side,3
+sonnet_main_held_opposite_0,Sonnet 5.5,Main settings,Consistently agreed with,Articles from the other side,1
+sonnet_main_held_opposite_1,Sonnet 5.5,Main settings,Consistently agreed with,Articles from the other side,2
+sonnet_main_held_opposite_2,Sonnet 5.5,Main settings,Consistently agreed with,Articles from the other side,3
+sonnet_main_held_pressure_0,Sonnet 5.5,Main settings,Consistently agreed with,Pressure to reconsider,1
+sonnet_main_held_pressure_1,Sonnet 5.5,Main settings,Consistently agreed with,Pressure to reconsider,2
+sonnet_main_held_pressure_2,Sonnet 5.5,Main settings,Consistently agreed with,Pressure to reconsider,3
+sonnet_main_held_report_0,Sonnet 5.5,Main settings,Consistently agreed with,A report stating the opposite,1
+sonnet_main_held_report_1,Sonnet 5.5,Main settings,Consistently agreed with,A report stating the opposite,2
+sonnet_main_held_report_2,Sonnet 5.5,Main settings,Consistently agreed with,A report stating the opposite,3
+sonnet_main_held_same_0,Sonnet 5.5,Main settings,Consistently agreed with,Articles from the same side,1
+sonnet_main_held_same_1,Sonnet 5.5,Main settings,Consistently agreed with,Articles from the same side,2
+sonnet_main_held_same_2,Sonnet 5.5,Main settings,Consistently agreed with,Articles from the same side,3
+sonnet_main_installed_opposite_0,Sonnet 5.5,Main settings,No earlier rating,Articles from the other side,1
+sonnet_main_installed_opposite_1,Sonnet 5.5,Main settings,No earlier rating,Articles from the other side,2
+sonnet_main_installed_opposite_2,Sonnet 5.5,Main settings,No earlier rating,Articles from the other side,3
+sonnet_main_installed_pressure_0,Sonnet 5.5,Main settings,No earlier rating,Pressure to reconsider,1
+sonnet_main_installed_pressure_1,Sonnet 5.5,Main settings,No earlier rating,Pressure to reconsider,2
+sonnet_main_installed_pressure_2,Sonnet 5.5,Main settings,No earlier rating,Pressure to reconsider,3
+sonnet_main_installed_report_0,Sonnet 5.5,Main settings,No earlier rating,A report stating the opposite,1
+sonnet_main_installed_report_1,Sonnet 5.5,Main settings,No earlier rating,A report stating the opposite,2
+sonnet_main_installed_report_2,Sonnet 5.5,Main settings,No earlier rating,A report stating the opposite,3
+sonnet_main_installed_same_0,Sonnet 5.5,Main settings,No earlier rating,Articles from the same side,1
+sonnet_main_installed_same_1,Sonnet 5.5,Main settings,No earlier rating,Articles from the same side,2
+sonnet_main_installed_same_2,Sonnet 5.5,Main settings,No earlier rating,Articles from the same side,3
+sonnet_main_none_nothing_0,Sonnet 5.5,Main settings,None,Nothing,1
+sonnet_main_none_nothing_1,Sonnet 5.5,Main settings,None,Nothing,2
+sonnet_main_none_nothing_2,Sonnet 5.5,Main settings,None,Nothing,3
+sonnet_think_held_opposite_0,Sonnet 5.5,Reasoning on,Consistently agreed with,Articles from the other side,1
+sonnet_think_held_opposite_1,Sonnet 5.5,Reasoning on,Consistently agreed with,Articles from the other side,2
+sonnet_think_held_opposite_2,Sonnet 5.5,Reasoning on,Consistently agreed with,Articles from the other side,3
+sonnet_think_installed_opposite_0,Sonnet 5.5,Reasoning on,No earlier rating,Articles from the other side,1
+sonnet_think_installed_opposite_1,Sonnet 5.5,Reasoning on,No earlier rating,Articles from the other side,2
+sonnet_think_installed_opposite_2,Sonnet 5.5,Reasoning on,No earlier rating,Articles from the other side,3

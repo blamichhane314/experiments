@@ -1,0 +1,331 @@
+chain,round,what arrived,article (id in results)
+haiku_main_held_opposite_0,1,Articles from the other side,ice_breitbart_0604_47d0
+haiku_main_held_opposite_0,2,Articles from the other side,ice_cbs_1006_8679
+haiku_main_held_opposite_0,3,Articles from the other side,ice_fox_0707_b86a
+haiku_main_held_opposite_0,4,Articles from the other side,ice_fox_0510_2f6b
+haiku_main_held_opposite_0,5,Articles from the other side,ice_fox_0602_9e5a
+haiku_main_held_opposite_1,1,Articles from the other side,ice_fox_0602_9e5a
+haiku_main_held_opposite_1,2,Articles from the other side,ice_fox_0707_b86a
+haiku_main_held_opposite_1,3,Articles from the other side,ice_cbs_1006_8679
+haiku_main_held_opposite_1,4,Articles from the other side,ice_fox_0510_2f6b
+haiku_main_held_opposite_1,5,Articles from the other side,ice_breitbart_0604_47d0
+haiku_main_held_opposite_2,1,Articles from the other side,ice_fox_0510_2f6b
+haiku_main_held_opposite_2,2,Articles from the other side,ice_fox_0602_9e5a
+haiku_main_held_opposite_2,3,Articles from the other side,ice_breitbart_0604_47d0
+haiku_main_held_opposite_2,4,Articles from the other side,ice_cbs_1006_8679
+haiku_main_held_opposite_2,5,Articles from the other side,ice_fox_0707_b86a
+haiku_main_held_pressure_0,1,Pressure to reconsider,
+haiku_main_held_pressure_0,2,Pressure to reconsider,
+haiku_main_held_pressure_0,3,Pressure to reconsider,
+haiku_main_held_pressure_0,4,Pressure to reconsider,
+haiku_main_held_pressure_0,5,Pressure to reconsider,
+haiku_main_held_pressure_1,1,Pressure to reconsider,
+haiku_main_held_pressure_1,2,Pressure to reconsider,
+haiku_main_held_pressure_1,3,Pressure to reconsider,
+haiku_main_held_pressure_1,4,Pressure to reconsider,
+haiku_main_held_pressure_1,5,Pressure to reconsider,
+haiku_main_held_pressure_2,1,Pressure to reconsider,
+haiku_main_held_pressure_2,2,Pressure to reconsider,
+haiku_main_held_pressure_2,3,Pressure to reconsider,
+haiku_main_held_pressure_2,4,Pressure to reconsider,
+haiku_main_held_pressure_2,5,Pressure to reconsider,
+haiku_main_held_report_0,1,A report stating the opposite,
+haiku_main_held_report_0,2,A report stating the opposite,
+haiku_main_held_report_0,3,A report stating the opposite,
+haiku_main_held_report_0,4,A report stating the opposite,
+haiku_main_held_report_0,5,A report stating the opposite,
+haiku_main_held_report_1,1,A report stating the opposite,
+haiku_main_held_report_1,2,A report stating the opposite,
+haiku_main_held_report_1,3,A report stating the opposite,
+haiku_main_held_report_1,4,A report stating the opposite,
+haiku_main_held_report_1,5,A report stating the opposite,
+haiku_main_held_report_2,1,A report stating the opposite,
+haiku_main_held_report_2,2,A report stating the opposite,
+haiku_main_held_report_2,3,A report stating the opposite,
+haiku_main_held_report_2,4,A report stating the opposite,
+haiku_main_held_report_2,5,A report stating the opposite,
+haiku_main_held_same_0,1,Articles from the same side,ice_fortune_0530_6ac7
+haiku_main_held_same_0,2,Articles from the same side,ice_nbc_0715_e794
+haiku_main_held_same_0,3,Articles from the same side,ice_breitbart_0419_7108
+haiku_main_held_same_0,4,Articles from the same side,ice_cnn_0518_b673
+haiku_main_held_same_0,5,Articles from the same side,ice_npr_0505_51f0
+haiku_main_held_same_1,1,Articles from the same side,ice_breitbart_0419_7108
+haiku_main_held_same_1,2,Articles from the same side,ice_nbc_0715_e794
+haiku_main_held_same_1,3,Articles from the same side,ice_cnn_0518_b673
+haiku_main_held_same_1,4,Articles from the same side,ice_npr_0505_51f0
+haiku_main_held_same_1,5,Articles from the same side,ice_fortune_0530_6ac7
+haiku_main_held_same_2,1,Articles from the same side,ice_fortune_0530_6ac7
+haiku_main_held_same_2,2,Articles from the same side,ice_breitbart_0419_7108
+haiku_main_held_same_2,3,Articles from the same side,ice_npr_0505_51f0
+haiku_main_held_same_2,4,Articles from the same side,ice_cnn_0518_b673
+haiku_main_held_same_2,5,Articles from the same side,ice_nbc_0715_e794
+haiku_main_installed_opposite_0,1,Articles from the other side,ice_cbs_1006_8679
+haiku_main_installed_opposite_0,2,Articles from the other side,ice_fox_0602_9e5a
+haiku_main_installed_opposite_0,3,Articles from the other side,ice_fox_0510_2f6b
+haiku_main_installed_opposite_0,4,Articles from the other side,ice_fox_0707_b86a
+haiku_main_installed_opposite_0,5,Articles from the other side,ice_breitbart_0604_47d0
+haiku_main_installed_opposite_1,1,Articles from the other side,ice_breitbart_0604_47d0
+haiku_main_installed_opposite_1,2,Articles from the other side,ice_cbs_1006_8679
+haiku_main_installed_opposite_1,3,Articles from the other side,ice_fox_0510_2f6b
+haiku_main_installed_opposite_1,4,Articles from the other side,ice_fox_0602_9e5a
+haiku_main_installed_opposite_1,5,Articles from the other side,ice_fox_0707_b86a
+haiku_main_installed_opposite_2,1,Articles from the other side,ice_cbs_1006_8679
+haiku_main_installed_opposite_2,2,Articles from the other side,ice_fox_0510_2f6b
+haiku_main_installed_opposite_2,3,Articles from the other side,ice_fox_0602_9e5a
+haiku_main_installed_opposite_2,4,Articles from the other side,ice_breitbart_0604_47d0
+haiku_main_installed_opposite_2,5,Articles from the other side,ice_fox_0707_b86a
+haiku_main_installed_pressure_0,1,Pressure to reconsider,
+haiku_main_installed_pressure_0,2,Pressure to reconsider,
+haiku_main_installed_pressure_0,3,Pressure to reconsider,
+haiku_main_installed_pressure_0,4,Pressure to reconsider,
+haiku_main_installed_pressure_0,5,Pressure to reconsider,
+haiku_main_installed_pressure_1,1,Pressure to reconsider,
+haiku_main_installed_pressure_1,2,Pressure to reconsider,
+haiku_main_installed_pressure_1,3,Pressure to reconsider,
+haiku_main_installed_pressure_1,4,Pressure to reconsider,
+haiku_main_installed_pressure_1,5,Pressure to reconsider,
+haiku_main_installed_pressure_2,1,Pressure to reconsider,
+haiku_main_installed_pressure_2,2,Pressure to reconsider,
+haiku_main_installed_pressure_2,3,Pressure to reconsider,
+haiku_main_installed_pressure_2,4,Pressure to reconsider,
+haiku_main_installed_pressure_2,5,Pressure to reconsider,
+haiku_main_installed_report_0,1,A report stating the opposite,
+haiku_main_installed_report_0,2,A report stating the opposite,
+haiku_main_installed_report_0,3,A report stating the opposite,
+haiku_main_installed_report_0,4,A report stating the opposite,
+haiku_main_installed_report_0,5,A report stating the opposite,
+haiku_main_installed_report_1,1,A report stating the opposite,
+haiku_main_installed_report_1,2,A report stating the opposite,
+haiku_main_installed_report_1,3,A report stating the opposite,
+haiku_main_installed_report_1,4,A report stating the opposite,
+haiku_main_installed_report_1,5,A report stating the opposite,
+haiku_main_installed_report_2,1,A report stating the opposite,
+haiku_main_installed_report_2,2,A report stating the opposite,
+haiku_main_installed_report_2,3,A report stating the opposite,
+haiku_main_installed_report_2,4,A report stating the opposite,
+haiku_main_installed_report_2,5,A report stating the opposite,
+haiku_main_installed_same_0,1,Articles from the same side,ice_fortune_0530_6ac7
+haiku_main_installed_same_0,2,Articles from the same side,ice_cnn_0518_b673
+haiku_main_installed_same_0,3,Articles from the same side,ice_fortune_0715_09f3
+haiku_main_installed_same_0,4,Articles from the same side,ice_breitbart_0419_7108
+haiku_main_installed_same_0,5,Articles from the same side,ice_nbc_0715_e794
+haiku_main_installed_same_1,1,Articles from the same side,ice_cnn_0518_b673
+haiku_main_installed_same_1,2,Articles from the same side,ice_fortune_0530_6ac7
+haiku_main_installed_same_1,3,Articles from the same side,ice_fortune_0715_09f3
+haiku_main_installed_same_1,4,Articles from the same side,ice_breitbart_0419_7108
+haiku_main_installed_same_1,5,Articles from the same side,ice_nbc_0715_e794
+haiku_main_installed_same_2,1,Articles from the same side,ice_fortune_0715_09f3
+haiku_main_installed_same_2,2,Articles from the same side,ice_fortune_0530_6ac7
+haiku_main_installed_same_2,3,Articles from the same side,ice_breitbart_0419_7108
+haiku_main_installed_same_2,4,Articles from the same side,ice_nbc_0715_e794
+haiku_main_installed_same_2,5,Articles from the same side,ice_cnn_0518_b673
+haiku_main_none_nothing_0,1,Nothing,
+haiku_main_none_nothing_0,2,Nothing,
+haiku_main_none_nothing_0,3,Nothing,
+haiku_main_none_nothing_0,4,Nothing,
+haiku_main_none_nothing_0,5,Nothing,
+haiku_main_none_nothing_1,1,Nothing,
+haiku_main_none_nothing_1,2,Nothing,
+haiku_main_none_nothing_1,3,Nothing,
+haiku_main_none_nothing_1,4,Nothing,
+haiku_main_none_nothing_1,5,Nothing,
+haiku_main_none_nothing_2,1,Nothing,
+haiku_main_none_nothing_2,2,Nothing,
+haiku_main_none_nothing_2,3,Nothing,
+haiku_main_none_nothing_2,4,Nothing,
+haiku_main_none_nothing_2,5,Nothing,
+haiku_temp03_held_opposite_0,1,Articles from the other side,ice_breitbart_0604_47d0
+haiku_temp03_held_opposite_0,2,Articles from the other side,ice_cbs_1006_8679
+haiku_temp03_held_opposite_0,3,Articles from the other side,ice_fox_0707_b86a
+haiku_temp03_held_opposite_0,4,Articles from the other side,ice_fox_0510_2f6b
+haiku_temp03_held_opposite_0,5,Articles from the other side,ice_fox_0602_9e5a
+haiku_temp03_held_opposite_1,1,Articles from the other side,ice_fox_0602_9e5a
+haiku_temp03_held_opposite_1,2,Articles from the other side,ice_fox_0707_b86a
+haiku_temp03_held_opposite_1,3,Articles from the other side,ice_cbs_1006_8679
+haiku_temp03_held_opposite_1,4,Articles from the other side,ice_fox_0510_2f6b
+haiku_temp03_held_opposite_1,5,Articles from the other side,ice_breitbart_0604_47d0
+haiku_temp03_held_opposite_2,1,Articles from the other side,ice_fox_0510_2f6b
+haiku_temp03_held_opposite_2,2,Articles from the other side,ice_fox_0602_9e5a
+haiku_temp03_held_opposite_2,3,Articles from the other side,ice_breitbart_0604_47d0
+haiku_temp03_held_opposite_2,4,Articles from the other side,ice_cbs_1006_8679
+haiku_temp03_held_opposite_2,5,Articles from the other side,ice_fox_0707_b86a
+haiku_temp03_installed_opposite_0,1,Articles from the other side,ice_cbs_1006_8679
+haiku_temp03_installed_opposite_0,2,Articles from the other side,ice_fox_0602_9e5a
+haiku_temp03_installed_opposite_0,3,Articles from the other side,ice_fox_0510_2f6b
+haiku_temp03_installed_opposite_0,4,Articles from the other side,ice_fox_0707_b86a
+haiku_temp03_installed_opposite_0,5,Articles from the other side,ice_breitbart_0604_47d0
+haiku_temp03_installed_opposite_1,1,Articles from the other side,ice_breitbart_0604_47d0
+haiku_temp03_installed_opposite_1,2,Articles from the other side,ice_cbs_1006_8679
+haiku_temp03_installed_opposite_1,3,Articles from the other side,ice_fox_0510_2f6b
+haiku_temp03_installed_opposite_1,4,Articles from the other side,ice_fox_0602_9e5a
+haiku_temp03_installed_opposite_1,5,Articles from the other side,ice_fox_0707_b86a
+haiku_temp03_installed_opposite_2,1,Articles from the other side,ice_cbs_1006_8679
+haiku_temp03_installed_opposite_2,2,Articles from the other side,ice_fox_0510_2f6b
+haiku_temp03_installed_opposite_2,3,Articles from the other side,ice_fox_0602_9e5a
+haiku_temp03_installed_opposite_2,4,Articles from the other side,ice_breitbart_0604_47d0
+haiku_temp03_installed_opposite_2,5,Articles from the other side,ice_fox_0707_b86a
+sonnet_main_held_opposite_0,1,Articles from the other side,ice_breitbart_0604_47d0
+sonnet_main_held_opposite_0,2,Articles from the other side,ice_cbs_1006_8679
+sonnet_main_held_opposite_0,3,Articles from the other side,ice_fox_0707_b86a
+sonnet_main_held_opposite_0,4,Articles from the other side,ice_fox_0510_2f6b
+sonnet_main_held_opposite_0,5,Articles from the other side,ice_fox_0602_9e5a
+sonnet_main_held_opposite_1,1,Articles from the other side,ice_fox_0602_9e5a
+sonnet_main_held_opposite_1,2,Articles from the other side,ice_fox_0707_b86a
+sonnet_main_held_opposite_1,3,Articles from the other side,ice_cbs_1006_8679
+sonnet_main_held_opposite_1,4,Articles from the other side,ice_fox_0510_2f6b
+sonnet_main_held_opposite_1,5,Articles from the other side,ice_breitbart_0604_47d0
+sonnet_main_held_opposite_2,1,Articles from the other side,ice_fox_0510_2f6b
+sonnet_main_held_opposite_2,2,Articles from the other side,ice_fox_0602_9e5a
+sonnet_main_held_opposite_2,3,Articles from the other side,ice_breitbart_0604_47d0
+sonnet_main_held_opposite_2,4,Articles from the other side,ice_cbs_1006_8679
+sonnet_main_held_opposite_2,5,Articles from the other side,ice_fox_0707_b86a
+sonnet_main_held_pressure_0,1,Pressure to reconsider,
+sonnet_main_held_pressure_0,2,Pressure to reconsider,
+sonnet_main_held_pressure_0,3,Pressure to reconsider,
+sonnet_main_held_pressure_0,4,Pressure to reconsider,
+sonnet_main_held_pressure_0,5,Pressure to reconsider,
+sonnet_main_held_pressure_1,1,Pressure to reconsider,
+sonnet_main_held_pressure_1,2,Pressure to reconsider,
+sonnet_main_held_pressure_1,3,Pressure to reconsider,
+sonnet_main_held_pressure_1,4,Pressure to reconsider,
+sonnet_main_held_pressure_1,5,Pressure to reconsider,
+sonnet_main_held_pressure_2,1,Pressure to reconsider,
+sonnet_main_held_pressure_2,2,Pressure to reconsider,
+sonnet_main_held_pressure_2,3,Pressure to reconsider,
+sonnet_main_held_pressure_2,4,Pressure to reconsider,
+sonnet_main_held_pressure_2,5,Pressure to reconsider,
+sonnet_main_held_report_0,1,A report stating the opposite,
+sonnet_main_held_report_0,2,A report stating the opposite,
+sonnet_main_held_report_0,3,A report stating the opposite,
+sonnet_main_held_report_0,4,A report stating the opposite,
+sonnet_main_held_report_0,5,A report stating the opposite,
+sonnet_main_held_report_1,1,A report stating the opposite,
+sonnet_main_held_report_1,2,A report stating the opposite,
+sonnet_main_held_report_1,3,A report stating the opposite,
+sonnet_main_held_report_1,4,A report stating the opposite,
+sonnet_main_held_report_1,5,A report stating the opposite,
+sonnet_main_held_report_2,1,A report stating the opposite,
+sonnet_main_held_report_2,2,A report stating the opposite,
+sonnet_main_held_report_2,3,A report stating the opposite,
+sonnet_main_held_report_2,4,A report stating the opposite,
+sonnet_main_held_report_2,5,A report stating the opposite,
+sonnet_main_held_same_0,1,Articles from the same side,ice_fortune_0530_6ac7
+sonnet_main_held_same_0,2,Articles from the same side,ice_nbc_0715_e794
+sonnet_main_held_same_0,3,Articles from the same side,ice_breitbart_0419_7108
+sonnet_main_held_same_0,4,Articles from the same side,ice_cnn_0518_b673
+sonnet_main_held_same_0,5,Articles from the same side,ice_npr_0505_51f0
+sonnet_main_held_same_1,1,Articles from the same side,ice_breitbart_0419_7108
+sonnet_main_held_same_1,2,Articles from the same side,ice_nbc_0715_e794
+sonnet_main_held_same_1,3,Articles from the same side,ice_cnn_0518_b673
+sonnet_main_held_same_1,4,Articles from the same side,ice_npr_0505_51f0
+sonnet_main_held_same_1,5,Articles from the same side,ice_fortune_0530_6ac7
+sonnet_main_held_same_2,1,Articles from the same side,ice_fortune_0530_6ac7
+sonnet_main_held_same_2,2,Articles from the same side,ice_breitbart_0419_7108
+sonnet_main_held_same_2,3,Articles from the same side,ice_npr_0505_51f0
+sonnet_main_held_same_2,4,Articles from the same side,ice_cnn_0518_b673
+sonnet_main_held_same_2,5,Articles from the same side,ice_nbc_0715_e794
+sonnet_main_installed_opposite_0,1,Articles from the other side,ice_cbs_1006_8679
+sonnet_main_installed_opposite_0,2,Articles from the other side,ice_fox_0602_9e5a
+sonnet_main_installed_opposite_0,3,Articles from the other side,ice_fox_0510_2f6b
+sonnet_main_installed_opposite_0,4,Articles from the other side,ice_fox_0707_b86a
+sonnet_main_installed_opposite_0,5,Articles from the other side,ice_breitbart_0604_47d0
+sonnet_main_installed_opposite_1,1,Articles from the other side,ice_breitbart_0604_47d0
+sonnet_main_installed_opposite_1,2,Articles from the other side,ice_cbs_1006_8679
+sonnet_main_installed_opposite_1,3,Articles from the other side,ice_fox_0510_2f6b
+sonnet_main_installed_opposite_1,4,Articles from the other side,ice_fox_0602_9e5a
+sonnet_main_installed_opposite_1,5,Articles from the other side,ice_fox_0707_b86a
+sonnet_main_installed_opposite_2,1,Articles from the other side,ice_cbs_1006_8679
+sonnet_main_installed_opposite_2,2,Articles from the other side,ice_fox_0510_2f6b
+sonnet_main_installed_opposite_2,3,Articles from the other side,ice_fox_0602_9e5a
+sonnet_main_installed_opposite_2,4,Articles from the other side,ice_breitbart_0604_47d0
+sonnet_main_installed_opposite_2,5,Articles from the other side,ice_fox_0707_b86a
+sonnet_main_installed_pressure_0,1,Pressure to reconsider,
+sonnet_main_installed_pressure_0,2,Pressure to reconsider,
+sonnet_main_installed_pressure_0,3,Pressure to reconsider,
+sonnet_main_installed_pressure_0,4,Pressure to reconsider,
+sonnet_main_installed_pressure_0,5,Pressure to reconsider,
+sonnet_main_installed_pressure_1,1,Pressure to reconsider,
+sonnet_main_installed_pressure_1,2,Pressure to reconsider,
+sonnet_main_installed_pressure_1,3,Pressure to reconsider,
+sonnet_main_installed_pressure_1,4,Pressure to reconsider,
+sonnet_main_installed_pressure_1,5,Pressure to reconsider,
+sonnet_main_installed_pressure_2,1,Pressure to reconsider,
+sonnet_main_installed_pressure_2,2,Pressure to reconsider,
+sonnet_main_installed_pressure_2,3,Pressure to reconsider,
+sonnet_main_installed_pressure_2,4,Pressure to reconsider,
+sonnet_main_installed_pressure_2,5,Pressure to reconsider,
+sonnet_main_installed_report_0,1,A report stating the opposite,
+sonnet_main_installed_report_0,2,A report stating the opposite,
+sonnet_main_installed_report_0,3,A report stating the opposite,
+sonnet_main_installed_report_0,4,A report stating the opposite,
+sonnet_main_installed_report_0,5,A report stating the opposite,
+sonnet_main_installed_report_1,1,A report stating the opposite,
+sonnet_main_installed_report_1,2,A report stating the opposite,
+sonnet_main_installed_report_1,3,A report stating the opposite,
+sonnet_main_installed_report_1,4,A report stating the opposite,
+sonnet_main_installed_report_1,5,A report stating the opposite,
+sonnet_main_installed_report_2,1,A report stating the opposite,
+sonnet_main_installed_report_2,2,A report stating the opposite,
+sonnet_main_installed_report_2,3,A report stating the opposite,
+sonnet_main_installed_report_2,4,A report stating the opposite,
+sonnet_main_installed_report_2,5,A report stating the opposite,
+sonnet_main_installed_same_0,1,Articles from the same side,ice_fortune_0530_6ac7
+sonnet_main_installed_same_0,2,Articles from the same side,ice_cnn_0518_b673
+sonnet_main_installed_same_0,3,Articles from the same side,ice_fortune_0715_09f3
+sonnet_main_installed_same_0,4,Articles from the same side,ice_breitbart_0419_7108
+sonnet_main_installed_same_0,5,Articles from the same side,ice_nbc_0715_e794
+sonnet_main_installed_same_1,1,Articles from the same side,ice_cnn_0518_b673
+sonnet_main_installed_same_1,2,Articles from the same side,ice_fortune_0530_6ac7
+sonnet_main_installed_same_1,3,Articles from the same side,ice_fortune_0715_09f3
+sonnet_main_installed_same_1,4,Articles from the same side,ice_breitbart_0419_7108
+sonnet_main_installed_same_1,5,Articles from the same side,ice_nbc_0715_e794
+sonnet_main_installed_same_2,1,Articles from the same side,ice_fortune_0715_09f3
+sonnet_main_installed_same_2,2,Articles from the same side,ice_fortune_0530_6ac7
+sonnet_main_installed_same_2,3,Articles from the same side,ice_breitbart_0419_7108
+sonnet_main_installed_same_2,4,Articles from the same side,ice_nbc_0715_e794
+sonnet_main_installed_same_2,5,Articles from the same side,ice_cnn_0518_b673
+sonnet_main_none_nothing_0,1,Nothing,
+sonnet_main_none_nothing_0,2,Nothing,
+sonnet_main_none_nothing_0,3,Nothing,
+sonnet_main_none_nothing_0,4,Nothing,
+sonnet_main_none_nothing_0,5,Nothing,
+sonnet_main_none_nothing_1,1,Nothing,
+sonnet_main_none_nothing_1,2,Nothing,
+sonnet_main_none_nothing_1,3,Nothing,
+sonnet_main_none_nothing_1,4,Nothing,
+sonnet_main_none_nothing_1,5,Nothing,
+sonnet_main_none_nothing_2,1,Nothing,
+sonnet_main_none_nothing_2,2,Nothing,
+sonnet_main_none_nothing_2,3,Nothing,
+sonnet_main_none_nothing_2,4,Nothing,
+sonnet_main_none_nothing_2,5,Nothing,
+sonnet_think_held_opposite_0,1,Articles from the other side,ice_breitbart_0604_47d0
+sonnet_think_held_opposite_0,2,Articles from the other side,ice_cbs_1006_8679
+sonnet_think_held_opposite_0,3,Articles from the other side,ice_fox_0707_b86a
+sonnet_think_held_opposite_0,4,Articles from the other side,ice_fox_0510_2f6b
+sonnet_think_held_opposite_0,5,Articles from the other side,ice_fox_0602_9e5a
+sonnet_think_held_opposite_1,1,Articles from the other side,ice_fox_0602_9e5a
+sonnet_think_held_opposite_1,2,Articles from the other side,ice_fox_0707_b86a
+sonnet_think_held_opposite_1,3,Articles from the other side,ice_cbs_1006_8679
+sonnet_think_held_opposite_1,4,Articles from the other side,ice_fox_0510_2f6b
+sonnet_think_held_opposite_1,5,Articles from the other side,ice_breitbart_0604_47d0
+sonnet_think_held_opposite_2,1,Articles from the other side,ice_fox_0510_2f6b
+sonnet_think_held_opposite_2,2,Articles from the other side,ice_fox_0602_9e5a
+sonnet_think_held_opposite_2,3,Articles from the other side,ice_breitbart_0604_47d0
+sonnet_think_held_opposite_2,4,Articles from the other side,ice_cbs_1006_8679
+sonnet_think_held_opposite_2,5,Articles from the other side,ice_fox_0707_b86a
+sonnet_think_installed_opposite_0,1,Articles from the other side,ice_cbs_1006_8679
+sonnet_think_installed_opposite_0,2,Articles from the other side,ice_fox_0602_9e5a
+sonnet_think_installed_opposite_0,3,Articles from the other side,ice_fox_0510_2f6b
+sonnet_think_installed_opposite_0,4,Articles from the other side,ice_fox_0707_b86a
+sonnet_think_installed_opposite_0,5,Articles from the other side,ice_breitbart_0604_47d0
+sonnet_think_installed_opposite_1,1,Articles from the other side,ice_breitbart_0604_47d0
+sonnet_think_installed_opposite_1,2,Articles from the other side,ice_cbs_1006_8679
+sonnet_think_installed_opposite_1,3,Articles from the other side,ice_fox_0510_2f6b
+sonnet_think_installed_opposite_1,4,Articles from the other side,ice_fox_0602_9e5a
+sonnet_think_installed_opposite_1,5,Articles from the other side,ice_fox_0707_b86a
+sonnet_think_installed_opposite_2,1,Articles from the other side,ice_cbs_1006_8679
+sonnet_think_installed_opposite_2,2,Articles from the other side,ice_fox_0510_2f6b
+sonnet_think_installed_opposite_2,3,Articles from the other side,ice_fox_0602_9e5a
+sonnet_think_installed_opposite_2,4,Articles from the other side,ice_breitbart_0604_47d0
+sonnet_think_installed_opposite_2,5,Articles from the other side,ice_fox_0707_b86a
