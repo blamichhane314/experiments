@@ -1372,13 +1372,12 @@ function gfDraw(host, G, opt = {}){
       if(HASSUB){const ca=Math.cos(p.a),sa=Math.sin(p.a),right=ca>=-1e-9,off=r+8,tx=p.x+off*ca,ty=p.y+off*sa,deg=p.a*180/Math.PI;
         const t=el("text",{class:"rlabel",x:tx,y:ty,"text-anchor":right?"start":"end","dominant-baseline":"middle",
           transform:`rotate(${right?deg:deg+180},${tx},${ty})`,opacity:dim?.35:1},g);
-        const a1=el("tspan",{},t),a2=el("tspan",{class:"id",dx:right?6:0},t);
-        if(right){a1.textContent=b.short;a2.textContent=sgn(s)}else{a1.setAttribute("class","id");a1.textContent=sgn(s);a2.setAttribute("class","");a2.setAttribute("dx",6);a2.textContent=b.short}
+        // the owner, 19 November: no statement text beside the nodes (it shows on hover); the id and the stance stay
+        const a1=el("tspan",{class:"id"},t);a1.textContent=`${b.id} · ${sgn(s)}`;
         labels.push(t)}
       else{const out=16+r,ca=Math.cos(p.a),sa=Math.sin(p.a),tx=p.x+out*ca,ty=p.y+out*sa;
       const anchor=Math.abs(ca)<.25?"middle":ca>0?"start":"end";
-      const t=el("text",{x:tx,y:ty+ (Math.abs(ca)<.25?(sa>0?8:-2):3),"text-anchor":anchor,opacity:dim?.35:1},g);t.textContent=b.short;
-      const t2=el("text",{class:"id",x:tx,y:ty+(Math.abs(ca)<.25?(sa>0?20:-14):15),"text-anchor":anchor,opacity:dim?.35:1},g);t2.textContent=`${b.id} · ${sgn(s)}`;}
+      const t2=el("text",{class:"id",x:tx,y:ty+ (Math.abs(ca)<.25?(sa>0?8:-2):3),"text-anchor":anchor,opacity:dim?.35:1},g);t2.textContent=`${b.id} · ${sgn(s)}`;}
       g.addEventListener("click",()=>setFocus(focus===id?null:id));
       g.addEventListener("keydown",ev=>{if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();setFocus(focus===id?null:id)}});
       g.addEventListener("mouseenter",ev=>showTip(ev,`<div class="eyebrow" style="margin-bottom:4px">${kindLabel(b)}</div><div>${esc(b.text)}</div><div class="w">${s==null?"no stance given":"stance "+sgn(s)+(XM===0?" of ±"+XMAX:" on "+XMIN+" to "+XMAX)}</div>`));
