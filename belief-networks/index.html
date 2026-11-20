@@ -797,12 +797,12 @@ body.nv-open{overflow:hidden}
 .gf .node{cursor:pointer}
 .gf .node circle.dot{transition:r var(--t-micro) var(--ease)}
 .gf .node text{font:500 11.5px var(--sans);fill:var(--ink);transition:opacity var(--t-move) var(--ease)}
-.gf .node text.id{font:400 9px var(--mono);fill:var(--ink-faint)}
+.gf .node text.id{font:400 13px var(--mono);fill:var(--ink-faint)}
 .gf .arc{fill:none;stroke:var(--line-strong);stroke-width:1}
 .gf .arclabel{font:400 9.5px var(--mono);letter-spacing:.14em;fill:var(--ink-soft);text-transform:uppercase}
 .gf .ghost{fill:none;stroke:none}
 .gf .node text.rlabel{font:500 11px var(--sans);fill:var(--ink)}
-.gf .rlabel tspan.id{font:400 9px var(--mono);fill:var(--ink-faint)}
+.gf .rlabel tspan.id{font:400 13px var(--mono);fill:var(--ink-faint)}
 .gf .sublabel{font:400 10px var(--sans);font-style:italic;fill:var(--ink-faint)}
 .gf-tip{position:absolute;pointer-events:none;background:var(--paper-lift);border:1px solid var(--line);border-radius:3px;
   box-shadow:var(--shadow);padding:10px 12px;max-width:19rem;font-size:.85rem;line-height:1.4;opacity:0;
@@ -1376,13 +1376,24 @@ function gfDraw(host, G, opt = {}){
         const a1=el("tspan",{class:"id"},t);a1.textContent=`${b.id} · ${sgn(s)}`;
         labels.push(t)}
       else{const out=16+r,ca=Math.cos(p.a),sa=Math.sin(p.a),tx=p.x+out*ca,ty=p.y+out*sa;
-      const anchor=Math.abs(ca)<.25?"middle":ca>0?"start":"end";
-      const t2=el("text",{class:"id",x:tx,y:ty+ (Math.abs(ca)<.25?(sa>0?8:-2):3),"text-anchor":anchor,opacity:dim?.35:1},g);t2.textContent=`${b.id} · ${sgn(s)}`;}
+      const anchor=Math.abs(ca)<.06?"middle":ca>0?"start":"end";
+      const t2=el("text",{class:"id",x:tx,y:ty+ (Math.abs(ca)<.25?(sa>0?11:-2):4),"text-anchor":anchor,opacity:dim?.35:1},g);t2.textContent=`${b.id} · ${sgn(s)}`;}
       g.addEventListener("click",()=>setFocus(focus===id?null:id));
       g.addEventListener("keydown",ev=>{if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();setFocus(focus===id?null:id)}});
       g.addEventListener("mouseenter",ev=>showTip(ev,`<div class="eyebrow" style="margin-bottom:4px">${kindLabel(b)}</div><div>${esc(b.text)}</div><div class="w">${s==null?"no stance given":"stance "+sgn(s)+(XM===0?" of ±"+XMAX:" on "+XMIN+" to "+XMAX)}</div>`));
       g.addEventListener("mousemove",moveTip);g.addEventListener("mouseleave",hideTip);
     });
+    if(!HASSUB&&!opt.mini){
+      // the ids are 13px (the owner, 19 November) and can touch near the top and bottom of the ring: two that touch are pushed apart vertically
+      // boxes are worked out from the text, not measured, since the graph may not be on the page yet (Space Mono: every character .62em wide)
+      const T=[...ng.querySelectorAll("text.id")],bb=t=>{const w=t.textContent.length*13*.62,x=+t.getAttribute("x"),y=+t.getAttribute("y"),an=t.getAttribute("text-anchor");
+        return {x:an==="end"?x-w:an==="middle"?x-w/2:x,y:y-11,width:w,height:15}};
+      for(let k=0,moved=true;k<8&&moved;k++){moved=false;
+        for(let i=0;i<T.length;i++)for(let j=i+1;j<T.length;j++){const a=bb(T[i]),b=bb(T[j]);
+          const w=Math.min(a.x+a.width,b.x+b.width)-Math.max(a.x,b.x),h=Math.min(a.y+a.height,b.y+b.height)-Math.max(a.y,b.y);
+          if(w>0&&h>0){const [up,dn]=a.y<b.y?[T[i],T[j]]:[T[j],T[i]],d=h/2+1;
+            up.setAttribute("y",+up.getAttribute("y")-d);dn.setAttribute("y",+dn.getAttribute("y")+d);moved=true}}}
+    }
     if(HASSUB&&!opt.mini){
       // arcs sit just beyond the longest label; subtype names run along them, kind names just outside
       let maxLen=0;labels.forEach(t=>{try{maxLen=Math.max(maxLen,t.getComputedTextLength())}catch(e){}});if(!maxLen)maxLen=150;
